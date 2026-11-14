@@ -181,22 +181,16 @@ Public Class FormBiblia
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click 'Adicionar
-        Dim AdicionarTexto As String
+        Dim AdicionarTexto As String = ""
         If TabControl1.SelectedIndex = 0 And ListBox4.Text <> "" Then AdicionarTexto = ListBox4.Text
         If TabControl1.SelectedIndex = 2 And ListBox5.Text <> "" Then AdicionarTexto = ListBox5.Text
         Dim Ref() As String
         Ref = AdicionarTexto.Split(";")
+        If Ref.Length < 4 Then Exit Sub 'nada selecionado ou formato inesperado
         Dim Livro As String = Ref(0).ToString
         Dim Cap As Integer = Ref(1).ToString
         Dim Ver As Integer = Ref(2).ToString
-        Dim TextoVersiculo As String
-        If Ref.Count > 4 Then
-            For I As Integer = 3 To Ref.Count - 1
-                TextoVersiculo = TextoVersiculo & ";" & Ref(I).ToString
-            Next
-        Else
-            TextoVersiculo = Ref(3).ToString
-        End If
+        Dim TextoVersiculo As String = String.Join(";", Ref, 3, Ref.Length - 3) 'o texto pode conter ";"
         TextoBibliaCondensado = TextoBibliaCondensado & "[" & Livro & " - " & Cap & ":" & Ver & "] " & TextoVersiculo
         RichTextBox1.Text = TextoBibliaCondensado
         Aad = True
@@ -339,7 +333,7 @@ Public Class FormBiblia
     End Sub
 
     Private Sub ListBox6_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox6.SelectedIndexChanged 'Selecionar Referencia de versículo
-        TextBox2.Text = ListBox5.Text
+        TextBox2.Text = ListBox6.Text
         Button3.Visible = True
         Button4.Visible = True
         Button5.Visible = True

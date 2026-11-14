@@ -59,6 +59,57 @@ Module Module1
     Public ZoomTHarpa As Integer
     Public ZoomTBiblia As Integer
     Public Aad As Boolean
+    'Cache das imagens já carregadas (evita recarregar o arquivo a cada atualização)
+    Private CacheFundoCam As String = String.Empty
+    Private CacheFundoImg As Image
+    Private CacheSobreCam As String = String.Empty
+    Private CacheSobreImg As Image
+    Private CacheAudioCam As String = String.Empty
+    Private CacheAudioImg As Image
+
+    'Monta a string de conexão do Access. A senha NÃO fica no código-fonte:
+    'é lida do arquivo "senha.txt" (primeira linha) na pasta SISTEMA.
+    Public Function StringConexao(Arquivo As String) As String
+        Dim Pasta As String = LocalSystem & My.Settings.PastaSistema
+        Return "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Pasta & Arquivo & ";Jet OLEDB:Database Password=" & LerSenhaBanco(Pasta)
+    End Function
+
+    Private SenhaBanco As String = Nothing
+    Private Function LerSenhaBanco(Pasta As String) As String
+        If SenhaBanco IsNot Nothing Then Return SenhaBanco
+        Dim Arq As String = Path.Combine(Pasta, "senha.txt")
+        SenhaBanco = String.Empty
+        Try
+            If File.Exists(Arq) Then
+                SenhaBanco = File.ReadAllLines(Arq).FirstOrDefault()?.Trim()
+                If SenhaBanco Is Nothing Then SenhaBanco = String.Empty
+            Else
+                MsgBox("Arquivo de senha dos bancos não encontrado em: " & Arq & vbCrLf &
+                       "Crie esse arquivo com a senha dos arquivos .accdb na primeira linha.", vbCritical, "Dados do systema")
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "Ler senha dos bancos")
+        End Try
+        Return SenhaBanco
+    End Function
+
+    'Carrega uma imagem sem deixar o arquivo bloqueado em disco.
+    Public Function CarregarImagem(Caminho As String) As Image
+        Using fs As New FileStream(Caminho, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+            Using Img As Image = Image.FromStream(fs)
+                Return New Bitmap(Img)
+            End Using
+        End Using
+    End Function
+
+    'Igual a CarregarImagem, mas reaproveita a imagem se o caminho não mudou.
+    Private Function ImagemEmCache(Caminho As String, ByRef CacheCam As String, ByRef CacheImg As Image) As Image
+        If CacheImg Is Nothing OrElse Not String.Equals(CacheCam, Caminho, StringComparison.OrdinalIgnoreCase) Then
+            CacheImg = CarregarImagem(Caminho)
+            CacheCam = Caminho
+        End If
+        Return CacheImg
+    End Function
 
     Public Sub ConectarHarpa()
         Try
@@ -312,7 +363,7 @@ Module Module1
                 FormPrincipal.PictureBox4.Visible = True 'status
                 If ImageA = True And File.Exists(ImageAudio) Then 'imagem de Audio
                     FormPrincipal.PictureBox8.Visible = True
-                    FormPrincipal.PictureBox8.Image = Image.FromFile(ImageAudio)
+                    FormPrincipal.PictureBox8.Image = ImagemEmCache(ImageAudio, CacheAudioCam, CacheAudioImg)
                     FormApresentar.PictureBox3.Visible = True
                     FormApresentar.PictureBox3.Image = FormPrincipal.PictureBox8.Image 'imagem audio
                 Else
@@ -321,7 +372,7 @@ Module Module1
                 End If
                 If ImageS = True And File.Exists(ImageSobre) Then 'imagem sobreposta
                     FormPrincipal.PictureBox6.Visible = True
-                    FormPrincipal.PictureBox6.Image = Image.FromFile(ImageSobre)
+                    FormPrincipal.PictureBox6.Image = ImagemEmCache(ImageSobre, CacheSobreCam, CacheSobreImg)
                     If AjusteDimensional = "S" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.StretchImage
                     If AjusteDimensional = "Z" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.Zoom
                     If AjusteDimensional = "N" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.Normal
@@ -338,7 +389,7 @@ Module Module1
                 End If
                 If ImageF = True And File.Exists(ImageFundo) Then 'imagem de fundo
                     FormPrincipal.PictureBox5.Visible = True
-                    FormPrincipal.PictureBox5.Image = Image.FromFile(ImageFundo)
+                    FormPrincipal.PictureBox5.Image = ImagemEmCache(ImageFundo, CacheFundoCam, CacheFundoImg)
                     FormApresentar.PictureBox1.Image = FormPrincipal.PictureBox5.Image 'imagem fundo
                 Else
                     FormPrincipal.PictureBox5.Image = Nothing
@@ -465,6 +516,7 @@ Module Module1
                 Return ff
             End If
         Next
+        Return Nothing 'fonte não instalada
     End Function
 
     Public Function FilterDataTable(UnfilteredTable As DataTable, Filter As String, FilteredColumns As Integer()) As DataTable
