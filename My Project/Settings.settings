@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="ArqHarpa" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">HarpaCrista.accdb</Value>
+    </Setting>
+    <Setting Name="ArqBibliaNVI" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">BibliaNVI.accdb</Value>
+    </Setting>
+    <Setting Name="ArqBibliaACF" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">BibliaACF.accdb</Value>
+    </Setting>
+    <Setting Name="ArqDados" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">PMSystem.accdb</Value>
+    </Setting>
+    <Setting Name="PastaSistema" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\ProjectionManager\SISTEMA\</Value>
+    </Setting>
+    <Setting Name="LocalAlternativoSistema" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\bende\OneDrive\Documentos\IGREJA\AdVilaTeresa</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
