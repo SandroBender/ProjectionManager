@@ -1,8 +1,8 @@
 ﻿Imports System.IO
 Imports AxWMPLib
 Public Class FormVideos
-    Dim PastaVideos As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\ProjectionManager\VIDEOS"
-    Dim PastaAudios As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\ProjectionManager\AUDIOS"
+    Dim PastaVideos As String = LocalSystem & "\ProjectionManager\VIDEOS"
+    Dim PastaAudios As String = LocalSystem & "\ProjectionManager\AUDIOS"
     Dim PastaMinhasMusicas As String = My.Computer.FileSystem.SpecialDirectories.MyMusic
     Dim CamSelect As String
     Dim PlayLista As WMPLib.IWMPPlaylist
@@ -171,6 +171,7 @@ Public Class FormVideos
         Dim TA As Integer 'total arquivos
         Dim IC As Integer = 0 'indice contagem
         Dim Ext As String = "*.png,*.jpg,*.jpeg,*.bmp,*.JPG,*.JPEG,*.PNG"
+        If Not Directory.Exists(Pasta) Then Exit Sub
         Dim Arquivos As String() = Directory.GetFiles(Pasta, "*.*")
         If Arquivos.Count = 0 Then Exit Sub
         Array.Sort(Arquivos)
@@ -181,7 +182,7 @@ Public Class FormVideos
             If Ext.Contains(Path.GetExtension(Arq)) Then
                 If IP >= TA Then
                     Label6.Text = "0"
-                    PictureBox1.Image = Image.FromFile(Arq)
+                    PictureBox1.Image = CarregarImagem(Arq)
                     ImageAudio = Arq
                     Label3.Text = Arq
                     Transferir()
@@ -189,7 +190,7 @@ Public Class FormVideos
                 End If
                 'If IA = IC Then IP = IC + 1 'indice anterior encontrado
                 If IP = IC Then 'próximo indice encontrado
-                    PictureBox1.Image = Image.FromFile(Arq)
+                    PictureBox1.Image = CarregarImagem(Arq)
                     ImageAudio = Arq
                     Label3.Text = Arq
                     Label6.Text = IP

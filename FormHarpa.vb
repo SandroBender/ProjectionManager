@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Imports AxWMPLib
 Public Class FormHarpa
-    Dim PastaAudios As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\ProjectionManager\AUDIOS\Harpa"
+    Dim PastaAudios As String = LocalSystem & "\ProjectionManager\AUDIOS\Harpa"
     Dim EE As Integer 'Encremento de estrofe
     Private Sub FormHarpa_Load(sender As Object, e As EventArgs) Handles Me.Load
         ConectarDados()
@@ -175,8 +175,8 @@ Public Class FormHarpa
         If ListBox2.Items.Count > 0 Then ListBox2.Items.Clear()
         If Len(T) >= 3 Then
             For L As Long = 0 To RegHarpa.Rows.Count - 1
-                For C As Integer = 1 To 12
-                    If InStr(RegHarpa.Rows(L).Item(C), T, CompareMethod.Text) > 0 Then
+                For C As Integer = 1 To 13 'título (1) + estrofes (2 a 13)
+                    If InStr(RegHarpa.Rows(L).Item(C).ToString, T, CompareMethod.Text) > 0 Then
                         ListBox2.Items.Add(RegHarpa.Rows(L).Item(0) & " - " & RegHarpa.Rows(L).Item(1) & ";" & RegHarpa.Rows(L).Item(C))
                         LC += 1
                         Exit For

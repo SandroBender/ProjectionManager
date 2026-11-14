@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Public Class FormFundo
-    Dim PastaPadrao As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\ProjectionManager\IMAGENS"
-    Dim PMImagens As String() = Directory.GetDirectories(PastaPadrao)
+    Dim PastaPadrao As String = LocalSystem & "\ProjectionManager\IMAGENS"
+    Dim PMImagens As String() = {}
     Dim PCImagens As String = My.Computer.FileSystem.SpecialDirectories.MyPictures
     Dim CamSelect As String
     Dim Alin As ContentAlignment = ContentAlignment.TopLeft
@@ -11,6 +11,11 @@ Public Class FormFundo
         Dim I As Integer
         Dim P As Integer
         Dim Pasta As String
+        If Directory.Exists(PastaPadrao) Then
+            PMImagens = Directory.GetDirectories(PastaPadrao)
+        Else
+            MsgBox("Pasta de imagens não encontrada: " & PastaPadrao, vbExclamation, "Imagens")
+        End If
         For I = 0 To PMImagens.Count - 1
             P = InStrRev(PMImagens(I), "\", -1, vbTextCompare)
             Pasta = Mid(PMImagens(I), P + 1, 50)
@@ -25,7 +30,7 @@ Public Class FormFundo
         CarregarZoom()
         DesconectarDados()
         Try
-            PictureBox1.Image = Image.FromFile(RegImagens.Rows(0).Item("CamImagem"))
+            PictureBox1.Image = CarregarImagem(RegImagens.Rows(0).Item("CamImagem"))
             ImageFundo = RegImagens.Rows(0).Item("CamImagem")
             Label1.Text = RegImagens.Rows(0).Item("CamImagem")
         Catch ex As Exception
@@ -85,7 +90,7 @@ Public Class FormFundo
             P = InStrRev(ImageFundo, "\", -1, CompareMethod.Text)
             CamSelect = Mid(ImageFundo, 1, P - 1)
             'If Ext <> ".jpg" And Ext <> "jpeg" And Ext <> ".png" And Ext <> ".bmp" Then Exit Sub
-            PictureBox1.Image = Image.FromFile(ImageFundo)
+            PictureBox1.Image = CarregarImagem(ImageFundo)
             Label1.Text = ImageFundo
             Transferir()
         Catch ex As Exception
@@ -116,7 +121,7 @@ Public Class FormFundo
             If Ext.Contains(Path.GetExtension(Arq)) Then
                 If IP = TA Then
                     Label6.Text = "0"
-                    PictureBox1.Image = Image.FromFile(Arq)
+                    PictureBox1.Image = CarregarImagem(Arq)
                     ImageFundo = Arq
                     Label1.Text = Arq
                     Transferir()
@@ -124,7 +129,7 @@ Public Class FormFundo
                 End If
                 'If IA = IC Then IP = IC + 1 'indice anterior encontrado
                 If IP = IC Then 'próximo indice encontrado
-                    PictureBox1.Image = Image.FromFile(Arq)
+                    PictureBox1.Image = CarregarImagem(Arq)
                     ImageFundo = Arq
                     Label1.Text = Arq
                     Label6.Text = IP
@@ -503,8 +508,7 @@ Public Class FormFundo
         If Label3.Text = "Título" Then
             TextBox1.Text = TextBox9.Text 'texto
             If TextBox10.Text = "N" Then
-                TextBox5.Text = RegTextos.Rows.Count + 1 'numero 
-                SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+                TextBox5.Text = SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
             Else
                 TextBox5.Text = TextBox10.Text 'numero
                 SalvarAtualTexto(Nu:=TextBox5.Text, Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
@@ -512,8 +516,7 @@ Public Class FormFundo
         ElseIf Label3.Text = "Subtítulo" Then
             TextBox2.Text = TextBox9.Text 'texto
             If TextBox10.Text = "N" Then
-                TextBox6.Text = RegTextos.Rows.Count + 1 'numero 
-                SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+                TextBox6.Text = SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
             Else
                 TextBox6.Text = TextBox10.Text 'numero
                 SalvarAtualTexto(Nu:=TextBox6.Text, Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
@@ -521,8 +524,7 @@ Public Class FormFundo
         ElseIf Label3.Text = "Corpo" Then
             TextBox3.Text = TextBox9.Text 'texto
             If TextBox10.Text = "N" Then
-                TextBox7.Text = RegTextos.Rows.Count + 1 'numero 
-                SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+                TextBox7.Text = SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
             Else
                 TextBox7.Text = TextBox10.Text 'numero 
                 SalvarAtualTexto(Nu:=TextBox7.Text, Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
@@ -530,8 +532,7 @@ Public Class FormFundo
         ElseIf Label3.Text = "Rodapé" Then
             TextBox4.Text = TextBox9.Text 'texto
             If TextBox10.Text = "N" Then
-                TextBox8.Text = RegTextos.Rows.Count + 1 'numero 
-                SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+                TextBox8.Text = SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
             Else
                 TextBox8.Text = TextBox10.Text 'numero 
                 SalvarAtualTexto(Nu:=TextBox8.Text, Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
@@ -539,14 +540,18 @@ Public Class FormFundo
         End If
         IT = 10
     End Sub
-    Private Sub SalvarNovoTexto(Tx As String, Tp As String, Al As String, Pr As String, FN As String, FT As String, FE As String, FC As String)
-        Dim Comando As New OleDb.OleDbCommand
-        Dim SQL As String
+    'Insere o texto e devolve o ID gerado pelo Access (AutoNumeração)
+    Private Function SalvarNovoTexto(Tx As String, Tp As String, Al As String, Pr As String, FN As String, FT As String, FE As String, FC As String) As String
+        Dim NovoID As String = ""
         ConectarDados()
         Try
-            SQL = "INSERT INTO Textos (Texto,Tipo,Alinhamento,CorPreenchim,FonteNome, FonteTamanho,FonteEstilo,FonteCor) VALUES ('" & Tx & "','" & Tp & "','" & Al & "','" & Pr & "','" & FN & "','" & FT & "','" & FE & "','" & FC & "')"
-            Comando = New OleDb.OleDbCommand(SQL, ConexDados)
-            Comando.ExecuteNonQuery()
+            Using Comando As New OleDb.OleDbCommand("INSERT INTO Textos (Texto,Tipo,Alinhamento,CorPreenchim,FonteNome,FonteTamanho,FonteEstilo,FonteCor) VALUES (?,?,?,?,?,?,?,?)", ConexDados)
+                AdicionarParametros(Comando, Tx, Tp, Al, Pr, FN, FT, FE, FC)
+                Comando.ExecuteNonQuery()
+            End Using
+            Using Comando As New OleDb.OleDbCommand("SELECT @@IDENTITY", ConexDados)
+                NovoID = Comando.ExecuteScalar().ToString
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "Acessar Dados do systema")
         End Try
@@ -554,16 +559,16 @@ Public Class FormFundo
         RegTipoTexto.Clear()
         CarregarTextos()
         DesconectarDados()
-        'CarregarTipoTexto(Tipo:=Label3.Text)
-    End Sub
+        Return NovoID
+    End Function
     Private Sub SalvarAtualTexto(Nu As Long, Tx As String, Tp As String, Al As String, Pr As String, FN As String, FT As String, FE As String, FC As String)
-        Dim Comando As New OleDb.OleDbCommand
-        Dim SQL As String
         ConectarDados()
         Try
-            SQL = "UPDATE Textos SET Texto='" & Tx & "',Tipo= '" & Tp & "',Alinhamento='" & Al & "',CorPreenchim='" & Pr & "',FonteNome='" & FN & "', FonteTamanho='" & FT & "',FonteEstilo='" & FE & "',FonteCor='" & FC & "' WHERE ID= " & Nu & ""
-            Comando = New OleDb.OleDbCommand(SQL, ConexDados)
-            Comando.ExecuteNonQuery()
+            Using Comando As New OleDb.OleDbCommand("UPDATE Textos SET Texto=?,Tipo=?,Alinhamento=?,CorPreenchim=?,FonteNome=?,FonteTamanho=?,FonteEstilo=?,FonteCor=? WHERE ID=?", ConexDados)
+                AdicionarParametros(Comando, Tx, Tp, Al, Pr, FN, FT, FE, FC)
+                Comando.Parameters.AddWithValue("@ID", Nu)
+                Comando.ExecuteNonQuery()
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "Acessar Dados do systema")
         End Try
@@ -571,7 +576,12 @@ Public Class FormFundo
         RegTipoTexto.Clear()
         CarregarTextos()
         DesconectarDados()
-        'CarregarTipoTexto(Tipo:=Label3.Text, I:=Nu)
+    End Sub
+    'Parâmetros na mesma ordem dos "?" (OleDb usa a posição, não o nome)
+    Private Sub AdicionarParametros(Comando As OleDb.OleDbCommand, ParamArray Valores() As String)
+        For I As Integer = 0 To Valores.Length - 1
+            Comando.Parameters.AddWithValue("@p" & I, If(Valores(I), ""))
+        Next
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged 'Selecionar Titulo 
@@ -722,6 +732,7 @@ Public Class FormFundo
                 For L As Long = 1 To RegTextos.Rows.Count - 1
                     If I = RegTextos.Rows(L).Item(0) Then
                         Dim f As FontFamily = FontF(FN:=RegTextos.Rows(L).Item(5))
+                        If f Is Nothing Then f = FontFamily.GenericSansSerif 'fonte não instalada neste computador
                         Dim vo As Single = (CSng(RegTextos.Rows(L).Item(6)) * 2 * (ValPerc / 100)) + (CSng(RegTextos.Rows(L).Item(6)) * 2)
                         FonteProj(II) = New Font(f, vo)
                         CorFonte(II) = Color.FromArgb(RegTextos.Rows(L).Item(8))

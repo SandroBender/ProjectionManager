@@ -54,10 +54,10 @@ Public Class FormPrincipal
         Label4.Location = New Point(2, 33)
         Label5.Location = New Point(2, 58)
         Label6.Location = New Point(2, 196)
-        ConexDados = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & LocalSystem & My.Settings.PastaSistema & My.Settings.ArqDados & ";Jet OLEDB:Database Password=accdbender")
-        ConexHarpa = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & LocalSystem & My.Settings.PastaSistema & My.Settings.ArqHarpa & ";Jet OLEDB:Database Password=accdbender")
-        ConexNVI = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & LocalSystem & My.Settings.PastaSistema & My.Settings.ArqBibliaNVI & ";Jet OLEDB:Database Password=accdbender")
-        ConexACF = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & LocalSystem & My.Settings.PastaSistema & My.Settings.ArqBibliaACF & ";Jet OLEDB:Database Password=accdbender")
+        ConexDados = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqDados))
+        ConexHarpa = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqHarpa))
+        ConexNVI = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaNVI))
+        ConexACF = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaACF))
         If Not Directory.Exists(LocalSystem & Label10.Text) Then
             MsgBox("Pasta padrão de salvamento não encontrada. Reestabeleça o caminho ou selecione outra pasta.", vbCritical, "Salvar Dados do systema")
             Button7.Enabled = False
@@ -148,9 +148,9 @@ Public Class FormPrincipal
         RadioButton3.BackColor = Color.FromArgb(143, 134, 153)
         RadioButton4.BackColor = Color.FromArgb(143, 134, 153)
         If RadioButton1.Checked = True Then
-            If ImageF = True Then PictureBox5.Image = Image.FromFile(ImageFundo)
-            If ImageS = True And PictureBox6.Visible = True Then PictureBox6.Image = Image.FromFile(ImageSobre)
-            If ImageA = True And PictureBox8.Visible = True Then PictureBox8.Image = Image.FromFile(ImageAudio)
+            If ImageF = True And File.Exists(ImageFundo) Then PictureBox5.Image = CarregarImagem(ImageFundo)
+            If ImageS = True And PictureBox6.Visible = True And File.Exists(ImageSobre) Then PictureBox6.Image = CarregarImagem(ImageSobre)
+            If ImageA = True And PictureBox8.Visible = True And File.Exists(ImageAudio) Then PictureBox8.Image = CarregarImagem(ImageAudio)
             If TextActive(0) = True And Textos(0) IsNot Nothing Then
                 Label3.Text = Textos(0)
                 Label3.TextAlign = Alinham(0)
@@ -282,15 +282,18 @@ Public Class FormPrincipal
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click 'Salvar imagem
         If FormApresentar.Visible = True Then
             Dim Local As String = Label8.Text
-            Dim Nome As String = "Imagem " & DateTime.Now & ".jpeg"
+            Dim Nome As String = "Imagem " & DateTime.Now.ToString("dd-MM-yyyy HHmmss") & ".jpeg"
             Dim Frm As Form = FormApresentar
-            'Dim Img As New Bitmap(Frm.Bounds.Size.Width, Frm.Bounds.Size.Height)
-            Dim Img As New Bitmap(1920, 1080)
-            Dim Gph As Graphics = Graphics.FromImage(Img)
-            Gph.CopyFromScreen(Frm.Bounds.Location, Point.Empty, Img.Size)
-            Nome = Replace(Nome, "/", "-", 1, 2, CompareMethod.Text)
-            Nome = Replace(Nome, ":", "", 1, 2, CompareMethod.Text)
-            Img.Save(Local & Nome, Imaging.ImageFormat.Jpeg)
+            Try
+                Using Img As New Bitmap(Frm.Bounds.Width, Frm.Bounds.Height) 'tamanho real da tela de projeção
+                    Using Gph As Graphics = Graphics.FromImage(Img)
+                        Gph.CopyFromScreen(Frm.Bounds.Location, Point.Empty, Img.Size)
+                    End Using
+                    Img.Save(Path.Combine(Local, Nome), Imaging.ImageFormat.Jpeg)
+                End Using
+            Catch ex As Exception
+                MsgBox(ex.Message, vbCritical, "Salvar imagem")
+            End Try
         End If
     End Sub
 
@@ -303,38 +306,22 @@ Public Class FormPrincipal
     End Sub
 
     Private Sub FormPrincipal_Closed(sender As Object, e As EventArgs) Handles Me.Closed 'Fechar programa
-        Dim Comando As New OleDb.OleDbCommand
-        Dim SQL As String
-        Dim ID As Integer = 1
         ConectarDados()
-        If ZoomTFundo > 0 Then
-            Try
-                SQL = "UPDATE Zoom SET TextoFundo='" & ZoomTFundo & "' WHERE ID= " & ID & ""
-                Comando = New OleDb.OleDbCommand(SQL, ConexDados)
-                Comando.ExecuteNonQuery()
-            Catch ex As Exception
-                MsgBox(ex.Message, vbCritical, "Salvar Dados do systema")
-            End Try
-        End If
-        If ZoomTHarpa > 0 Then
-            Try
-                SQL = "UPDATE Zoom SET TextoHarpa='" & ZoomTHarpa & "' WHERE ID= " & ID & ""
-                Comando = New OleDb.OleDbCommand(SQL, ConexDados)
-                Comando.ExecuteNonQuery()
-            Catch ex As Exception
-                MsgBox(ex.Message, vbCritical, "Salvar Dados do systema")
-            End Try
-        End If
-        If ZoomTBiblia > 0 Then
-            Try
-                SQL = "UPDATE Zoom SET TextoBiblia='" & ZoomTBiblia & "' WHERE ID= " & ID & ""
-                Comando = New OleDb.OleDbCommand(SQL, ConexDados)
-                Comando.ExecuteNonQuery()
-            Catch ex As Exception
-                MsgBox(ex.Message, vbCritical, "Salvar Dados do systema")
-            End Try
-        End If
+        If ZoomTFundo > 0 Then SalvarZoom("TextoFundo", ZoomTFundo)
+        If ZoomTHarpa > 0 Then SalvarZoom("TextoHarpa", ZoomTHarpa)
+        If ZoomTBiblia > 0 Then SalvarZoom("TextoBiblia", ZoomTBiblia)
         DesconectarDados()
+    End Sub
+
+    Private Sub SalvarZoom(Coluna As String, Valor As Integer) 'Coluna vem apenas do código (não do usuário)
+        Try
+            Using Comando As New OleDb.OleDbCommand("UPDATE Zoom SET " & Coluna & " = ? WHERE ID = 1", ConexDados)
+                Comando.Parameters.AddWithValue("@Valor", Valor)
+                Comando.ExecuteNonQuery()
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "Salvar Dados do systema")
+        End Try
     End Sub
 
 

@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Public Class FormImagens
-    Dim PastaImagens As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\ProjectionManager\IMAGENS"
-    Dim PMImagens As String() = Directory.GetDirectories(PastaImagens)
+    Dim PastaImagens As String = LocalSystem & "\ProjectionManager\IMAGENS"
+    Dim PMImagens As String() = {}
     Dim PCImagens As String = My.Computer.FileSystem.SpecialDirectories.MyPictures
     Dim CamSelect As String
 
@@ -9,6 +9,11 @@ Public Class FormImagens
         Dim I As Integer
         Dim P As Integer
         Dim Pasta As String
+        If Directory.Exists(PastaImagens) Then
+            PMImagens = Directory.GetDirectories(PastaImagens)
+        Else
+            MsgBox("Pasta de imagens não encontrada: " & PastaImagens, vbExclamation, "Imagens")
+        End If
         For I = 0 To PMImagens.Count - 1
             P = InStrRev(PMImagens(I), "\", -1, vbTextCompare)
             Pasta = Mid(PMImagens(I), P + 1, 50)
@@ -19,11 +24,11 @@ Public Class FormImagens
         CarregarImagens()
         DesconectarDados()
         Try
-            PictureBox1.Image = Image.FromFile(RegImagens.Rows(0).Item("CamImagem"))
+            PictureBox1.Image = CarregarImagem(RegImagens.Rows(0).Item("CamImagem"))
             ImageSobre = RegImagens.Rows(0).Item("CamImagem")
             Label1.Text = RegImagens.Rows(0).Item("CamImagem")
         Catch ex As Exception
-            Label1.Text = RegImagens.Rows(0).Item("CamImagem")
+            Label1.Text = "Não encontrada"
         End Try
 
     End Sub
@@ -63,7 +68,7 @@ Public Class FormImagens
             P = InStrRev(ImageSobre, "\", -1, CompareMethod.Text)
             CamSelect = Mid(ImageSobre, 1, P - 1)
             'If Ext <> ".jpg" And Ext <> "jpeg" And Ext <> ".png" And Ext <> ".bmp" Then Exit Sub
-            PictureBox1.Image = Image.FromFile(ImageSobre)
+            PictureBox1.Image = CarregarImagem(ImageSobre)
             Label1.Text = ImageSobre
             Transferir()
         Catch ex As Exception
@@ -102,7 +107,7 @@ Public Class FormImagens
             If Ext.Contains(Path.GetExtension(Arq)) Then
                 If IP >= TA Then
                     Label6.Text = "0"
-                    PictureBox1.Image = Image.FromFile(Arq)
+                    PictureBox1.Image = CarregarImagem(Arq)
                     ImageSobre = Arq
                     Label1.Text = Arq
                     Transferir()
@@ -110,7 +115,7 @@ Public Class FormImagens
                 End If
                 'If IA = IC Then IP = IC + 1 'indice anterior encontrado
                 If IP = IC Then 'próximo indice encontrado
-                    PictureBox1.Image = Image.FromFile(Arq)
+                    PictureBox1.Image = CarregarImagem(Arq)
                     ImageSobre = Arq
                     Label1.Text = Arq
                     Label6.Text = IP
