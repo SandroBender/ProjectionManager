@@ -17,48 +17,48 @@ Public Class FormImagens
         For I = 0 To PMImagens.Count - 1
             P = InStrRev(PMImagens(I), "\", -1, vbTextCompare)
             Pasta = Mid(PMImagens(I), P + 1, 50)
-            ComboBox1.Items.Add(Pasta)
+            cboPastas.Items.Add(Pasta)
         Next
-        PictureBox1.AllowDrop = True
+        picPreview.AllowDrop = True
         ConectarDados()
         CarregarImagens()
         DesconectarDados()
         Try
-            PictureBox1.Image = CarregarImagem(RegImagens.Rows(0).Item("CamImagem"))
+            picPreview.Image = CarregarImagem(RegImagens.Rows(0).Item("CamImagem"))
             ImageSobre = RegImagens.Rows(0).Item("CamImagem")
-            Label1.Text = RegImagens.Rows(0).Item("CamImagem")
+            lblArquivo.Text = RegImagens.Rows(0).Item("CamImagem")
         Catch ex As Exception
-            Label1.Text = "Não encontrada"
+            lblArquivo.Text = "Não encontrada"
         End Try
 
     End Sub
 
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
-        If RadioButton1.Checked = True Then
-            WebBrowser1.Stop()
-            ComboBox1.Visible = True
+    Private Sub rbGerenciador_CheckedChanged(sender As Object, e As EventArgs) Handles rbGerenciador.CheckedChanged
+        If rbGerenciador.Checked = True Then
+            webPastas.Stop()
+            cboPastas.Visible = True
         End If
     End Sub
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged  'Minhas Imagens
-        If RadioButton2.Checked = True Then
-            WebBrowser1.Url = New Uri(PCImagens)
+    Private Sub rbMinhasImagens_CheckedChanged(sender As Object, e As EventArgs) Handles rbMinhasImagens.CheckedChanged  'Minhas Imagens
+        If rbMinhasImagens.Checked = True Then
+            webPastas.Url = New Uri(PCImagens)
             CamSelect = PCImagens
         End If
     End Sub
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
-        Dim I As Integer = ComboBox1.SelectedIndex
-        WebBrowser1.Url = New Uri(PMImagens(I))
+    Private Sub cboPastas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboPastas.SelectedIndexChanged
+        Dim I As Integer = cboPastas.SelectedIndex
+        webPastas.Url = New Uri(PMImagens(I))
         CamSelect = PMImagens(I)
 
     End Sub
 
-    Private Sub PictureBox1_DragEnter_1(sender As Object, e As DragEventArgs) Handles PictureBox1.DragEnter
+    Private Sub picPreview_DragEnter_1(sender As Object, e As DragEventArgs) Handles picPreview.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
         End If
     End Sub
 
-    Private Sub PictureBox1_DragDrop_1(sender As Object, e As DragEventArgs) Handles PictureBox1.DragDrop
+    Private Sub picPreview_DragDrop_1(sender As Object, e As DragEventArgs) Handles picPreview.DragDrop
         Dim Ext As String
         Dim P As Integer
         Try
@@ -68,16 +68,16 @@ Public Class FormImagens
             P = InStrRev(ImageSobre, "\", -1, CompareMethod.Text)
             CamSelect = Mid(ImageSobre, 1, P - 1)
             'If Ext <> ".jpg" And Ext <> "jpeg" And Ext <> ".png" And Ext <> ".bmp" Then Exit Sub
-            PictureBox1.Image = CarregarImagem(ImageSobre)
-            Label1.Text = ImageSobre
+            picPreview.Image = CarregarImagem(ImageSobre)
+            lblArquivo.Text = ImageSobre
             Transferir()
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "Arrastar Imagem")
         End Try
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click 'Retornar
-        Dim IA As Integer = Label6.Text 'indice atual
+    Private Sub btnRetroceder_Click(sender As Object, e As EventArgs) Handles btnRetroceder.Click 'Retornar
+        Dim IA As Integer = lblIndiceImagem.Text 'indice atual
         If CamSelect = Nothing Then
             MsgBox("Arraste a 1° Imagem pra continuar.", vbCritical, "Alterar Imagem")
         Else
@@ -85,8 +85,8 @@ Public Class FormImagens
         End If
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click 'avançar
-        Dim IA As Integer = Label6.Text 'indice atual
+    Private Sub btnAvancar_Click(sender As Object, e As EventArgs) Handles btnAvancar.Click 'avançar
+        Dim IA As Integer = lblIndiceImagem.Text 'indice atual
         If CamSelect = Nothing Then
             MsgBox("Arraste a 1° Imagem pra continuar.", vbCritical, "Alterar Imagem")
         Else
@@ -106,19 +106,19 @@ Public Class FormImagens
         For Each Arq As String In Arquivos
             If Ext.Contains(Path.GetExtension(Arq)) Then
                 If IP >= TA Then
-                    Label6.Text = "0"
-                    PictureBox1.Image = CarregarImagem(Arq)
+                    lblIndiceImagem.Text = "0"
+                    picPreview.Image = CarregarImagem(Arq)
                     ImageSobre = Arq
-                    Label1.Text = Arq
+                    lblArquivo.Text = Arq
                     Transferir()
                     Exit For
                 End If
                 'If IA = IC Then IP = IC + 1 'indice anterior encontrado
                 If IP = IC Then 'próximo indice encontrado
-                    PictureBox1.Image = CarregarImagem(Arq)
+                    picPreview.Image = CarregarImagem(Arq)
                     ImageSobre = Arq
-                    Label1.Text = Arq
-                    Label6.Text = IP
+                    lblArquivo.Text = Arq
+                    lblIndiceImagem.Text = IP
                     Transferir()
                     Exit For
                 End If
@@ -127,75 +127,75 @@ Public Class FormImagens
         Next
     End Sub
 
-    Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged 'imagem destivada
-        RadioButton3.BackColor = Color.Transparent
-        RadioButton4.BackColor = Color.Transparent
-        If RadioButton3.Checked = True Then
-            RadioButton3.BackColor = Color.AliceBlue
-            FormPrincipal.CheckBox4.Checked = False
+    Private Sub rbDesligado_CheckedChanged(sender As Object, e As EventArgs) Handles rbDesligado.CheckedChanged 'imagem destivada
+        rbDesligado.BackColor = Color.Transparent
+        rbLigado.BackColor = Color.Transparent
+        If rbDesligado.Checked = True Then
+            rbDesligado.BackColor = Color.AliceBlue
+            FormPrincipal.chkImagens.Checked = False
         End If
         Transferir()
     End Sub
 
-    Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged 'IMAGEM ATIVADA
-        RadioButton3.BackColor = Color.Transparent
-        RadioButton4.BackColor = Color.Transparent
-        If RadioButton4.Checked = True Then
-            RadioButton4.BackColor = Color.AliceBlue
-            RadioButton3.BackColor = Color.Transparent
-            FormPrincipal.CheckBox4.Checked = True
+    Private Sub rbLigado_CheckedChanged(sender As Object, e As EventArgs) Handles rbLigado.CheckedChanged 'IMAGEM ATIVADA
+        rbDesligado.BackColor = Color.Transparent
+        rbLigado.BackColor = Color.Transparent
+        If rbLigado.Checked = True Then
+            rbLigado.BackColor = Color.AliceBlue
+            rbDesligado.BackColor = Color.Transparent
+            FormPrincipal.chkImagens.Checked = True
         End If
         Transferir()
     End Sub
 
     Private Sub Transferir()
-        ImageSobre = Label1.Text
-        If RadioButton4.Checked = True Then
+        ImageSobre = lblArquivo.Text
+        If rbLigado.Checked = True Then
             ImageS = True
-            If FormPrincipal.RadioButton1.Checked = True Then FormPrincipal.PictureBox6.Image = PictureBox1.Image
+            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picSobreposicao.Image = picPreview.Image
         Else
             ImageS = False
-            If FormPrincipal.RadioButton1.Checked = True Then FormPrincipal.PictureBox6.Image = Nothing
+            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picSobreposicao.Image = Nothing
         End If
         AtualizaApresentacao()
     End Sub
 
-    Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click 'Voltar
-        WebBrowser1.GoBack()
+    Private Sub btnVoltarPasta_Click(sender As Object, e As EventArgs) Handles btnVoltarPasta.Click 'Voltar
+        webPastas.GoBack()
     End Sub
 
-    Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton5.CheckedChanged
-        PictureBox1.SizeMode = PictureBoxSizeMode.Normal 'Tamanho original
+    Private Sub rbTamanhoOriginal_CheckedChanged(sender As Object, e As EventArgs) Handles rbTamanhoOriginal.CheckedChanged
+        picPreview.SizeMode = PictureBoxSizeMode.Normal 'Tamanho original
         AjusteDimensional = "N"
-        If FormPrincipal.RadioButton1.Checked = True Then
-            FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.Normal
+        If FormPrincipal.rbAtivada.Checked = True Then
+            FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.Normal
             AtualizaApresentacao()
         End If
     End Sub
 
-    Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton6.CheckedChanged
-        PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage 'Ajustar ao tamanho
+    Private Sub rbAjustarTamanho_CheckedChanged(sender As Object, e As EventArgs) Handles rbAjustarTamanho.CheckedChanged
+        picPreview.SizeMode = PictureBoxSizeMode.StretchImage 'Ajustar ao tamanho
         AjusteDimensional = "S"
-        If FormPrincipal.RadioButton1.Checked = True Then
-            FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.StretchImage
+        If FormPrincipal.rbAtivada.Checked = True Then
+            FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.StretchImage
             AtualizaApresentacao()
         End If
     End Sub
 
-    Private Sub RadioButton7_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton7.CheckedChanged
-        PictureBox1.SizeMode = PictureBoxSizeMode.CenterImage
+    Private Sub rbOriginalCentralizado_CheckedChanged(sender As Object, e As EventArgs) Handles rbOriginalCentralizado.CheckedChanged
+        picPreview.SizeMode = PictureBoxSizeMode.CenterImage
         AjusteDimensional = "C"
-        If FormPrincipal.RadioButton1.Checked = True Then
-            FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.CenterImage
+        If FormPrincipal.rbAtivada.Checked = True Then
+            FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.CenterImage
             AtualizaApresentacao()
         End If
     End Sub
 
-    Private Sub RadioButton8_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton8.CheckedChanged
-        PictureBox1.SizeMode = PictureBoxSizeMode.Zoom 'Manter proporção
+    Private Sub rbManterProporcao_CheckedChanged(sender As Object, e As EventArgs) Handles rbManterProporcao.CheckedChanged
+        picPreview.SizeMode = PictureBoxSizeMode.Zoom 'Manter proporção
         AjusteDimensional = "Z"
-        If FormPrincipal.RadioButton1.Checked = True Then
-            FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.Zoom
+        If FormPrincipal.rbAtivada.Checked = True Then
+            FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.Zoom
             AtualizaApresentacao()
         End If
     End Sub

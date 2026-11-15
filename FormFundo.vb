@@ -19,68 +19,68 @@ Public Class FormFundo
         For I = 0 To PMImagens.Count - 1
             P = InStrRev(PMImagens(I), "\", -1, vbTextCompare)
             Pasta = Mid(PMImagens(I), P + 1, 50)
-            ComboBox1.Items.Add(Pasta)
+            cboPastas.Items.Add(Pasta)
         Next
-        Label2.Size = New Point(403, 31)
-        RadioButton1.Checked = True
-        PictureBox1.AllowDrop = True
+        lblTituloTextos.Size = New Point(403, 31)
+        rbGerenciador.Checked = True
+        picPreview.AllowDrop = True
         ConectarDados()
         CarregarImagens()
         CarregarTextos()
         CarregarZoom()
         DesconectarDados()
         Try
-            PictureBox1.Image = CarregarImagem(RegImagens.Rows(0).Item("CamImagem"))
+            picPreview.Image = CarregarImagem(RegImagens.Rows(0).Item("CamImagem"))
             ImageFundo = RegImagens.Rows(0).Item("CamImagem")
-            Label1.Text = RegImagens.Rows(0).Item("CamImagem")
+            lblArquivo.Text = RegImagens.Rows(0).Item("CamImagem")
         Catch ex As Exception
-            Label1.Text = "Não encontrada"
+            lblArquivo.Text = "Não encontrada"
         End Try
         Try
-            Label18.Text = RegZoom.Rows(0).Item("TextoFundo")
-            TrackBar1.Value = RegZoom.Rows(0).Item("TextoFundo")
+            lblZoom.Text = RegZoom.Rows(0).Item("TextoFundo")
+            trkZoom.Value = RegZoom.Rows(0).Item("TextoFundo")
 
         Catch ex As Exception
-            Label18.Text = "16"
+            lblZoom.Text = "16"
         End Try
-        Label14.Parent = PictureBox1 'CRIAR transparencia dos textos
-        Label15.Parent = PictureBox1
-        Label16.Parent = PictureBox1
-        Label13.Parent = PictureBox1
-        'Label4.Location = New Point(10, 10) 'POSIÇÃO
-        'Label15.Location = New Point(10, 40)
-        'Label16.Location = New Point(10, 70)
+        lblPrevTitulo.Parent = picPreview 'CRIAR transparencia dos textos
+        lblPrevSubtitulo.Parent = picPreview
+        lblPrevCorpo.Parent = picPreview
+        lblPrevRodape.Parent = picPreview
+        'lblAlinhamento.Location = New Point(10, 10) 'POSIÇÃO
+        'lblPrevSubtitulo.Location = New Point(10, 40)
+        'lblPrevCorpo.Location = New Point(10, 70)
     End Sub
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged 'Imagens P. Manager
-        If RadioButton1.Checked = True Then
-            WebBrowser1.Stop()
-            ComboBox1.Visible = True
-            'Button12.Visible = False
-            Label6.Text = "0"
+    Private Sub rbGerenciador_CheckedChanged(sender As Object, e As EventArgs) Handles rbGerenciador.CheckedChanged 'Imagens P. Manager
+        If rbGerenciador.Checked = True Then
+            webPastas.Stop()
+            cboPastas.Visible = True
+            'btnVoltarPasta.Visible = False
+            lblIndiceImagem.Text = "0"
         End If
     End Sub
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged 'Minhas Imagens
-        If RadioButton2.Checked = True Then
-            ComboBox1.Visible = False
-            'Button12.Visible = True
-            WebBrowser1.Url = New Uri(PCImagens)
+    Private Sub rbMinhasImagens_CheckedChanged(sender As Object, e As EventArgs) Handles rbMinhasImagens.CheckedChanged 'Minhas Imagens
+        If rbMinhasImagens.Checked = True Then
+            cboPastas.Visible = False
+            'btnVoltarPasta.Visible = True
+            webPastas.Url = New Uri(PCImagens)
             CamSelect = PCImagens
-            Label6.Text = "0"
+            lblIndiceImagem.Text = "0"
         End If
     End Sub
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
-        Dim I As Integer = ComboBox1.SelectedIndex
+    Private Sub cboPastas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboPastas.SelectedIndexChanged
+        Dim I As Integer = cboPastas.SelectedIndex
         Dim Cam As String = PMImagens(I)
-        WebBrowser1.Url = New Uri(Cam)
+        webPastas.Url = New Uri(Cam)
         CamSelect = Cam
     End Sub
 
-    Private Sub PictureBox1_DragEnter(sender As Object, e As DragEventArgs) Handles PictureBox1.DragEnter
+    Private Sub picPreview_DragEnter(sender As Object, e As DragEventArgs) Handles picPreview.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
         End If
     End Sub
-    Private Sub PictureBox1_DragDrop(sender As Object, e As DragEventArgs) Handles PictureBox1.DragDrop
+    Private Sub picPreview_DragDrop(sender As Object, e As DragEventArgs) Handles picPreview.DragDrop
         Dim Ext As String
         Dim P As Integer
         Try
@@ -90,15 +90,15 @@ Public Class FormFundo
             P = InStrRev(ImageFundo, "\", -1, CompareMethod.Text)
             CamSelect = Mid(ImageFundo, 1, P - 1)
             'If Ext <> ".jpg" And Ext <> "jpeg" And Ext <> ".png" And Ext <> ".bmp" Then Exit Sub
-            PictureBox1.Image = CarregarImagem(ImageFundo)
-            Label1.Text = ImageFundo
+            picPreview.Image = CarregarImagem(ImageFundo)
+            lblArquivo.Text = ImageFundo
             Transferir()
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "Arrastar Imagem")
         End Try
     End Sub
 
-    Private Sub Button13_Click(sender As Object, e As EventArgs) Handles Button13.Click 'Nova imagem
+    Private Sub btnNovaImagem_Click(sender As Object, e As EventArgs) Handles btnNovaImagem.Click 'Nova imagem
         If CamSelect = Nothing Then
             MsgBox("Arraste a 1° Imagem pra continuar.", vbCritical, "Alterar Imagem")
         Else
@@ -107,7 +107,7 @@ Public Class FormFundo
     End Sub
     Private Sub ProxArq(Pasta As String)
         Dim TA As Integer 'total arquivos
-        Dim IA As Integer = Label6.Text 'indice atual
+        Dim IA As Integer = lblIndiceImagem.Text 'indice atual
         Dim IP As Integer 'Indice próximo
         Dim IC As Integer = 0 'indice contagem
         Dim Ext As String = "*.png,*.jpg,*.jpeg,*.bmp,*.JPG,*.JPEG,*.PNG"
@@ -120,19 +120,19 @@ Public Class FormFundo
         For Each Arq As String In Arquivos
             If Ext.Contains(Path.GetExtension(Arq)) Then
                 If IP = TA Then
-                    Label6.Text = "0"
-                    PictureBox1.Image = CarregarImagem(Arq)
+                    lblIndiceImagem.Text = "0"
+                    picPreview.Image = CarregarImagem(Arq)
                     ImageFundo = Arq
-                    Label1.Text = Arq
+                    lblArquivo.Text = Arq
                     Transferir()
                     Exit For
                 End If
                 'If IA = IC Then IP = IC + 1 'indice anterior encontrado
                 If IP = IC Then 'próximo indice encontrado
-                    PictureBox1.Image = CarregarImagem(Arq)
+                    picPreview.Image = CarregarImagem(Arq)
                     ImageFundo = Arq
-                    Label1.Text = Arq
-                    Label6.Text = IP
+                    lblArquivo.Text = Arq
+                    lblIndiceImagem.Text = IP
                     Transferir()
                     Exit For
                 End If
@@ -140,103 +140,103 @@ Public Class FormFundo
             End If
         Next
     End Sub
-    Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged 'imagem destivada
-        RadioButton3.BackColor = Color.Transparent
-        RadioButton4.BackColor = Color.Transparent
-        FormPrincipal.CheckBox1.Checked = False
-        If RadioButton3.Checked = True Then
-            RadioButton3.BackColor = Color.AliceBlue
-            RadioButton4.BackColor = Color.Transparent
-            FormPrincipal.CheckBox1.Checked = False
+    Private Sub rbDesligado_CheckedChanged(sender As Object, e As EventArgs) Handles rbDesligado.CheckedChanged 'imagem destivada
+        rbDesligado.BackColor = Color.Transparent
+        rbLigado.BackColor = Color.Transparent
+        FormPrincipal.chkFundo.Checked = False
+        If rbDesligado.Checked = True Then
+            rbDesligado.BackColor = Color.AliceBlue
+            rbLigado.BackColor = Color.Transparent
+            FormPrincipal.chkFundo.Checked = False
         End If
         Transferir()
     End Sub
 
-    Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged 'IMAGEM ATIVADA
-        RadioButton3.BackColor = Color.Transparent
-        RadioButton4.BackColor = Color.Transparent
-        FormPrincipal.CheckBox1.Checked = False
-        If RadioButton4.Checked = True Then
-            RadioButton4.BackColor = Color.AliceBlue
-            RadioButton3.BackColor = Color.Transparent
-            FormPrincipal.CheckBox1.Checked = True
+    Private Sub rbLigado_CheckedChanged(sender As Object, e As EventArgs) Handles rbLigado.CheckedChanged 'IMAGEM ATIVADA
+        rbDesligado.BackColor = Color.Transparent
+        rbLigado.BackColor = Color.Transparent
+        FormPrincipal.chkFundo.Checked = False
+        If rbLigado.Checked = True Then
+            rbLigado.BackColor = Color.AliceBlue
+            rbDesligado.BackColor = Color.Transparent
+            FormPrincipal.chkFundo.Checked = True
         End If
         Transferir()
     End Sub
 
     Private Sub Transferir()
-        ImageFundo = Label1.Text
-        If RadioButton4.Checked = True Then
+        ImageFundo = lblArquivo.Text
+        If rbLigado.Checked = True Then
             ImageF = True
             If ImageFundo = "Não encontrada" Then ImageF = False
-            If FormPrincipal.RadioButton1.Checked = True Then FormPrincipal.PictureBox5.Image = PictureBox1.Image
-            FormPrincipal.PictureBox5.SizeMode = PictureBoxSizeMode.StretchImage
+            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picFundo.Image = picPreview.Image
+            FormPrincipal.picFundo.SizeMode = PictureBoxSizeMode.StretchImage
         Else
             ImageF = False
-            If FormPrincipal.RadioButton1.Checked = True Then FormPrincipal.PictureBox5.Image = Nothing
+            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picFundo.Image = Nothing
         End If
         AtualizaApresentacao()
     End Sub
 
-    Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click 'Voltar
-        WebBrowser1.GoBack()
+    Private Sub btnVoltarPasta_Click(sender As Object, e As EventArgs) Handles btnVoltarPasta.Click 'Voltar
+        webPastas.GoBack()
     End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click 'Editar Título
+    Private Sub btnEditarTitulo_Click_1(sender As Object, e As EventArgs) Handles btnEditarTitulo.Click 'Editar Título
         Dim I As Long = 0
         IT = 0
-        TabControl1.SelectedIndex = 1
-        Label3.Text = CheckBox1.Text 'tipo
-        TextBox9.Text = TextBox1.Text 'texto
-        TextBox10.Text = TextBox5.Text 'indice
-        If TextBox10.Text = "" Then
-            TextBox10.Text = "N"
+        tabTextos.SelectedIndex = 1
+        lblTipoTexto.Text = chkTitulo.Text 'tipo
+        txtEdicaoTexto.Text = txtTitulo.Text 'texto
+        txtEdicaoId.Text = txtIdTitulo.Text 'indice
+        If txtEdicaoId.Text = "" Then
+            txtEdicaoId.Text = "N"
         Else
-            I = TextBox10.Text
+            I = txtEdicaoId.Text
         End If
-        CarregarTipoTexto(Tipo:=Label3.Text, I:=I)
+        CarregarTipoTexto(Tipo:=lblTipoTexto.Text, I:=I)
     End Sub
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click 'Editar Subtitulo
+    Private Sub btnEditarSubtitulo_Click(sender As Object, e As EventArgs) Handles btnEditarSubtitulo.Click 'Editar Subtitulo
         Dim I As Long = 0
         IT = 1
-        TabControl1.SelectedIndex = 1
-        Label3.Text = CheckBox2.Text 'tipo
-        TextBox9.Text = TextBox2.Text 'texto
-        TextBox10.Text = TextBox6.Text 'indice
-        If TextBox10.Text = "" Then
-            TextBox10.Text = "N"
+        tabTextos.SelectedIndex = 1
+        lblTipoTexto.Text = chkSubtitulo.Text 'tipo
+        txtEdicaoTexto.Text = txtSubtitulo.Text 'texto
+        txtEdicaoId.Text = txtIdSubtitulo.Text 'indice
+        If txtEdicaoId.Text = "" Then
+            txtEdicaoId.Text = "N"
         Else
-            I = TextBox10.Text
+            I = txtEdicaoId.Text
         End If
-        CarregarTipoTexto(Tipo:=Label3.Text, I:=I)
+        CarregarTipoTexto(Tipo:=lblTipoTexto.Text, I:=I)
     End Sub
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click 'Editar Corpo de texto
+    Private Sub btnEditarCorpo_Click(sender As Object, e As EventArgs) Handles btnEditarCorpo.Click 'Editar Corpo de texto
         Dim I As Long = 0
         IT = 2
-        TabControl1.SelectedIndex = 1
-        Label3.Text = CheckBox3.Text 'tipo
-        TextBox9.Text = TextBox3.Text 'texto
-        TextBox10.Text = TextBox7.Text 'indice
-        If TextBox10.Text = "" Then
-            TextBox10.Text = "N"
+        tabTextos.SelectedIndex = 1
+        lblTipoTexto.Text = chkCorpo.Text 'tipo
+        txtEdicaoTexto.Text = txtCorpo.Text 'texto
+        txtEdicaoId.Text = txtIdCorpo.Text 'indice
+        If txtEdicaoId.Text = "" Then
+            txtEdicaoId.Text = "N"
         Else
-            I = TextBox10.Text
+            I = txtEdicaoId.Text
         End If
-        CarregarTipoTexto(Tipo:=Label3.Text, I:=I)
+        CarregarTipoTexto(Tipo:=lblTipoTexto.Text, I:=I)
     End Sub
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click 'Editar Rodapé
+    Private Sub btnEditarRodape_Click(sender As Object, e As EventArgs) Handles btnEditarRodape.Click 'Editar Rodapé
         Dim I As Long = 0
         IT = 3
-        TabControl1.SelectedIndex = 1
-        Label3.Text = CheckBox4.Text 'tipo
-        TextBox9.Text = TextBox4.Text 'texto
-        TextBox10.Text = TextBox8.Text 'indice
-        If TextBox10.Text = "" Then
-            TextBox10.Text = "N"
+        tabTextos.SelectedIndex = 1
+        lblTipoTexto.Text = chkRodape.Text 'tipo
+        txtEdicaoTexto.Text = txtRodape.Text 'texto
+        txtEdicaoId.Text = txtIdRodape.Text 'indice
+        If txtEdicaoId.Text = "" Then
+            txtEdicaoId.Text = "N"
         Else
-            I = TextBox10.Text
+            I = txtEdicaoId.Text
         End If
-        CarregarTipoTexto(Tipo:=Label3.Text, I:=I)
+        CarregarTipoTexto(Tipo:=lblTipoTexto.Text, I:=I)
     End Sub
     Public Sub CarregarTipoTexto(Tipo As String, I As Long) 'Completa e lista resumida
         Dim Column As DataColumn
@@ -267,145 +267,145 @@ Public Class FormFundo
                 RegTipoTexto.Rows.Add(Row)
             End If
         Next
-        DataGridView1.DataSource = RegTipoTexto
+        dgvTextos.DataSource = RegTipoTexto
         If I = 0 Then 'Fonte Defauld
-            Label4.Text = "Left" 'Alinhamento
-            Label10.Text = "0" 'Preenchimento
-            Label5.Text = "Calibri" 'Fonte nome
-            Label8.Text = "20" 'Fonte tamanho
-            Label7.Text = "0" 'Fonte estilo
-            Label9.Text = "0" 'Fonte cor
+            lblAlinhamento.Text = "Left" 'Alinhamento
+            lblCorPreenchimento.Text = "0" 'Preenchimento
+            lblFonteNome.Text = "Calibri" 'Fonte nome
+            lblFonteTamanho.Text = "20" 'Fonte tamanho
+            lblFonteEstilo.Text = "0" 'Fonte estilo
+            lblFonteCor.Text = "0" 'Fonte cor
         Else
             For L As Long = 0 To RegTextos.Rows.Count - 1
                 If I = RegTextos.Rows(L).Item(0) Then
-                    Label4.Text = RegTextos.Rows(L).Item(3) 'Alinhamento
-                    Label10.Text = RegTextos.Rows(L).Item(4) 'Preenchimento
-                    Label5.Text = RegTextos.Rows(L).Item(5) 'Fonte nome
-                    Label8.Text = RegTextos.Rows(L).Item(6) 'Fonte Tamanho
-                    Label7.Text = RegTextos.Rows(L).Item(7) 'Fonte Estilo
-                    Label9.Text = RegTextos.Rows(L).Item(8) 'Fonte cor
+                    lblAlinhamento.Text = RegTextos.Rows(L).Item(3) 'Alinhamento
+                    lblCorPreenchimento.Text = RegTextos.Rows(L).Item(4) 'Preenchimento
+                    lblFonteNome.Text = RegTextos.Rows(L).Item(5) 'Fonte nome
+                    lblFonteTamanho.Text = RegTextos.Rows(L).Item(6) 'Fonte Tamanho
+                    lblFonteEstilo.Text = RegTextos.Rows(L).Item(7) 'Fonte Estilo
+                    lblFonteCor.Text = RegTextos.Rows(L).Item(8) 'Fonte cor
                 End If
             Next
         End If
-        TextBox9.Select()
+        txtEdicaoTexto.Select()
     End Sub
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click 'Alinhamento superior esquerdo
-        Label4.TextAlign = ContentAlignment.TopLeft
+    Private Sub btnAlinhaSupEsq_Click(sender As Object, e As EventArgs) Handles btnAlinhaSupEsq.Click 'Alinhamento superior esquerdo
+        lblAlinhamento.TextAlign = ContentAlignment.TopLeft
         Alinhar()
     End Sub
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click 'Alinhamento superior central
-        Label4.TextAlign = ContentAlignment.TopCenter
+    Private Sub btnAlinhaSupCentro_Click(sender As Object, e As EventArgs) Handles btnAlinhaSupCentro.Click 'Alinhamento superior central
+        lblAlinhamento.TextAlign = ContentAlignment.TopCenter
         Alinhar()
     End Sub
-    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click 'Alinhamento superior direito
-        Label4.TextAlign = ContentAlignment.TopRight
+    Private Sub btnAlinhaSupDir_Click(sender As Object, e As EventArgs) Handles btnAlinhaSupDir.Click 'Alinhamento superior direito
+        lblAlinhamento.TextAlign = ContentAlignment.TopRight
         Alinhar()
     End Sub
-    Private Sub Button15_Click(sender As Object, e As EventArgs) Handles Button15.Click 'alinhamento meio esquerdo
-        Label4.TextAlign = ContentAlignment.MiddleLeft
-        Alinhar()
-    End Sub
-
-    Private Sub Button16_Click(sender As Object, e As EventArgs) Handles Button16.Click 'alinhamento meio central
-        Label4.TextAlign = ContentAlignment.MiddleCenter
+    Private Sub btnAlinhaMeioEsq_Click(sender As Object, e As EventArgs) Handles btnAlinhaMeioEsq.Click 'alinhamento meio esquerdo
+        lblAlinhamento.TextAlign = ContentAlignment.MiddleLeft
         Alinhar()
     End Sub
 
-    Private Sub Button17_Click(sender As Object, e As EventArgs) Handles Button17.Click 'alinhamento meio direito
-        Label4.TextAlign = ContentAlignment.MiddleRight
+    Private Sub btnAlinhaMeioCentro_Click(sender As Object, e As EventArgs) Handles btnAlinhaMeioCentro.Click 'alinhamento meio central
+        lblAlinhamento.TextAlign = ContentAlignment.MiddleCenter
         Alinhar()
     End Sub
 
-    Private Sub Button18_Click(sender As Object, e As EventArgs) Handles Button18.Click 'alinhamento inferior esquerdo
-        Label4.TextAlign = ContentAlignment.BottomLeft
+    Private Sub btnAlinhaMeioDir_Click(sender As Object, e As EventArgs) Handles btnAlinhaMeioDir.Click 'alinhamento meio direito
+        lblAlinhamento.TextAlign = ContentAlignment.MiddleRight
         Alinhar()
     End Sub
 
-    Private Sub Button19_Click(sender As Object, e As EventArgs) Handles Button19.Click 'alinhamento inferior central
-        Label4.TextAlign = ContentAlignment.BottomCenter
+    Private Sub btnAlinhaInfEsq_Click(sender As Object, e As EventArgs) Handles btnAlinhaInfEsq.Click 'alinhamento inferior esquerdo
+        lblAlinhamento.TextAlign = ContentAlignment.BottomLeft
         Alinhar()
     End Sub
 
-    Private Sub Button20_Click(sender As Object, e As EventArgs) Handles Button20.Click 'alinhamento inferior direito
-        Label4.TextAlign = ContentAlignment.BottomRight
+    Private Sub btnAlinhaInfCentro_Click(sender As Object, e As EventArgs) Handles btnAlinhaInfCentro.Click 'alinhamento inferior central
+        lblAlinhamento.TextAlign = ContentAlignment.BottomCenter
+        Alinhar()
+    End Sub
+
+    Private Sub btnAlinhaInfDir_Click(sender As Object, e As EventArgs) Handles btnAlinhaInfDir.Click 'alinhamento inferior direito
+        lblAlinhamento.TextAlign = ContentAlignment.BottomRight
         Alinhar()
     End Sub
     Private Sub Alinhar()
-        Dim BA() As Button = {Button5, Button6, Button7, Button15, Button16, Button17, Button18, Button19, Button20}
+        Dim BA() As Button = {btnAlinhaSupEsq, btnAlinhaSupCentro, btnAlinhaSupDir, btnAlinhaMeioEsq, btnAlinhaMeioCentro, btnAlinhaMeioDir, btnAlinhaInfEsq, btnAlinhaInfCentro, btnAlinhaInfDir}
         Dim IA As String() = {"TopLeft", "TopCenter", "TopRight", "MiddleLeft", "MiddleCenter", "MiddleRight", "BottomLeft", "BottomCenter", "BottomRight"}
-        Dim Texto() As Label = {Label14, Label15, Label16, Label13}
-        Dim TextoPrinc() As Label = {FormPrincipal.Label3, FormPrincipal.Label4, FormPrincipal.Label5, FormPrincipal.Label6}
-        Dim TextoApres() As Label = {FormApresentar.Label1, FormApresentar.Label2, FormApresentar.Label3, FormApresentar.Label4}
-        Alin = Label4.TextAlign
-        Label4.Text = Alin.ToString
+        Dim Texto() As Label = {lblPrevTitulo, lblPrevSubtitulo, lblPrevCorpo, lblPrevRodape}
+        Dim TextoPrinc() As Label = {FormPrincipal.lblTitulo, FormPrincipal.lblSubtitulo, FormPrincipal.lblCorpo, FormPrincipal.lblRodape}
+        Dim TextoApres() As Label = {FormApresentar.lblTitulo, FormApresentar.lblSubtitulo, FormApresentar.lblCorpo, FormApresentar.lblRodape}
+        Alin = lblAlinhamento.TextAlign
+        lblAlinhamento.Text = Alin.ToString
         For I As Integer = 0 To 8
             BA(I).BackColor = Color.Lavender
             If Alin.ToString = IA(I).ToString Then BA(I).BackColor = Color.SteelBlue
         Next
         Texto(IT).TextAlign = Alin
         Alinham(IT) = Alin
-        If FormPrincipal.RadioButton1.Checked = True Then
+        If FormPrincipal.rbAtivada.Checked = True Then
             TextoPrinc(IT).TextAlign = Alin
             TextoApres(IT).TextAlign = Alin
         End If
     End Sub
 
-    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click 'Cor de fundo
-        Dim Texto() As Label = {Label14, Label15, Label16, Label13}
-        Dim TextoPrinc() As Label = {FormPrincipal.Label3, FormPrincipal.Label4, FormPrincipal.Label5, FormPrincipal.Label6}
-        Dim TextoApres() As Label = {FormApresentar.Label1, FormApresentar.Label2, FormApresentar.Label3, FormApresentar.Label4}
+    Private Sub btnCorFundo_Click(sender As Object, e As EventArgs) Handles btnCorFundo.Click 'Cor de fundo
+        Dim Texto() As Label = {lblPrevTitulo, lblPrevSubtitulo, lblPrevCorpo, lblPrevRodape}
+        Dim TextoPrinc() As Label = {FormPrincipal.lblTitulo, FormPrincipal.lblSubtitulo, FormPrincipal.lblCorpo, FormPrincipal.lblRodape}
+        Dim TextoApres() As Label = {FormApresentar.lblTitulo, FormApresentar.lblSubtitulo, FormApresentar.lblCorpo, FormApresentar.lblRodape}
         Dim dlg As ColorDialog = New ColorDialog()
         dlg.AllowFullOpen = True
         dlg.ShowHelp = True
         dlg.Color = Texto(IT).BackColor
         If dlg.ShowDialog() <> DialogResult.Cancel Then
-            Label10.Text = dlg.Color.ToArgb
-            Label11.BackColor = dlg.Color
+            lblCorPreenchimento.Text = dlg.Color.ToArgb
+            lblAmostraFundo.BackColor = dlg.Color
             CorPrench(IT) = dlg.Color
             Texto(IT).BackColor = CorPrench(IT)
-            If FormPrincipal.RadioButton1.Checked = True Then
+            If FormPrincipal.rbAtivada.Checked = True Then
                 TextoPrinc(IT).BackColor = CorPrench(IT)
                 TextoApres(IT).BackColor = CorPrench(IT)
             End If
         End If
     End Sub
-    Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click 'Cor fundo transparente
-        Dim Texto() As Label = {Label14, Label15, Label16, Label13}
-        Dim TextoPrinc() As Label = {FormPrincipal.Label3, FormPrincipal.Label4, FormPrincipal.Label5, FormPrincipal.Label6}
-        Dim TextoApres() As Label = {FormApresentar.Label1, FormApresentar.Label2, FormApresentar.Label3, FormApresentar.Label4}
-        Label11.BackColor = Color.Transparent
-        Label10.Text = Label11.BackColor.ToArgb
+    Private Sub btnFundoTransparente_Click(sender As Object, e As EventArgs) Handles btnFundoTransparente.Click 'Cor fundo transparente
+        Dim Texto() As Label = {lblPrevTitulo, lblPrevSubtitulo, lblPrevCorpo, lblPrevRodape}
+        Dim TextoPrinc() As Label = {FormPrincipal.lblTitulo, FormPrincipal.lblSubtitulo, FormPrincipal.lblCorpo, FormPrincipal.lblRodape}
+        Dim TextoApres() As Label = {FormApresentar.lblTitulo, FormApresentar.lblSubtitulo, FormApresentar.lblCorpo, FormApresentar.lblRodape}
+        lblAmostraFundo.BackColor = Color.Transparent
+        lblCorPreenchimento.Text = lblAmostraFundo.BackColor.ToArgb
         Texto(IT).BackColor = Color.Transparent
         CorPrench(IT) = Texto(IT).BackColor
-        If FormPrincipal.RadioButton1.Checked = True Then
+        If FormPrincipal.rbAtivada.Checked = True Then
             TextoPrinc(IT).BackColor = CorPrench(IT)
             TextoApres(IT).BackColor = CorPrench(IT)
         End If
     End Sub
-    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click 'Fonte
-        Dim Texto() As Label = {Label14, Label15, Label16, Label13}
-        Dim TextoPrinc() As Label = {FormPrincipal.Label3, FormPrincipal.Label4, FormPrincipal.Label5, FormPrincipal.Label6}
-        Dim TextoApres() As Label = {FormApresentar.Label1, FormApresentar.Label2, FormApresentar.Label3, FormApresentar.Label4}
+    Private Sub btnFonte_Click(sender As Object, e As EventArgs) Handles btnFonte.Click 'Fonte
+        Dim Texto() As Label = {lblPrevTitulo, lblPrevSubtitulo, lblPrevCorpo, lblPrevRodape}
+        Dim TextoPrinc() As Label = {FormPrincipal.lblTitulo, FormPrincipal.lblSubtitulo, FormPrincipal.lblCorpo, FormPrincipal.lblRodape}
+        Dim TextoApres() As Label = {FormApresentar.lblTitulo, FormApresentar.lblSubtitulo, FormApresentar.lblCorpo, FormApresentar.lblRodape}
         Dim dlg As FontDialog = New FontDialog()
         dlg.ShowColor = True
         dlg.ShowEffects = True
         dlg.ShowHelp = True
-        ValPerc = Label18.Text
+        ValPerc = lblZoom.Text
         dlg.Font = Texto(IT).Font
         dlg.Color = Texto(IT).ForeColor
         If dlg.ShowDialog() <> DialogResult.Cancel Then
-            Label5.Text = dlg.Font.Name
-            Label5.Font = New Font(dlg.Font.Name, 11, dlg.Font.Style)
-            Label7.Text = dlg.Font.Style
-            Label8.Text = dlg.Font.Size
-            Label9.Text = dlg.Color.ToArgb
-            Label9.BackColor = dlg.Color
+            lblFonteNome.Text = dlg.Font.Name
+            lblFonteNome.Font = New Font(dlg.Font.Name, 11, dlg.Font.Style)
+            lblFonteEstilo.Text = dlg.Font.Style
+            lblFonteTamanho.Text = dlg.Font.Size
+            lblFonteCor.Text = dlg.Color.ToArgb
+            lblFonteCor.BackColor = dlg.Color
             Fonte(IT) = New Font(dlg.Font.Name, dlg.Font.Size, dlg.Font.Style)
             Dim vo As Single = ((dlg.Font.Size * 2) * (ValPerc / 100)) + (dlg.Font.Size * 2)
             FonteProj(IT) = New Font(dlg.Font.Name, vo, dlg.Font.Style)
             Texto(IT).Font = dlg.Font
             Texto(IT).ForeColor = dlg.Color
-            If FormPrincipal.RadioButton1.Checked = True Then
+            If FormPrincipal.rbAtivada.Checked = True Then
                 TextoPrinc(IT).Font = Fonte(IT)
                 TextoPrinc(IT).ForeColor = dlg.Color
                 TextoApres(IT).Font = FonteProj(IT)
@@ -414,58 +414,58 @@ Public Class FormFundo
         End If
     End Sub
 
-    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+    Private Sub dgvTextos_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTextos.CellClick
         Dim I As Long
-        If DataGridView1.Rows.Count = 0 Then Exit Sub
-        I = DataGridView1.CurrentRow.Index
-        ValPerc = Label18.Text
-        TextBox10.Text = DataGridView1.Rows(I).Cells(0).Value 'indice
-        TextBox9.Text = DataGridView1.Rows(I).Cells(1).Value 'texto
-        Label3.Text = DataGridView1.Rows(I).Cells(2).Value 'titulo
-        Label4.Text = DataGridView1.Rows(I).Cells(3).Value 'Alinhamento
-        Label10.Text = DataGridView1.Rows(I).Cells(4).Value 'Preenchimento
-        Label5.Text = DataGridView1.Rows(I).Cells(5).Value  'Fonte nome
-        Label8.Text = DataGridView1.Rows(I).Cells(6).Value 'Fonte tamanho
-        Label7.Text = DataGridView1.Rows(I).Cells(7).Value 'Fonte estilo
-        Label9.Text = DataGridView1.Rows(I).Cells(8).Value 'Fonte cor
-        Button11.Visible = True
-        Button10.Text = "Alterar"
-        If Label4.Text = "TopLeft" Then Label4.TextAlign = ContentAlignment.TopLeft
-        If Label4.Text = "TopCenter" Then Label4.TextAlign = ContentAlignment.TopCenter
-        If Label4.Text = "TopRight" Then Label4.TextAlign = ContentAlignment.TopRight
-        If Label4.Text = "MiddleLeft" Then Label4.TextAlign = ContentAlignment.MiddleLeft
-        If Label4.Text = "MiddleCenter" Then Label4.TextAlign = ContentAlignment.MiddleCenter
-        If Label4.Text = "MiddleRight" Then Label4.TextAlign = ContentAlignment.MiddleRight
-        If Label4.Text = "BottomLeft" Then Label4.TextAlign = ContentAlignment.BottomLeft
-        If Label4.Text = "BottomCenter" Then Label4.TextAlign = ContentAlignment.BottomCenter
-        If Label4.Text = "BottomRight" Then Label4.TextAlign = ContentAlignment.BottomRight
+        If dgvTextos.Rows.Count = 0 Then Exit Sub
+        I = dgvTextos.CurrentRow.Index
+        ValPerc = lblZoom.Text
+        txtEdicaoId.Text = dgvTextos.Rows(I).Cells(0).Value 'indice
+        txtEdicaoTexto.Text = dgvTextos.Rows(I).Cells(1).Value 'texto
+        lblTipoTexto.Text = dgvTextos.Rows(I).Cells(2).Value 'titulo
+        lblAlinhamento.Text = dgvTextos.Rows(I).Cells(3).Value 'Alinhamento
+        lblCorPreenchimento.Text = dgvTextos.Rows(I).Cells(4).Value 'Preenchimento
+        lblFonteNome.Text = dgvTextos.Rows(I).Cells(5).Value  'Fonte nome
+        lblFonteTamanho.Text = dgvTextos.Rows(I).Cells(6).Value 'Fonte tamanho
+        lblFonteEstilo.Text = dgvTextos.Rows(I).Cells(7).Value 'Fonte estilo
+        lblFonteCor.Text = dgvTextos.Rows(I).Cells(8).Value 'Fonte cor
+        btnNovoTexto.Visible = True
+        btnVoltarSalvar.Text = "Alterar"
+        If lblAlinhamento.Text = "TopLeft" Then lblAlinhamento.TextAlign = ContentAlignment.TopLeft
+        If lblAlinhamento.Text = "TopCenter" Then lblAlinhamento.TextAlign = ContentAlignment.TopCenter
+        If lblAlinhamento.Text = "TopRight" Then lblAlinhamento.TextAlign = ContentAlignment.TopRight
+        If lblAlinhamento.Text = "MiddleLeft" Then lblAlinhamento.TextAlign = ContentAlignment.MiddleLeft
+        If lblAlinhamento.Text = "MiddleCenter" Then lblAlinhamento.TextAlign = ContentAlignment.MiddleCenter
+        If lblAlinhamento.Text = "MiddleRight" Then lblAlinhamento.TextAlign = ContentAlignment.MiddleRight
+        If lblAlinhamento.Text = "BottomLeft" Then lblAlinhamento.TextAlign = ContentAlignment.BottomLeft
+        If lblAlinhamento.Text = "BottomCenter" Then lblAlinhamento.TextAlign = ContentAlignment.BottomCenter
+        If lblAlinhamento.Text = "BottomRight" Then lblAlinhamento.TextAlign = ContentAlignment.BottomRight
         Alinhar()
-        Label5.Font = New Font(Label5.Text, 11)
-        Label9.BackColor = Color.FromArgb(Label9.Text)
-        Label11.BackColor = Color.FromArgb(Label10.Text)
+        lblFonteNome.Font = New Font(lblFonteNome.Text, 11)
+        lblFonteCor.BackColor = Color.FromArgb(lblFonteCor.Text)
+        lblAmostraFundo.BackColor = Color.FromArgb(lblCorPreenchimento.Text)
         ATualizarFonte()
     End Sub
     Private Sub ATualizarFonte()
-        Dim Texto() As Label = {Label14, Label15, Label16, Label13}
-        Dim TextoPrinc() As Label = {FormPrincipal.Label3, FormPrincipal.Label4, FormPrincipal.Label5, FormPrincipal.Label6}
-        Dim TextoApres() As Label = {FormApresentar.Label1, FormApresentar.Label2, FormApresentar.Label3, FormApresentar.Label4}
+        Dim Texto() As Label = {lblPrevTitulo, lblPrevSubtitulo, lblPrevCorpo, lblPrevRodape}
+        Dim TextoPrinc() As Label = {FormPrincipal.lblTitulo, FormPrincipal.lblSubtitulo, FormPrincipal.lblCorpo, FormPrincipal.lblRodape}
+        Dim TextoApres() As Label = {FormApresentar.lblTitulo, FormApresentar.lblSubtitulo, FormApresentar.lblCorpo, FormApresentar.lblRodape}
         Dim f As FontFamily
         Try
-            f = FontF(FN:=Label5.Text)
-            Fonte(IT) = New Font(f, CSng(Label8.Text))
+            f = FontF(FN:=lblFonteNome.Text)
+            Fonte(IT) = New Font(f, CSng(lblFonteTamanho.Text))
         Catch
-            MsgBox("A fonte:" & Label5.Text & " não está instalada neste computador.", vbInformation, "Acessar Dados do systema")
+            MsgBox("A fonte:" & lblFonteNome.Text & " não está instalada neste computador.", vbInformation, "Acessar Dados do systema")
             f = FontF(FN:="Arial")
-            Fonte(IT) = New Font(f, CSng(Label8.Text))
+            Fonte(IT) = New Font(f, CSng(lblFonteTamanho.Text))
         End Try
-        Dim vo As Single = ((CSng(Label8.Text)) * 2 * (ValPerc / 100)) + ((CSng(Label8.Text)) * 2)
+        Dim vo As Single = ((CSng(lblFonteTamanho.Text)) * 2 * (ValPerc / 100)) + ((CSng(lblFonteTamanho.Text)) * 2)
         FonteProj(IT) = New Font(f, vo)
-        CorFonte(IT) = Color.FromArgb(Label9.Text)
-        CorPrench(IT) = Color.FromArgb(Label10.Text)
+        CorFonte(IT) = Color.FromArgb(lblFonteCor.Text)
+        CorPrench(IT) = Color.FromArgb(lblCorPreenchimento.Text)
         Texto(IT).Font = Fonte(IT)
         Texto(IT).ForeColor = CorFonte(IT)
         Texto(IT).BackColor = CorPrench(IT)
-        If FormPrincipal.RadioButton1.Checked = True Then
+        If FormPrincipal.rbAtivada.Checked = True Then
             TextoPrinc(IT).Font = Fonte(IT)
             TextoPrinc(IT).ForeColor = CorFonte(IT)
             TextoPrinc(IT).BackColor = CorPrench(IT)
@@ -474,68 +474,68 @@ Public Class FormFundo
             TextoApres(IT).BackColor = CorPrench(IT)
         End If
     End Sub
-    Private Sub TextBox9_TextChanged(sender As Object, e As EventArgs) Handles TextBox9.TextChanged 'Texto
-        Dim Texto() As Label = {Label14, Label15, Label16, Label13}
-        Dim TextoPrinc() As Label = {FormPrincipal.Label3, FormPrincipal.Label4, FormPrincipal.Label5, FormPrincipal.Label6}
-        Dim TextoApres() As Label = {FormApresentar.Label1, FormApresentar.Label2, FormApresentar.Label3, FormApresentar.Label4}
-        Button10.Text = "Voltar"
-        If Len(TextBox9.Text) > 5 Then
-            If TextBox10.Text = "N" Then
-                Button10.Text = "Salvar"
+    Private Sub txtEdicaoTexto_TextChanged(sender As Object, e As EventArgs) Handles txtEdicaoTexto.TextChanged 'Texto
+        Dim Texto() As Label = {lblPrevTitulo, lblPrevSubtitulo, lblPrevCorpo, lblPrevRodape}
+        Dim TextoPrinc() As Label = {FormPrincipal.lblTitulo, FormPrincipal.lblSubtitulo, FormPrincipal.lblCorpo, FormPrincipal.lblRodape}
+        Dim TextoApres() As Label = {FormApresentar.lblTitulo, FormApresentar.lblSubtitulo, FormApresentar.lblCorpo, FormApresentar.lblRodape}
+        btnVoltarSalvar.Text = "Voltar"
+        If Len(txtEdicaoTexto.Text) > 5 Then
+            If txtEdicaoId.Text = "N" Then
+                btnVoltarSalvar.Text = "Salvar"
             Else
-                Button10.Text = "Alterar"
+                btnVoltarSalvar.Text = "Alterar"
             End If
         End If
-        Texto(IT).Text = TextBox9.Text
-        Textos(IT) = TextBox9.Text
-        If FormPrincipal.RadioButton1.Checked = True Then
+        Texto(IT).Text = txtEdicaoTexto.Text
+        Textos(IT) = txtEdicaoTexto.Text
+        If FormPrincipal.rbAtivada.Checked = True Then
             TextoPrinc(IT).Text = Textos(IT)
             TextoApres(IT).Text = Textos(IT)
         End If
     End Sub
 
-    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click 'NOVO
-        Button10.Text = "Salvar"
-        Button11.Visible = False
-        TextBox10.Text = "N"
-        TextBox9.Text = ""
-        TextBox9.Select()
+    Private Sub btnNovoTexto_Click(sender As Object, e As EventArgs) Handles btnNovoTexto.Click 'NOVO
+        btnVoltarSalvar.Text = "Salvar"
+        btnNovoTexto.Visible = False
+        txtEdicaoId.Text = "N"
+        txtEdicaoTexto.Text = ""
+        txtEdicaoTexto.Select()
     End Sub
 
-    Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click 'Voltar/Salvar/Alterar
-        TabControl1.SelectedIndex = 0
-        If Button10.Text = "Voltar" Then Exit Sub
-        If Label3.Text = "Título" Then
-            TextBox1.Text = TextBox9.Text 'texto
-            If TextBox10.Text = "N" Then
-                TextBox5.Text = SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+    Private Sub btnVoltarSalvar_Click(sender As Object, e As EventArgs) Handles btnVoltarSalvar.Click 'Voltar/Salvar/Alterar
+        tabTextos.SelectedIndex = 0
+        If btnVoltarSalvar.Text = "Voltar" Then Exit Sub
+        If lblTipoTexto.Text = "Título" Then
+            txtTitulo.Text = txtEdicaoTexto.Text 'texto
+            If txtEdicaoId.Text = "N" Then
+                txtIdTitulo.Text = SalvarNovoTexto(Tx:=txtEdicaoTexto.Text, Tp:=lblTipoTexto.Text, Al:=lblAlinhamento.Text, Pr:=lblCorPreenchimento.Text, FN:=lblFonteNome.Text, FT:=lblFonteTamanho.Text, FE:=lblFonteEstilo.Text, FC:=lblFonteCor.Text)
             Else
-                TextBox5.Text = TextBox10.Text 'numero
-                SalvarAtualTexto(Nu:=TextBox5.Text, Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+                txtIdTitulo.Text = txtEdicaoId.Text 'numero
+                SalvarAtualTexto(Nu:=txtIdTitulo.Text, Tx:=txtEdicaoTexto.Text, Tp:=lblTipoTexto.Text, Al:=lblAlinhamento.Text, Pr:=lblCorPreenchimento.Text, FN:=lblFonteNome.Text, FT:=lblFonteTamanho.Text, FE:=lblFonteEstilo.Text, FC:=lblFonteCor.Text)
             End If
-        ElseIf Label3.Text = "Subtítulo" Then
-            TextBox2.Text = TextBox9.Text 'texto
-            If TextBox10.Text = "N" Then
-                TextBox6.Text = SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+        ElseIf lblTipoTexto.Text = "Subtítulo" Then
+            txtSubtitulo.Text = txtEdicaoTexto.Text 'texto
+            If txtEdicaoId.Text = "N" Then
+                txtIdSubtitulo.Text = SalvarNovoTexto(Tx:=txtEdicaoTexto.Text, Tp:=lblTipoTexto.Text, Al:=lblAlinhamento.Text, Pr:=lblCorPreenchimento.Text, FN:=lblFonteNome.Text, FT:=lblFonteTamanho.Text, FE:=lblFonteEstilo.Text, FC:=lblFonteCor.Text)
             Else
-                TextBox6.Text = TextBox10.Text 'numero
-                SalvarAtualTexto(Nu:=TextBox6.Text, Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+                txtIdSubtitulo.Text = txtEdicaoId.Text 'numero
+                SalvarAtualTexto(Nu:=txtIdSubtitulo.Text, Tx:=txtEdicaoTexto.Text, Tp:=lblTipoTexto.Text, Al:=lblAlinhamento.Text, Pr:=lblCorPreenchimento.Text, FN:=lblFonteNome.Text, FT:=lblFonteTamanho.Text, FE:=lblFonteEstilo.Text, FC:=lblFonteCor.Text)
             End If
-        ElseIf Label3.Text = "Corpo" Then
-            TextBox3.Text = TextBox9.Text 'texto
-            If TextBox10.Text = "N" Then
-                TextBox7.Text = SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+        ElseIf lblTipoTexto.Text = "Corpo" Then
+            txtCorpo.Text = txtEdicaoTexto.Text 'texto
+            If txtEdicaoId.Text = "N" Then
+                txtIdCorpo.Text = SalvarNovoTexto(Tx:=txtEdicaoTexto.Text, Tp:=lblTipoTexto.Text, Al:=lblAlinhamento.Text, Pr:=lblCorPreenchimento.Text, FN:=lblFonteNome.Text, FT:=lblFonteTamanho.Text, FE:=lblFonteEstilo.Text, FC:=lblFonteCor.Text)
             Else
-                TextBox7.Text = TextBox10.Text 'numero 
-                SalvarAtualTexto(Nu:=TextBox7.Text, Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+                txtIdCorpo.Text = txtEdicaoId.Text 'numero 
+                SalvarAtualTexto(Nu:=txtIdCorpo.Text, Tx:=txtEdicaoTexto.Text, Tp:=lblTipoTexto.Text, Al:=lblAlinhamento.Text, Pr:=lblCorPreenchimento.Text, FN:=lblFonteNome.Text, FT:=lblFonteTamanho.Text, FE:=lblFonteEstilo.Text, FC:=lblFonteCor.Text)
             End If
-        ElseIf Label3.Text = "Rodapé" Then
-            TextBox4.Text = TextBox9.Text 'texto
-            If TextBox10.Text = "N" Then
-                TextBox8.Text = SalvarNovoTexto(Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+        ElseIf lblTipoTexto.Text = "Rodapé" Then
+            txtRodape.Text = txtEdicaoTexto.Text 'texto
+            If txtEdicaoId.Text = "N" Then
+                txtIdRodape.Text = SalvarNovoTexto(Tx:=txtEdicaoTexto.Text, Tp:=lblTipoTexto.Text, Al:=lblAlinhamento.Text, Pr:=lblCorPreenchimento.Text, FN:=lblFonteNome.Text, FT:=lblFonteTamanho.Text, FE:=lblFonteEstilo.Text, FC:=lblFonteCor.Text)
             Else
-                TextBox8.Text = TextBox10.Text 'numero 
-                SalvarAtualTexto(Nu:=TextBox8.Text, Tx:=TextBox9.Text, Tp:=Label3.Text, Al:=Label4.Text, Pr:=Label10.Text, FN:=Label5.Text, FT:=Label8.Text, FE:=Label7.Text, FC:=Label9.Text)
+                txtIdRodape.Text = txtEdicaoId.Text 'numero 
+                SalvarAtualTexto(Nu:=txtIdRodape.Text, Tx:=txtEdicaoTexto.Text, Tp:=lblTipoTexto.Text, Al:=lblAlinhamento.Text, Pr:=lblCorPreenchimento.Text, FN:=lblFonteNome.Text, FT:=lblFonteTamanho.Text, FE:=lblFonteEstilo.Text, FC:=lblFonteCor.Text)
             End If
         End If
         IT = 10
@@ -584,148 +584,148 @@ Public Class FormFundo
         Next
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged 'Selecionar Titulo 
-        Button1.Visible = False
-        Label14.Visible = False
-        If FormPrincipal.RadioButton1.Checked = True Then 'ATIVADO
-            FormPrincipal.Label3.Text = ""
-            FormApresentar.Label1.Text = ""
+    Private Sub chkTitulo_CheckedChanged(sender As Object, e As EventArgs) Handles chkTitulo.CheckedChanged 'Selecionar Titulo 
+        btnEditarTitulo.Visible = False
+        lblPrevTitulo.Visible = False
+        If FormPrincipal.rbAtivada.Checked = True Then 'ATIVADO
+            FormPrincipal.lblTitulo.Text = ""
+            FormApresentar.lblTitulo.Text = ""
         End If
-        If CheckBox1.Checked = True Then
-            Button1.Visible = True
-            Label14.Visible = True
+        If chkTitulo.Checked = True Then
+            btnEditarTitulo.Visible = True
+            lblPrevTitulo.Visible = True
             TextActive(0) = True
-            If FormPrincipal.RadioButton1.Checked = True Then
-                FormPrincipal.Label3.Text = TextBox1.Text
-                FormPrincipal.Label3.Font = Fonte(0)
-                FormPrincipal.Label3.ForeColor = CorFonte(0)
-                FormPrincipal.Label3.BackColor = CorPrench(0)
-                FormApresentar.Label1.Text = TextBox1.Text
-                FormApresentar.Label1.Font = FonteProj(0)
-                FormApresentar.Label1.ForeColor = CorFonte(0)
-                FormApresentar.Label1.BackColor = CorPrench(0)
+            If FormPrincipal.rbAtivada.Checked = True Then
+                FormPrincipal.lblTitulo.Text = txtTitulo.Text
+                FormPrincipal.lblTitulo.Font = Fonte(0)
+                FormPrincipal.lblTitulo.ForeColor = CorFonte(0)
+                FormPrincipal.lblTitulo.BackColor = CorPrench(0)
+                FormApresentar.lblTitulo.Text = txtTitulo.Text
+                FormApresentar.lblTitulo.Font = FonteProj(0)
+                FormApresentar.lblTitulo.ForeColor = CorFonte(0)
+                FormApresentar.lblTitulo.BackColor = CorPrench(0)
             End If
         Else
-            If FormPrincipal.RadioButton1.Checked = True Then
-                FormPrincipal.Label3.Text = ""
-                FormPrincipal.Label3.BackColor = Color.Transparent
-                FormApresentar.Label1.Text = ""
-                FormApresentar.Label1.BackColor = Color.Transparent
+            If FormPrincipal.rbAtivada.Checked = True Then
+                FormPrincipal.lblTitulo.Text = ""
+                FormPrincipal.lblTitulo.BackColor = Color.Transparent
+                FormApresentar.lblTitulo.Text = ""
+                FormApresentar.lblTitulo.BackColor = Color.Transparent
             End If
             TextActive(0) = False
         End If
     End Sub
 
-    Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged 'Selecionar Subtítulo
-        Button2.Visible = False
-        Label15.Visible = False
-        If FormPrincipal.RadioButton1.Checked = True Then
-            FormPrincipal.Label4.Text = ""
-            FormApresentar.Label2.Text = ""
+    Private Sub chkSubtitulo_CheckedChanged(sender As Object, e As EventArgs) Handles chkSubtitulo.CheckedChanged 'Selecionar Subtítulo
+        btnEditarSubtitulo.Visible = False
+        lblPrevSubtitulo.Visible = False
+        If FormPrincipal.rbAtivada.Checked = True Then
+            FormPrincipal.lblSubtitulo.Text = ""
+            FormApresentar.lblSubtitulo.Text = ""
         End If
-        If CheckBox2.Checked = True Then
-            Button2.Visible = True
-            Label15.Visible = True
+        If chkSubtitulo.Checked = True Then
+            btnEditarSubtitulo.Visible = True
+            lblPrevSubtitulo.Visible = True
             TextActive(1) = True
-            If FormPrincipal.RadioButton1.Checked = True Then
-                FormPrincipal.Label4.Text = TextBox2.Text
-                FormPrincipal.Label4.Font = Fonte(1)
-                FormPrincipal.Label4.ForeColor = CorFonte(1)
-                FormPrincipal.Label4.BackColor = CorPrench(1)
-                FormApresentar.Label2.Text = TextBox2.Text
-                FormApresentar.Label2.Font = FonteProj(1)
-                FormApresentar.Label2.ForeColor = CorFonte(1)
-                FormApresentar.Label2.BackColor = CorPrench(1)
+            If FormPrincipal.rbAtivada.Checked = True Then
+                FormPrincipal.lblSubtitulo.Text = txtSubtitulo.Text
+                FormPrincipal.lblSubtitulo.Font = Fonte(1)
+                FormPrincipal.lblSubtitulo.ForeColor = CorFonte(1)
+                FormPrincipal.lblSubtitulo.BackColor = CorPrench(1)
+                FormApresentar.lblSubtitulo.Text = txtSubtitulo.Text
+                FormApresentar.lblSubtitulo.Font = FonteProj(1)
+                FormApresentar.lblSubtitulo.ForeColor = CorFonte(1)
+                FormApresentar.lblSubtitulo.BackColor = CorPrench(1)
             End If
         Else
-            If FormPrincipal.RadioButton1.Checked = True Then
-                FormPrincipal.Label4.Text = ""
-                FormPrincipal.Label4.BackColor = Color.Transparent
-                FormApresentar.Label2.Text = ""
-                FormApresentar.Label2.BackColor = Color.Transparent
+            If FormPrincipal.rbAtivada.Checked = True Then
+                FormPrincipal.lblSubtitulo.Text = ""
+                FormPrincipal.lblSubtitulo.BackColor = Color.Transparent
+                FormApresentar.lblSubtitulo.Text = ""
+                FormApresentar.lblSubtitulo.BackColor = Color.Transparent
             End If
             TextActive(1) = False
         End If
     End Sub
 
-    Private Sub CheckBox3_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox3.CheckedChanged 'Selecionar Corpo
-        Button3.Visible = False
-        Label16.Visible = False
-        If FormPrincipal.RadioButton1.Checked = True Then
-            FormPrincipal.Label5.Text = ""
-            FormApresentar.Label3.Text = ""
+    Private Sub chkCorpo_CheckedChanged(sender As Object, e As EventArgs) Handles chkCorpo.CheckedChanged 'Selecionar Corpo
+        btnEditarCorpo.Visible = False
+        lblPrevCorpo.Visible = False
+        If FormPrincipal.rbAtivada.Checked = True Then
+            FormPrincipal.lblCorpo.Text = ""
+            FormApresentar.lblCorpo.Text = ""
         End If
-        If CheckBox3.Checked = True Then
-            Button3.Visible = True
-            Label16.Visible = True
+        If chkCorpo.Checked = True Then
+            btnEditarCorpo.Visible = True
+            lblPrevCorpo.Visible = True
             TextActive(2) = True
-            If FormPrincipal.RadioButton1.Checked = True Then
-                FormPrincipal.Label5.Text = TextBox3.Text
-                FormPrincipal.Label5.Font = Fonte(2)
-                FormPrincipal.Label5.ForeColor = CorFonte(2)
-                FormPrincipal.Label5.BackColor = CorPrench(2)
-                FormApresentar.Label3.Text = TextBox3.Text
-                FormApresentar.Label3.Font = FonteProj(2)
-                FormApresentar.Label3.ForeColor = CorFonte(2)
-                FormApresentar.Label3.BackColor = CorPrench(2)
+            If FormPrincipal.rbAtivada.Checked = True Then
+                FormPrincipal.lblCorpo.Text = txtCorpo.Text
+                FormPrincipal.lblCorpo.Font = Fonte(2)
+                FormPrincipal.lblCorpo.ForeColor = CorFonte(2)
+                FormPrincipal.lblCorpo.BackColor = CorPrench(2)
+                FormApresentar.lblCorpo.Text = txtCorpo.Text
+                FormApresentar.lblCorpo.Font = FonteProj(2)
+                FormApresentar.lblCorpo.ForeColor = CorFonte(2)
+                FormApresentar.lblCorpo.BackColor = CorPrench(2)
             End If
         Else
-            If FormPrincipal.RadioButton1.Checked = True Then
-                FormPrincipal.Label5.Text = ""
-                FormPrincipal.Label5.BackColor = Color.Transparent
-                FormApresentar.Label3.Text = ""
-                FormApresentar.Label3.BackColor = Color.Transparent
+            If FormPrincipal.rbAtivada.Checked = True Then
+                FormPrincipal.lblCorpo.Text = ""
+                FormPrincipal.lblCorpo.BackColor = Color.Transparent
+                FormApresentar.lblCorpo.Text = ""
+                FormApresentar.lblCorpo.BackColor = Color.Transparent
             End If
             TextActive(2) = False
         End If
     End Sub
 
-    Private Sub CheckBox4_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox4.CheckedChanged 'Selecionar Rodapé
-        Button4.Visible = False
-        Label13.Visible = False
-        If FormPrincipal.RadioButton1.Checked = True Then
-            FormPrincipal.Label6.Text = ""
-            FormApresentar.Label4.Text = ""
+    Private Sub chkRodape_CheckedChanged(sender As Object, e As EventArgs) Handles chkRodape.CheckedChanged 'Selecionar Rodapé
+        btnEditarRodape.Visible = False
+        lblPrevRodape.Visible = False
+        If FormPrincipal.rbAtivada.Checked = True Then
+            FormPrincipal.lblRodape.Text = ""
+            FormApresentar.lblRodape.Text = ""
         End If
-        If CheckBox4.Checked = True Then
-            Button4.Visible = True
-            Label13.Visible = True
+        If chkRodape.Checked = True Then
+            btnEditarRodape.Visible = True
+            lblPrevRodape.Visible = True
             TextActive(3) = True
-            If FormPrincipal.RadioButton1.Checked = True Then
-                FormPrincipal.Label6.Text = TextBox4.Text
-                FormPrincipal.Label6.Font = Fonte(3)
-                FormPrincipal.Label6.ForeColor = CorFonte(3)
-                FormPrincipal.Label6.BackColor = CorPrench(3)
-                FormApresentar.Label4.Text = TextBox4.Text
-                FormApresentar.Label4.Font = FonteProj(3)
-                FormApresentar.Label4.ForeColor = CorFonte(3)
-                FormApresentar.Label4.BackColor = CorPrench(3)
+            If FormPrincipal.rbAtivada.Checked = True Then
+                FormPrincipal.lblRodape.Text = txtRodape.Text
+                FormPrincipal.lblRodape.Font = Fonte(3)
+                FormPrincipal.lblRodape.ForeColor = CorFonte(3)
+                FormPrincipal.lblRodape.BackColor = CorPrench(3)
+                FormApresentar.lblRodape.Text = txtRodape.Text
+                FormApresentar.lblRodape.Font = FonteProj(3)
+                FormApresentar.lblRodape.ForeColor = CorFonte(3)
+                FormApresentar.lblRodape.BackColor = CorPrench(3)
             End If
         Else
-            If FormPrincipal.RadioButton1.Checked = True Then
-                FormPrincipal.Label6.Text = ""
-                FormPrincipal.Label6.BackColor = Color.Transparent
-                FormApresentar.Label4.Text = ""
-                FormApresentar.Label4.BackColor = Color.Transparent
+            If FormPrincipal.rbAtivada.Checked = True Then
+                FormPrincipal.lblRodape.Text = ""
+                FormPrincipal.lblRodape.BackColor = Color.Transparent
+                FormApresentar.lblRodape.Text = ""
+                FormApresentar.lblRodape.BackColor = Color.Transparent
             End If
             TextActive(3) = False
         End If
     End Sub
 
-    Private Sub TrackBar1_Scroll(sender As Object, e As EventArgs) Handles TrackBar1.Scroll
-        ValPerc = TrackBar1.Value
+    Private Sub trkZoom_Scroll(sender As Object, e As EventArgs) Handles trkZoom.Scroll
+        ValPerc = trkZoom.Value
         ZoomTFundo = ValPerc
-        Label18.Text = TrackBar1.Value
+        lblZoom.Text = trkZoom.Value
         ATualizarFonteTextos()
     End Sub
 
     Private Sub ATualizarFonteTextos()
         Dim I As Long
-        Dim Check() As CheckBox = {CheckBox1, CheckBox2, CheckBox3, CheckBox4}
-        Dim IndText() As TextBox = {TextBox5, TextBox6, TextBox7, TextBox8}
-        Dim TextoPrinc() As Label = {FormPrincipal.Label3, FormPrincipal.Label4, FormPrincipal.Label5, FormPrincipal.Label6}
-        Dim TextoApres() As Label = {FormApresentar.Label1, FormApresentar.Label2, FormApresentar.Label3, FormApresentar.Label4}
-        ValPerc = Label18.Text
+        Dim Check() As CheckBox = {chkTitulo, chkSubtitulo, chkCorpo, chkRodape}
+        Dim IndText() As TextBox = {txtIdTitulo, txtIdSubtitulo, txtIdCorpo, txtIdRodape}
+        Dim TextoPrinc() As Label = {FormPrincipal.lblTitulo, FormPrincipal.lblSubtitulo, FormPrincipal.lblCorpo, FormPrincipal.lblRodape}
+        Dim TextoApres() As Label = {FormApresentar.lblTitulo, FormApresentar.lblSubtitulo, FormApresentar.lblCorpo, FormApresentar.lblRodape}
+        ValPerc = lblZoom.Text
         For II As Integer = 0 To 3
             If Check(II).Checked = True And IndText(II).Text <> "" Then
                 I = IndText(II).Text
@@ -737,7 +737,7 @@ Public Class FormFundo
                         FonteProj(II) = New Font(f, vo)
                         CorFonte(II) = Color.FromArgb(RegTextos.Rows(L).Item(8))
                         CorPrench(II) = Color.FromArgb(RegTextos.Rows(L).Item(4))
-                        If FormPrincipal.RadioButton1.Checked = True Then
+                        If FormPrincipal.rbAtivada.Checked = True Then
                             TextoApres(II).Font = FonteProj(II)
                             TextoApres(II).ForeColor = CorFonte(II)
                             TextoApres(II).BackColor = CorPrench(II)

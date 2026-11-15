@@ -346,7 +346,7 @@ Module Module1
         Dim IM As Integer
         If FormPrincipal.ComboMonitor.Text <> "" Then IM = Mid(FormPrincipal.ComboMonitor.Text, 1, 1)
         Try
-            If FormPrincipal.RadioButton4.Checked = True Then Exit Sub 'FECHADA
+            If FormPrincipal.rbFechada.Checked = True Then Exit Sub 'FECHADA
             If FormApresentar.Visible = False Then
                 If TelaUnica = True Then Exit Sub
                 FormApresentar.Bounds = Screen.AllScreens(IM).Bounds
@@ -354,155 +354,155 @@ Module Module1
                 FormApresentar.Show()
                 'FormApresentar.Location = Screen.AllScreens(UBound(Screen.AllScreens)).Bounds.Location
                 'FormApresentar.WindowState = FormWindowState.Maximized
-                FormApresentar.PictureBox1.Image = Nothing 'imagem fundo
+                FormApresentar.picFundo.Image = Nothing 'imagem fundo
             End If
-            FormPrincipal.PictureBox3.Visible = False
-            FormPrincipal.PictureBox4.Visible = False
-            FormPrincipal.PictureBox7.Visible = False
-            If FormPrincipal.RadioButton1.Checked = True Then 'ATIVADA
-                FormPrincipal.PictureBox4.Visible = True 'status
+            FormPrincipal.picStatusPausada.Visible = False
+            FormPrincipal.picStatusAtivada.Visible = False
+            FormPrincipal.picStatusFechada.Visible = False
+            If FormPrincipal.rbAtivada.Checked = True Then 'ATIVADA
+                FormPrincipal.picStatusAtivada.Visible = True 'status
                 If ImageA = True And File.Exists(ImageAudio) Then 'imagem de Audio
-                    FormPrincipal.PictureBox8.Visible = True
-                    FormPrincipal.PictureBox8.Image = ImagemEmCache(ImageAudio, CacheAudioCam, CacheAudioImg)
-                    FormApresentar.PictureBox3.Visible = True
-                    FormApresentar.PictureBox3.Image = FormPrincipal.PictureBox8.Image 'imagem audio
+                    FormPrincipal.picAudio.Visible = True
+                    FormPrincipal.picAudio.Image = ImagemEmCache(ImageAudio, CacheAudioCam, CacheAudioImg)
+                    FormApresentar.picAudio.Visible = True
+                    FormApresentar.picAudio.Image = FormPrincipal.picAudio.Image 'imagem audio
                 Else
-                    FormPrincipal.PictureBox8.Visible = False
-                    FormApresentar.PictureBox3.Visible = False
+                    FormPrincipal.picAudio.Visible = False
+                    FormApresentar.picAudio.Visible = False
                 End If
                 If ImageS = True And File.Exists(ImageSobre) Then 'imagem sobreposta
-                    FormPrincipal.PictureBox6.Visible = True
-                    FormPrincipal.PictureBox6.Image = ImagemEmCache(ImageSobre, CacheSobreCam, CacheSobreImg)
-                    If AjusteDimensional = "S" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.StretchImage
-                    If AjusteDimensional = "Z" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.Zoom
-                    If AjusteDimensional = "N" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.Normal
-                    If AjusteDimensional = "C" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.CenterImage
-                    FormApresentar.PictureBox2.Visible = True
-                    FormApresentar.PictureBox2.Image = FormPrincipal.PictureBox6.Image 'imagem sobreposta
-                    If AjusteDimensional = "S" Then FormApresentar.PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage
-                    If AjusteDimensional = "Z" Then FormApresentar.PictureBox2.SizeMode = PictureBoxSizeMode.Zoom
-                    If AjusteDimensional = "N" Then FormApresentar.PictureBox2.SizeMode = PictureBoxSizeMode.Normal
-                    If AjusteDimensional = "C" Then FormApresentar.PictureBox2.SizeMode = PictureBoxSizeMode.CenterImage
+                    FormPrincipal.picSobreposicao.Visible = True
+                    FormPrincipal.picSobreposicao.Image = ImagemEmCache(ImageSobre, CacheSobreCam, CacheSobreImg)
+                    If AjusteDimensional = "S" Then FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.StretchImage
+                    If AjusteDimensional = "Z" Then FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.Zoom
+                    If AjusteDimensional = "N" Then FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.Normal
+                    If AjusteDimensional = "C" Then FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.CenterImage
+                    FormApresentar.picSobreposicao.Visible = True
+                    FormApresentar.picSobreposicao.Image = FormPrincipal.picSobreposicao.Image 'imagem sobreposta
+                    If AjusteDimensional = "S" Then FormApresentar.picSobreposicao.SizeMode = PictureBoxSizeMode.StretchImage
+                    If AjusteDimensional = "Z" Then FormApresentar.picSobreposicao.SizeMode = PictureBoxSizeMode.Zoom
+                    If AjusteDimensional = "N" Then FormApresentar.picSobreposicao.SizeMode = PictureBoxSizeMode.Normal
+                    If AjusteDimensional = "C" Then FormApresentar.picSobreposicao.SizeMode = PictureBoxSizeMode.CenterImage
                 Else
-                    FormPrincipal.PictureBox6.Visible = False
-                    FormApresentar.PictureBox2.Visible = False
+                    FormPrincipal.picSobreposicao.Visible = False
+                    FormApresentar.picSobreposicao.Visible = False
                 End If
                 If ImageF = True And File.Exists(ImageFundo) Then 'imagem de fundo
-                    FormPrincipal.PictureBox5.Visible = True
-                    FormPrincipal.PictureBox5.Image = ImagemEmCache(ImageFundo, CacheFundoCam, CacheFundoImg)
-                    FormApresentar.PictureBox1.Image = FormPrincipal.PictureBox5.Image 'imagem fundo
+                    FormPrincipal.picFundo.Visible = True
+                    FormPrincipal.picFundo.Image = ImagemEmCache(ImageFundo, CacheFundoCam, CacheFundoImg)
+                    FormApresentar.picFundo.Image = FormPrincipal.picFundo.Image 'imagem fundo
                 Else
-                    FormPrincipal.PictureBox5.Image = Nothing
-                    FormApresentar.PictureBox1.Image = Nothing
+                    FormPrincipal.picFundo.Image = Nothing
+                    FormApresentar.picFundo.Image = Nothing
                 End If
-                FormApresentar.PictureBox1.Image = FormPrincipal.PictureBox5.Image 'imagem fundo
-                FormApresentar.Label1.Text = FormPrincipal.Label3.Text 'Texto título
-                FormApresentar.Label1.TextAlign = FormPrincipal.Label3.TextAlign
-                FormApresentar.Label1.Font = FonteProj(0)
-                FormApresentar.Label1.ForeColor = FormPrincipal.Label3.ForeColor
-                FormApresentar.Label1.BackColor = FormPrincipal.Label3.BackColor
-                FormApresentar.Label2.Text = FormPrincipal.Label4.Text 'Texto subtítulo
-                FormApresentar.Label2.TextAlign = FormPrincipal.Label4.TextAlign
-                FormApresentar.Label2.Font = FonteProj(1)
-                FormApresentar.Label2.ForeColor = FormPrincipal.Label4.ForeColor
-                FormApresentar.Label2.BackColor = FormPrincipal.Label4.BackColor
-                FormApresentar.Label3.Text = FormPrincipal.Label5.Text 'Texto corpo
-                FormApresentar.Label3.TextAlign = FormPrincipal.Label5.TextAlign
-                FormApresentar.Label3.Font = FonteProj(2)
-                FormApresentar.Label3.ForeColor = FormPrincipal.Label5.ForeColor
-                FormApresentar.Label3.BackColor = FormPrincipal.Label5.BackColor
-                FormApresentar.Label4.Text = FormPrincipal.Label6.Text 'Texto rodapé
-                FormApresentar.Label4.TextAlign = FormPrincipal.Label6.TextAlign
-                FormApresentar.Label4.Font = FonteProj(3)
-                FormApresentar.Label4.ForeColor = FormPrincipal.Label6.ForeColor
-                FormApresentar.Label4.BackColor = FormPrincipal.Label6.BackColor
+                FormApresentar.picFundo.Image = FormPrincipal.picFundo.Image 'imagem fundo
+                FormApresentar.lblTitulo.Text = FormPrincipal.lblTitulo.Text 'Texto título
+                FormApresentar.lblTitulo.TextAlign = FormPrincipal.lblTitulo.TextAlign
+                FormApresentar.lblTitulo.Font = FonteProj(0)
+                FormApresentar.lblTitulo.ForeColor = FormPrincipal.lblTitulo.ForeColor
+                FormApresentar.lblTitulo.BackColor = FormPrincipal.lblTitulo.BackColor
+                FormApresentar.lblSubtitulo.Text = FormPrincipal.lblSubtitulo.Text 'Texto subtítulo
+                FormApresentar.lblSubtitulo.TextAlign = FormPrincipal.lblSubtitulo.TextAlign
+                FormApresentar.lblSubtitulo.Font = FonteProj(1)
+                FormApresentar.lblSubtitulo.ForeColor = FormPrincipal.lblSubtitulo.ForeColor
+                FormApresentar.lblSubtitulo.BackColor = FormPrincipal.lblSubtitulo.BackColor
+                FormApresentar.lblCorpo.Text = FormPrincipal.lblCorpo.Text 'Texto corpo
+                FormApresentar.lblCorpo.TextAlign = FormPrincipal.lblCorpo.TextAlign
+                FormApresentar.lblCorpo.Font = FonteProj(2)
+                FormApresentar.lblCorpo.ForeColor = FormPrincipal.lblCorpo.ForeColor
+                FormApresentar.lblCorpo.BackColor = FormPrincipal.lblCorpo.BackColor
+                FormApresentar.lblRodape.Text = FormPrincipal.lblRodape.Text 'Texto rodapé
+                FormApresentar.lblRodape.TextAlign = FormPrincipal.lblRodape.TextAlign
+                FormApresentar.lblRodape.Font = FonteProj(3)
+                FormApresentar.lblRodape.ForeColor = FormPrincipal.lblRodape.ForeColor
+                FormApresentar.lblRodape.BackColor = FormPrincipal.lblRodape.BackColor
                 If VideoOn = True And File.Exists(Video) Then 'Video
-                    FormPrincipal.PictureBox5.Visible = False
-                    FormPrincipal.PictureBox6.Visible = False
-                    FormPrincipal.PictureBox8.Visible = False
-                    FormPrincipal.Label11.Visible = True
-                    'FormPrincipal.Label11.Text = "Video EM REPRODUÇÃO"
-                    FormPrincipal.Label11.Location = New Point(8, 170) 'POSIÇÃO
-                    'FormPrincipal.Label11.ForeColor = Color.Yellow
-                    If FormApresentar.AxWindowsMediaPlayer1.Visible = True Then
-                        If FormApresentar.AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPaused Then FormApresentar.AxWindowsMediaPlayer1.Ctlcontrols.play()
+                    FormPrincipal.picFundo.Visible = False
+                    FormPrincipal.picSobreposicao.Visible = False
+                    FormPrincipal.picAudio.Visible = False
+                    FormPrincipal.lblStatusVideo.Visible = True
+                    'FormPrincipal.lblStatusVideo.Text = "Video EM REPRODUÇÃO"
+                    FormPrincipal.lblStatusVideo.Location = New Point(8, 170) 'POSIÇÃO
+                    'FormPrincipal.lblStatusVideo.ForeColor = Color.Yellow
+                    If FormApresentar.wmpVideo.Visible = True Then
+                        If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPaused Then FormApresentar.wmpVideo.Ctlcontrols.play()
                     Else
-                        FormApresentar.AxWindowsMediaPlayer1.Visible = True
-                        FormApresentar.AxWindowsMediaPlayer1.URL = Video
-                        FormApresentar.AxWindowsMediaPlayer1.stretchToFit = True
+                        FormApresentar.wmpVideo.Visible = True
+                        FormApresentar.wmpVideo.URL = Video
+                        FormApresentar.wmpVideo.stretchToFit = True
                     End If
                 Else
-                    FormPrincipal.Label11.Visible = False
-                    If FormApresentar.AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPlaying Or FormApresentar.AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPaused Then
-                        FormApresentar.AxWindowsMediaPlayer1.Ctlcontrols.stop()
+                    FormPrincipal.lblStatusVideo.Visible = False
+                    If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPlaying Or FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPaused Then
+                        FormApresentar.wmpVideo.Ctlcontrols.stop()
                     End If
-                    FormApresentar.AxWindowsMediaPlayer1.Visible = False
+                    FormApresentar.wmpVideo.Visible = False
                 End If
                 If Harpa = True Then 'Harpa
-                    FormPrincipal.RichTextBox1.Visible = True
-                    FormPrincipal.RichTextBox1.Text = TextoHarpa
-                    FormPrincipal.RichTextBox1.SelectAll()
-                    FormPrincipal.RichTextBox1.SelectionAlignment = HorizontalAlignment.Center
-                    FormPrincipal.RichTextBox1.DeselectAll()
-                    FormApresentar.RichTextBox1.Visible = True
-                    FormApresentar.RichTextBox1.Text = FormPrincipal.RichTextBox1.Text
-                    FormApresentar.RichTextBox1.SelectAll()
-                    FormApresentar.RichTextBox1.SelectionAlignment = HorizontalAlignment.Center
-                    FormApresentar.RichTextBox1.DeselectAll()
+                    FormPrincipal.rtbHarpa.Visible = True
+                    FormPrincipal.rtbHarpa.Text = TextoHarpa
+                    FormPrincipal.rtbHarpa.SelectAll()
+                    FormPrincipal.rtbHarpa.SelectionAlignment = HorizontalAlignment.Center
+                    FormPrincipal.rtbHarpa.DeselectAll()
+                    FormApresentar.rtbHarpa.Visible = True
+                    FormApresentar.rtbHarpa.Text = FormPrincipal.rtbHarpa.Text
+                    FormApresentar.rtbHarpa.SelectAll()
+                    FormApresentar.rtbHarpa.SelectionAlignment = HorizontalAlignment.Center
+                    FormApresentar.rtbHarpa.DeselectAll()
                 Else
-                    FormPrincipal.RichTextBox1.Clear()
-                    FormPrincipal.RichTextBox1.Visible = False
-                    FormApresentar.RichTextBox1.Clear()
-                    FormApresentar.RichTextBox1.Visible = False
+                    FormPrincipal.rtbHarpa.Clear()
+                    FormPrincipal.rtbHarpa.Visible = False
+                    FormApresentar.rtbHarpa.Clear()
+                    FormApresentar.rtbHarpa.Visible = False
                 End If
                 If Biblia = True Then 'bíblia
-                    FormPrincipal.RichTextBox2.Visible = True
+                    FormPrincipal.rtbBiblia.Visible = True
                     If Aad = False Then
-                        FormPrincipal.RichTextBox2.Text = TextoBiblia
+                        FormPrincipal.rtbBiblia.Text = TextoBiblia
                     Else
-                        FormPrincipal.RichTextBox2.Text = TextoBibliaCondensado
+                        FormPrincipal.rtbBiblia.Text = TextoBibliaCondensado
                     End If
-                    FormPrincipal.RichTextBox2.BringToFront()
-                    FormApresentar.RichTextBox2.Visible = True
-                    FormApresentar.RichTextBox2.Text = FormPrincipal.RichTextBox2.Text
+                    FormPrincipal.rtbBiblia.BringToFront()
+                    FormApresentar.rtbBiblia.Visible = True
+                    FormApresentar.rtbBiblia.Text = FormPrincipal.rtbBiblia.Text
                 Else
-                    FormPrincipal.RichTextBox2.Clear()
-                    FormPrincipal.RichTextBox2.Visible = False
-                    FormApresentar.RichTextBox2.Clear()
-                    FormApresentar.RichTextBox2.Visible = False
+                    FormPrincipal.rtbBiblia.Clear()
+                    FormPrincipal.rtbBiblia.Visible = False
+                    FormApresentar.rtbBiblia.Clear()
+                    FormApresentar.rtbBiblia.Visible = False
                 End If
             End If
-            If FormPrincipal.RadioButton2.Checked = True Then 'PAUSADA
-                FormPrincipal.PictureBox3.Visible = True 'status
+            If FormPrincipal.rbPausada.Checked = True Then 'PAUSADA
+                FormPrincipal.picStatusPausada.Visible = True 'status
             End If
-            If FormPrincipal.RadioButton3.Checked = True Or FormPrincipal.RadioButton4.Checked = True Then 'NEUTRO
-                FormPrincipal.Label11.Visible = False
-                If FormApresentar.AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPlaying Or FormApresentar.AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPaused Then
-                    FormApresentar.AxWindowsMediaPlayer1.Ctlcontrols.stop()
+            If FormPrincipal.rbNeutra.Checked = True Or FormPrincipal.rbFechada.Checked = True Then 'NEUTRO
+                FormPrincipal.lblStatusVideo.Visible = False
+                If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPlaying Or FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPaused Then
+                    FormApresentar.wmpVideo.Ctlcontrols.stop()
                 End If
-                FormApresentar.AxWindowsMediaPlayer1.Visible = False
-                FormPrincipal.PictureBox6.Visible = False
-                FormPrincipal.PictureBox8.Visible = False
-                FormApresentar.PictureBox1.Image = Nothing 'imagem fundo
-                FormApresentar.PictureBox2.Image = Nothing 'imagem sobreposta
-                FormApresentar.PictureBox3.Image = Nothing 'imagem audio
-                FormApresentar.Label1.Text = "" 'Texto título
-                FormApresentar.Label1.BackColor = Color.Transparent
-                FormApresentar.Label2.Text = "" 'Texto subtítulo
-                FormApresentar.Label2.BackColor = Color.Transparent
-                FormApresentar.Label3.Text = "" 'Texto corpo
-                FormApresentar.Label3.BackColor = Color.Transparent
-                FormApresentar.Label4.Text = "" 'Texto rodapé
-                FormApresentar.Label4.BackColor = Color.Transparent
-                FormPrincipal.RichTextBox1.Text = ""
-                FormPrincipal.RichTextBox1.Visible = False
-                FormPrincipal.RichTextBox2.Text = ""
-                FormPrincipal.RichTextBox2.Visible = False
-                FormApresentar.RichTextBox1.Text = ""
-                FormApresentar.RichTextBox1.Visible = False
-                FormApresentar.RichTextBox2.Text = ""
-                FormApresentar.RichTextBox2.Visible = False
-                If FormPrincipal.RadioButton4.Checked = True Then FormPrincipal.PictureBox7.Visible = True
+                FormApresentar.wmpVideo.Visible = False
+                FormPrincipal.picSobreposicao.Visible = False
+                FormPrincipal.picAudio.Visible = False
+                FormApresentar.picFundo.Image = Nothing 'imagem fundo
+                FormApresentar.picSobreposicao.Image = Nothing 'imagem sobreposta
+                FormApresentar.picAudio.Image = Nothing 'imagem audio
+                FormApresentar.lblTitulo.Text = "" 'Texto título
+                FormApresentar.lblTitulo.BackColor = Color.Transparent
+                FormApresentar.lblSubtitulo.Text = "" 'Texto subtítulo
+                FormApresentar.lblSubtitulo.BackColor = Color.Transparent
+                FormApresentar.lblCorpo.Text = "" 'Texto corpo
+                FormApresentar.lblCorpo.BackColor = Color.Transparent
+                FormApresentar.lblRodape.Text = "" 'Texto rodapé
+                FormApresentar.lblRodape.BackColor = Color.Transparent
+                FormPrincipal.rtbHarpa.Text = ""
+                FormPrincipal.rtbHarpa.Visible = False
+                FormPrincipal.rtbBiblia.Text = ""
+                FormPrincipal.rtbBiblia.Visible = False
+                FormApresentar.rtbHarpa.Text = ""
+                FormApresentar.rtbHarpa.Visible = False
+                FormApresentar.rtbBiblia.Text = ""
+                FormApresentar.rtbBiblia.Visible = False
+                If FormPrincipal.rbFechada.Checked = True Then FormPrincipal.picStatusFechada.Visible = True
             End If
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "Atualizar apresentação")

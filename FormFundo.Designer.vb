@@ -26,111 +26,111 @@ Partial Class FormFundo
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
+        Me.webPastas = New System.Windows.Forms.WebBrowser()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.lblTituloTextos = New System.Windows.Forms.Label()
+        Me.tabTextos = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.TextBox8 = New System.Windows.Forms.TextBox()
-        Me.TextBox7 = New System.Windows.Forms.TextBox()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.TrackBar1 = New System.Windows.Forms.TrackBar()
+        Me.btnEditarRodape = New System.Windows.Forms.Button()
+        Me.btnEditarCorpo = New System.Windows.Forms.Button()
+        Me.btnEditarSubtitulo = New System.Windows.Forms.Button()
+        Me.txtIdRodape = New System.Windows.Forms.TextBox()
+        Me.txtIdCorpo = New System.Windows.Forms.TextBox()
+        Me.txtIdTitulo = New System.Windows.Forms.TextBox()
+        Me.txtIdSubtitulo = New System.Windows.Forms.TextBox()
+        Me.txtRodape = New System.Windows.Forms.TextBox()
+        Me.chkTitulo = New System.Windows.Forms.CheckBox()
+        Me.chkSubtitulo = New System.Windows.Forms.CheckBox()
+        Me.chkRodape = New System.Windows.Forms.CheckBox()
+        Me.txtTitulo = New System.Windows.Forms.TextBox()
+        Me.txtCorpo = New System.Windows.Forms.TextBox()
+        Me.txtSubtitulo = New System.Windows.Forms.TextBox()
+        Me.chkCorpo = New System.Windows.Forms.CheckBox()
+        Me.btnEditarTitulo = New System.Windows.Forms.Button()
+        Me.trkZoom = New System.Windows.Forms.TrackBar()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
+        Me.lblZoom = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.Button11 = New System.Windows.Forms.Button()
-        Me.Button10 = New System.Windows.Forms.Button()
+        Me.btnNovoTexto = New System.Windows.Forms.Button()
+        Me.btnVoltarSalvar = New System.Windows.Forms.Button()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
-        Me.Button14 = New System.Windows.Forms.Button()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Button9 = New System.Windows.Forms.Button()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
+        Me.btnFundoTransparente = New System.Windows.Forms.Button()
+        Me.lblCorPreenchimento = New System.Windows.Forms.Label()
+        Me.btnCorFundo = New System.Windows.Forms.Button()
+        Me.lblAmostraFundo = New System.Windows.Forms.Label()
+        Me.lblTipoTexto = New System.Windows.Forms.Label()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Button8 = New System.Windows.Forms.Button()
+        Me.lblFonteCor = New System.Windows.Forms.Label()
+        Me.lblFonteNome = New System.Windows.Forms.Label()
+        Me.btnFonte = New System.Windows.Forms.Button()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
+        Me.lblFonteTamanho = New System.Windows.Forms.Label()
+        Me.lblFonteEstilo = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.Button20 = New System.Windows.Forms.Button()
-        Me.Button19 = New System.Windows.Forms.Button()
-        Me.Button18 = New System.Windows.Forms.Button()
-        Me.Button17 = New System.Windows.Forms.Button()
-        Me.Button16 = New System.Windows.Forms.Button()
-        Me.Button15 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.TextBox10 = New System.Windows.Forms.TextBox()
-        Me.TextBox9 = New System.Windows.Forms.TextBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.btnAlinhaInfDir = New System.Windows.Forms.Button()
+        Me.btnAlinhaInfCentro = New System.Windows.Forms.Button()
+        Me.btnAlinhaInfEsq = New System.Windows.Forms.Button()
+        Me.btnAlinhaMeioDir = New System.Windows.Forms.Button()
+        Me.btnAlinhaMeioCentro = New System.Windows.Forms.Button()
+        Me.btnAlinhaMeioEsq = New System.Windows.Forms.Button()
+        Me.btnAlinhaSupCentro = New System.Windows.Forms.Button()
+        Me.lblAlinhamento = New System.Windows.Forms.Label()
+        Me.btnAlinhaSupDir = New System.Windows.Forms.Button()
+        Me.btnAlinhaSupEsq = New System.Windows.Forms.Button()
+        Me.dgvTextos = New System.Windows.Forms.DataGridView()
+        Me.txtEdicaoId = New System.Windows.Forms.TextBox()
+        Me.txtEdicaoTexto = New System.Windows.Forms.TextBox()
+        Me.cboPastas = New System.Windows.Forms.ComboBox()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Button12 = New System.Windows.Forms.Button()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.btnVoltarPasta = New System.Windows.Forms.Button()
+        Me.rbMinhasImagens = New System.Windows.Forms.RadioButton()
+        Me.rbGerenciador = New System.Windows.Forms.RadioButton()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.lblPrevCorpo = New System.Windows.Forms.Label()
+        Me.lblPrevSubtitulo = New System.Windows.Forms.Label()
+        Me.lblPrevTitulo = New System.Windows.Forms.Label()
+        Me.lblPrevRodape = New System.Windows.Forms.Label()
+        Me.picPreview = New System.Windows.Forms.PictureBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.Button13 = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.rbLigado = New System.Windows.Forms.RadioButton()
+        Me.rbDesligado = New System.Windows.Forms.RadioButton()
+        Me.btnNovaImagem = New System.Windows.Forms.Button()
+        Me.lblArquivo = New System.Windows.Forms.Label()
+        Me.lblIndiceImagem = New System.Windows.Forms.Label()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox1.SuspendLayout()
-        Me.TabControl1.SuspendLayout()
+        Me.tabTextos.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
-        CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.trkZoom, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvTextos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picPreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox4.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.SuspendLayout()
         '
-        'WebBrowser1
+        'webPastas
         '
-        Me.WebBrowser1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.webPastas.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.WebBrowser1.Location = New System.Drawing.Point(0, 68)
-        Me.WebBrowser1.Margin = New System.Windows.Forms.Padding(0)
-        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(418, 512)
-        Me.WebBrowser1.TabIndex = 3
+        Me.webPastas.Location = New System.Drawing.Point(0, 68)
+        Me.webPastas.Margin = New System.Windows.Forms.Padding(0)
+        Me.webPastas.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.webPastas.Name = "webPastas"
+        Me.webPastas.Size = New System.Drawing.Size(418, 512)
+        Me.webPastas.TabIndex = 3
         '
         'GroupBox1
         '
@@ -138,8 +138,8 @@ Partial Class FormFundo
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.TabControl1)
+        Me.GroupBox1.Controls.Add(Me.lblTituloTextos)
+        Me.GroupBox1.Controls.Add(Me.tabTextos)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox1.Name = "GroupBox1"
@@ -147,29 +147,29 @@ Partial Class FormFundo
         Me.GroupBox1.TabIndex = 9
         Me.GroupBox1.TabStop = False
         '
-        'Label2
+        'lblTituloTextos
         '
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(-3, -6)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(403, 13)
-        Me.Label2.TabIndex = 13
-        Me.Label2.Text = "    TEXTOS"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblTituloTextos.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTituloTextos.Location = New System.Drawing.Point(-3, -6)
+        Me.lblTituloTextos.Name = "lblTituloTextos"
+        Me.lblTituloTextos.Size = New System.Drawing.Size(403, 13)
+        Me.lblTituloTextos.TabIndex = 13
+        Me.lblTituloTextos.Text = "    TEXTOS"
+        Me.lblTituloTextos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'TabControl1
+        'tabTextos
         '
-        Me.TabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.tabTextos.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.ItemSize = New System.Drawing.Size(44, 18)
-        Me.TabControl1.Location = New System.Drawing.Point(3, 3)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(404, 247)
-        Me.TabControl1.TabIndex = 13
+        Me.tabTextos.Controls.Add(Me.TabPage1)
+        Me.tabTextos.Controls.Add(Me.TabPage2)
+        Me.tabTextos.ItemSize = New System.Drawing.Size(44, 18)
+        Me.tabTextos.Location = New System.Drawing.Point(3, 3)
+        Me.tabTextos.Name = "tabTextos"
+        Me.tabTextos.SelectedIndex = 0
+        Me.tabTextos.Size = New System.Drawing.Size(404, 247)
+        Me.tabTextos.TabIndex = 13
         '
         'TabPage1
         '
@@ -192,25 +192,25 @@ Partial Class FormFundo
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
-        Me.TableLayoutPanel5.Controls.Add(Me.Button4, 3, 3)
-        Me.TableLayoutPanel5.Controls.Add(Me.Button3, 3, 2)
-        Me.TableLayoutPanel5.Controls.Add(Me.Button2, 3, 1)
-        Me.TableLayoutPanel5.Controls.Add(Me.TextBox8, 1, 3)
-        Me.TableLayoutPanel5.Controls.Add(Me.TextBox7, 1, 2)
-        Me.TableLayoutPanel5.Controls.Add(Me.TextBox5, 1, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.TextBox6, 1, 1)
-        Me.TableLayoutPanel5.Controls.Add(Me.TextBox4, 2, 3)
-        Me.TableLayoutPanel5.Controls.Add(Me.CheckBox1, 0, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.CheckBox2, 0, 1)
-        Me.TableLayoutPanel5.Controls.Add(Me.CheckBox4, 0, 3)
-        Me.TableLayoutPanel5.Controls.Add(Me.TextBox1, 2, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.TextBox3, 2, 2)
-        Me.TableLayoutPanel5.Controls.Add(Me.TextBox2, 2, 1)
-        Me.TableLayoutPanel5.Controls.Add(Me.CheckBox3, 0, 2)
-        Me.TableLayoutPanel5.Controls.Add(Me.Button1, 3, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.TrackBar1, 2, 5)
+        Me.TableLayoutPanel5.Controls.Add(Me.btnEditarRodape, 3, 3)
+        Me.TableLayoutPanel5.Controls.Add(Me.btnEditarCorpo, 3, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.btnEditarSubtitulo, 3, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.txtIdRodape, 1, 3)
+        Me.TableLayoutPanel5.Controls.Add(Me.txtIdCorpo, 1, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.txtIdTitulo, 1, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.txtIdSubtitulo, 1, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.txtRodape, 2, 3)
+        Me.TableLayoutPanel5.Controls.Add(Me.chkTitulo, 0, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.chkSubtitulo, 0, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.chkRodape, 0, 3)
+        Me.TableLayoutPanel5.Controls.Add(Me.txtTitulo, 2, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.txtCorpo, 2, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.txtSubtitulo, 2, 1)
+        Me.TableLayoutPanel5.Controls.Add(Me.chkCorpo, 0, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.btnEditarTitulo, 3, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.trkZoom, 2, 5)
         Me.TableLayoutPanel5.Controls.Add(Me.Label17, 2, 4)
-        Me.TableLayoutPanel5.Controls.Add(Me.Label18, 1, 5)
+        Me.TableLayoutPanel5.Controls.Add(Me.lblZoom, 1, 5)
         Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 3)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 6
@@ -223,237 +223,237 @@ Partial Class FormFundo
         Me.TableLayoutPanel5.Size = New System.Drawing.Size(390, 216)
         Me.TableLayoutPanel5.TabIndex = 0
         '
-        'Button4
+        'btnEditarRodape
         '
-        Me.Button4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.btnEditarRodape.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button4.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button4.Image = CType(resources.GetObject("Button4.Image"), System.Drawing.Image)
-        Me.Button4.Location = New System.Drawing.Point(369, 115)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(18, 22)
-        Me.Button4.TabIndex = 15
-        Me.Button4.UseVisualStyleBackColor = False
-        Me.Button4.Visible = False
+        Me.btnEditarRodape.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.btnEditarRodape.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEditarRodape.Image = CType(resources.GetObject("btnEditarRodape.Image"), System.Drawing.Image)
+        Me.btnEditarRodape.Location = New System.Drawing.Point(369, 115)
+        Me.btnEditarRodape.Name = "btnEditarRodape"
+        Me.btnEditarRodape.Size = New System.Drawing.Size(18, 22)
+        Me.btnEditarRodape.TabIndex = 15
+        Me.btnEditarRodape.UseVisualStyleBackColor = False
+        Me.btnEditarRodape.Visible = False
         '
-        'Button3
+        'btnEditarCorpo
         '
-        Me.Button3.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Image = CType(resources.GetObject("Button3.Image"), System.Drawing.Image)
-        Me.Button3.Location = New System.Drawing.Point(369, 59)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(18, 22)
-        Me.Button3.TabIndex = 14
-        Me.Button3.UseVisualStyleBackColor = False
-        Me.Button3.Visible = False
+        Me.btnEditarCorpo.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.btnEditarCorpo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEditarCorpo.Image = CType(resources.GetObject("btnEditarCorpo.Image"), System.Drawing.Image)
+        Me.btnEditarCorpo.Location = New System.Drawing.Point(369, 59)
+        Me.btnEditarCorpo.Name = "btnEditarCorpo"
+        Me.btnEditarCorpo.Size = New System.Drawing.Size(18, 22)
+        Me.btnEditarCorpo.TabIndex = 14
+        Me.btnEditarCorpo.UseVisualStyleBackColor = False
+        Me.btnEditarCorpo.Visible = False
         '
-        'Button2
+        'btnEditarSubtitulo
         '
-        Me.Button2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.btnEditarSubtitulo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Image = CType(resources.GetObject("Button2.Image"), System.Drawing.Image)
-        Me.Button2.Location = New System.Drawing.Point(369, 31)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(18, 22)
-        Me.Button2.TabIndex = 13
-        Me.Button2.UseVisualStyleBackColor = False
-        Me.Button2.Visible = False
+        Me.btnEditarSubtitulo.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.btnEditarSubtitulo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEditarSubtitulo.Image = CType(resources.GetObject("btnEditarSubtitulo.Image"), System.Drawing.Image)
+        Me.btnEditarSubtitulo.Location = New System.Drawing.Point(369, 31)
+        Me.btnEditarSubtitulo.Name = "btnEditarSubtitulo"
+        Me.btnEditarSubtitulo.Size = New System.Drawing.Size(18, 22)
+        Me.btnEditarSubtitulo.TabIndex = 13
+        Me.btnEditarSubtitulo.UseVisualStyleBackColor = False
+        Me.btnEditarSubtitulo.Visible = False
         '
-        'TextBox8
+        'txtIdRodape
         '
-        Me.TextBox8.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.txtIdRodape.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox8.BackColor = System.Drawing.Color.Lavender
-        Me.TextBox8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TextBox8.Location = New System.Drawing.Point(78, 115)
-        Me.TextBox8.Multiline = True
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.ReadOnly = True
-        Me.TextBox8.Size = New System.Drawing.Size(29, 22)
-        Me.TextBox8.TabIndex = 8
+        Me.txtIdRodape.BackColor = System.Drawing.Color.Lavender
+        Me.txtIdRodape.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIdRodape.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtIdRodape.Location = New System.Drawing.Point(78, 115)
+        Me.txtIdRodape.Multiline = True
+        Me.txtIdRodape.Name = "txtIdRodape"
+        Me.txtIdRodape.ReadOnly = True
+        Me.txtIdRodape.Size = New System.Drawing.Size(29, 22)
+        Me.txtIdRodape.TabIndex = 8
         '
-        'TextBox7
+        'txtIdCorpo
         '
-        Me.TextBox7.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.txtIdCorpo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox7.BackColor = System.Drawing.Color.Lavender
-        Me.TextBox7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TextBox7.Location = New System.Drawing.Point(78, 59)
-        Me.TextBox7.Multiline = True
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.ReadOnly = True
-        Me.TextBox7.Size = New System.Drawing.Size(29, 50)
-        Me.TextBox7.TabIndex = 8
+        Me.txtIdCorpo.BackColor = System.Drawing.Color.Lavender
+        Me.txtIdCorpo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIdCorpo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtIdCorpo.Location = New System.Drawing.Point(78, 59)
+        Me.txtIdCorpo.Multiline = True
+        Me.txtIdCorpo.Name = "txtIdCorpo"
+        Me.txtIdCorpo.ReadOnly = True
+        Me.txtIdCorpo.Size = New System.Drawing.Size(29, 50)
+        Me.txtIdCorpo.TabIndex = 8
         '
-        'TextBox5
+        'txtIdTitulo
         '
-        Me.TextBox5.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.txtIdTitulo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox5.BackColor = System.Drawing.Color.Lavender
-        Me.TextBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TextBox5.Location = New System.Drawing.Point(78, 3)
-        Me.TextBox5.Multiline = True
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.ReadOnly = True
-        Me.TextBox5.Size = New System.Drawing.Size(29, 22)
-        Me.TextBox5.TabIndex = 8
+        Me.txtIdTitulo.BackColor = System.Drawing.Color.Lavender
+        Me.txtIdTitulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIdTitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtIdTitulo.Location = New System.Drawing.Point(78, 3)
+        Me.txtIdTitulo.Multiline = True
+        Me.txtIdTitulo.Name = "txtIdTitulo"
+        Me.txtIdTitulo.ReadOnly = True
+        Me.txtIdTitulo.Size = New System.Drawing.Size(29, 22)
+        Me.txtIdTitulo.TabIndex = 8
         '
-        'TextBox6
+        'txtIdSubtitulo
         '
-        Me.TextBox6.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.txtIdSubtitulo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox6.BackColor = System.Drawing.Color.Lavender
-        Me.TextBox6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TextBox6.Location = New System.Drawing.Point(78, 31)
-        Me.TextBox6.Multiline = True
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.ReadOnly = True
-        Me.TextBox6.Size = New System.Drawing.Size(29, 22)
-        Me.TextBox6.TabIndex = 8
+        Me.txtIdSubtitulo.BackColor = System.Drawing.Color.Lavender
+        Me.txtIdSubtitulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIdSubtitulo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtIdSubtitulo.Location = New System.Drawing.Point(78, 31)
+        Me.txtIdSubtitulo.Multiline = True
+        Me.txtIdSubtitulo.Name = "txtIdSubtitulo"
+        Me.txtIdSubtitulo.ReadOnly = True
+        Me.txtIdSubtitulo.Size = New System.Drawing.Size(29, 22)
+        Me.txtIdSubtitulo.TabIndex = 8
         '
-        'TextBox4
+        'txtRodape
         '
-        Me.TextBox4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.txtRodape.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox4.BackColor = System.Drawing.Color.Lavender
-        Me.TextBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox4.Location = New System.Drawing.Point(113, 115)
-        Me.TextBox4.Multiline = True
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.ReadOnly = True
-        Me.TextBox4.Size = New System.Drawing.Size(250, 22)
-        Me.TextBox4.TabIndex = 8
+        Me.txtRodape.BackColor = System.Drawing.Color.Lavender
+        Me.txtRodape.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRodape.Location = New System.Drawing.Point(113, 115)
+        Me.txtRodape.Multiline = True
+        Me.txtRodape.Name = "txtRodape"
+        Me.txtRodape.ReadOnly = True
+        Me.txtRodape.Size = New System.Drawing.Size(250, 22)
+        Me.txtRodape.TabIndex = 8
         '
-        'CheckBox1
+        'chkTitulo
         '
-        Me.CheckBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.chkTitulo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(3, 3)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(54, 22)
-        Me.CheckBox1.TabIndex = 10
-        Me.CheckBox1.Text = "Título"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.chkTitulo.AutoSize = True
+        Me.chkTitulo.Location = New System.Drawing.Point(3, 3)
+        Me.chkTitulo.Name = "chkTitulo"
+        Me.chkTitulo.Size = New System.Drawing.Size(54, 22)
+        Me.chkTitulo.TabIndex = 10
+        Me.chkTitulo.Text = "Título"
+        Me.chkTitulo.UseVisualStyleBackColor = True
         '
-        'CheckBox2
+        'chkSubtitulo
         '
-        Me.CheckBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.chkSubtitulo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(3, 31)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(69, 22)
-        Me.CheckBox2.TabIndex = 10
-        Me.CheckBox2.Text = "Subtítulo"
-        Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.chkSubtitulo.AutoSize = True
+        Me.chkSubtitulo.Location = New System.Drawing.Point(3, 31)
+        Me.chkSubtitulo.Name = "chkSubtitulo"
+        Me.chkSubtitulo.Size = New System.Drawing.Size(69, 22)
+        Me.chkSubtitulo.TabIndex = 10
+        Me.chkSubtitulo.Text = "Subtítulo"
+        Me.chkSubtitulo.UseVisualStyleBackColor = True
         '
-        'CheckBox4
+        'chkRodape
         '
-        Me.CheckBox4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.chkRodape.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Location = New System.Drawing.Point(3, 115)
-        Me.CheckBox4.Name = "CheckBox4"
-        Me.CheckBox4.Size = New System.Drawing.Size(64, 22)
-        Me.CheckBox4.TabIndex = 10
-        Me.CheckBox4.Text = "Rodapé"
-        Me.CheckBox4.UseVisualStyleBackColor = True
+        Me.chkRodape.AutoSize = True
+        Me.chkRodape.Location = New System.Drawing.Point(3, 115)
+        Me.chkRodape.Name = "chkRodape"
+        Me.chkRodape.Size = New System.Drawing.Size(64, 22)
+        Me.chkRodape.TabIndex = 10
+        Me.chkRodape.Text = "Rodapé"
+        Me.chkRodape.UseVisualStyleBackColor = True
         '
-        'TextBox1
+        'txtTitulo
         '
-        Me.TextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.txtTitulo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.BackColor = System.Drawing.Color.Lavender
-        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(113, 3)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(250, 22)
-        Me.TextBox1.TabIndex = 8
+        Me.txtTitulo.BackColor = System.Drawing.Color.Lavender
+        Me.txtTitulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTitulo.Location = New System.Drawing.Point(113, 3)
+        Me.txtTitulo.Multiline = True
+        Me.txtTitulo.Name = "txtTitulo"
+        Me.txtTitulo.ReadOnly = True
+        Me.txtTitulo.Size = New System.Drawing.Size(250, 22)
+        Me.txtTitulo.TabIndex = 8
         '
-        'TextBox3
+        'txtCorpo
         '
-        Me.TextBox3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.txtCorpo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox3.BackColor = System.Drawing.Color.Lavender
-        Me.TextBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox3.Location = New System.Drawing.Point(113, 59)
-        Me.TextBox3.Multiline = True
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.ReadOnly = True
-        Me.TextBox3.Size = New System.Drawing.Size(250, 50)
-        Me.TextBox3.TabIndex = 8
+        Me.txtCorpo.BackColor = System.Drawing.Color.Lavender
+        Me.txtCorpo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCorpo.Location = New System.Drawing.Point(113, 59)
+        Me.txtCorpo.Multiline = True
+        Me.txtCorpo.Name = "txtCorpo"
+        Me.txtCorpo.ReadOnly = True
+        Me.txtCorpo.Size = New System.Drawing.Size(250, 50)
+        Me.txtCorpo.TabIndex = 8
         '
-        'TextBox2
+        'txtSubtitulo
         '
-        Me.TextBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.txtSubtitulo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox2.BackColor = System.Drawing.Color.Lavender
-        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(113, 31)
-        Me.TextBox2.Multiline = True
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(250, 22)
-        Me.TextBox2.TabIndex = 8
+        Me.txtSubtitulo.BackColor = System.Drawing.Color.Lavender
+        Me.txtSubtitulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSubtitulo.Location = New System.Drawing.Point(113, 31)
+        Me.txtSubtitulo.Multiline = True
+        Me.txtSubtitulo.Name = "txtSubtitulo"
+        Me.txtSubtitulo.ReadOnly = True
+        Me.txtSubtitulo.Size = New System.Drawing.Size(250, 22)
+        Me.txtSubtitulo.TabIndex = 8
         '
-        'CheckBox3
+        'chkCorpo
         '
-        Me.CheckBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.chkCorpo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(3, 59)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(54, 50)
-        Me.CheckBox3.TabIndex = 10
-        Me.CheckBox3.Text = "Corpo"
-        Me.CheckBox3.UseVisualStyleBackColor = True
+        Me.chkCorpo.AutoSize = True
+        Me.chkCorpo.Location = New System.Drawing.Point(3, 59)
+        Me.chkCorpo.Name = "chkCorpo"
+        Me.chkCorpo.Size = New System.Drawing.Size(54, 50)
+        Me.chkCorpo.TabIndex = 10
+        Me.chkCorpo.Text = "Corpo"
+        Me.chkCorpo.UseVisualStyleBackColor = True
         '
-        'Button1
+        'btnEditarTitulo
         '
-        Me.Button1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.btnEditarTitulo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(369, 3)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(18, 22)
-        Me.Button1.TabIndex = 12
-        Me.Button1.UseVisualStyleBackColor = False
-        Me.Button1.Visible = False
+        Me.btnEditarTitulo.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.btnEditarTitulo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEditarTitulo.Image = CType(resources.GetObject("btnEditarTitulo.Image"), System.Drawing.Image)
+        Me.btnEditarTitulo.Location = New System.Drawing.Point(369, 3)
+        Me.btnEditarTitulo.Name = "btnEditarTitulo"
+        Me.btnEditarTitulo.Size = New System.Drawing.Size(18, 22)
+        Me.btnEditarTitulo.TabIndex = 12
+        Me.btnEditarTitulo.UseVisualStyleBackColor = False
+        Me.btnEditarTitulo.Visible = False
         '
-        'TrackBar1
+        'trkZoom
         '
-        Me.TrackBar1.BackColor = System.Drawing.Color.White
-        Me.TrackBar1.Location = New System.Drawing.Point(113, 171)
-        Me.TrackBar1.Maximum = 128
-        Me.TrackBar1.Minimum = 50
-        Me.TrackBar1.Name = "TrackBar1"
-        Me.TrackBar1.Size = New System.Drawing.Size(123, 42)
-        Me.TrackBar1.TabIndex = 45
-        Me.TrackBar1.Value = 88
+        Me.trkZoom.BackColor = System.Drawing.Color.White
+        Me.trkZoom.Location = New System.Drawing.Point(113, 171)
+        Me.trkZoom.Maximum = 128
+        Me.trkZoom.Minimum = 50
+        Me.trkZoom.Name = "trkZoom"
+        Me.trkZoom.Size = New System.Drawing.Size(123, 42)
+        Me.trkZoom.TabIndex = 45
+        Me.trkZoom.Value = 88
         '
         'Label17
         '
@@ -468,32 +468,32 @@ Partial Class FormFundo
         Me.Label17.Text = "   Zoom da Projeção:"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label18
+        'lblZoom
         '
-        Me.Label18.AutoSize = True
-        Me.Label18.BackColor = System.Drawing.Color.Lavender
-        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.ForeColor = System.Drawing.Color.DarkGray
-        Me.Label18.Location = New System.Drawing.Point(78, 171)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(21, 13)
-        Me.Label18.TabIndex = 46
-        Me.Label18.Text = "88"
-        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblZoom.AutoSize = True
+        Me.lblZoom.BackColor = System.Drawing.Color.Lavender
+        Me.lblZoom.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblZoom.ForeColor = System.Drawing.Color.DarkGray
+        Me.lblZoom.Location = New System.Drawing.Point(78, 171)
+        Me.lblZoom.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblZoom.Name = "lblZoom"
+        Me.lblZoom.Size = New System.Drawing.Size(21, 13)
+        Me.lblZoom.TabIndex = 46
+        Me.lblZoom.Text = "88"
+        Me.lblZoom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.LightGray
-        Me.TabPage2.Controls.Add(Me.Button11)
-        Me.TabPage2.Controls.Add(Me.Button10)
+        Me.TabPage2.Controls.Add(Me.btnNovoTexto)
+        Me.TabPage2.Controls.Add(Me.btnVoltarSalvar)
         Me.TabPage2.Controls.Add(Me.GroupBox7)
-        Me.TabPage2.Controls.Add(Me.Label3)
+        Me.TabPage2.Controls.Add(Me.lblTipoTexto)
         Me.TabPage2.Controls.Add(Me.GroupBox6)
         Me.TabPage2.Controls.Add(Me.GroupBox5)
-        Me.TabPage2.Controls.Add(Me.DataGridView1)
-        Me.TabPage2.Controls.Add(Me.TextBox10)
-        Me.TabPage2.Controls.Add(Me.TextBox9)
+        Me.TabPage2.Controls.Add(Me.dgvTextos)
+        Me.TabPage2.Controls.Add(Me.txtEdicaoId)
+        Me.TabPage2.Controls.Add(Me.txtEdicaoTexto)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
@@ -501,43 +501,43 @@ Partial Class FormFundo
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Edição"
         '
-        'Button11
+        'btnNovoTexto
         '
-        Me.Button11.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button11.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.Button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button11.Location = New System.Drawing.Point(223, 1)
-        Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(44, 23)
-        Me.Button11.TabIndex = 18
-        Me.Button11.Text = "Novo"
-        Me.Button11.UseVisualStyleBackColor = False
-        Me.Button11.Visible = False
+        Me.btnNovoTexto.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnNovoTexto.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.btnNovoTexto.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnNovoTexto.Location = New System.Drawing.Point(223, 1)
+        Me.btnNovoTexto.Name = "btnNovoTexto"
+        Me.btnNovoTexto.Size = New System.Drawing.Size(44, 23)
+        Me.btnNovoTexto.TabIndex = 18
+        Me.btnNovoTexto.Text = "Novo"
+        Me.btnNovoTexto.UseVisualStyleBackColor = False
+        Me.btnNovoTexto.Visible = False
         '
-        'Button10
+        'btnVoltarSalvar
         '
-        Me.Button10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button10.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.Button10.FlatAppearance.BorderSize = 0
-        Me.Button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button10.Image = CType(resources.GetObject("Button10.Image"), System.Drawing.Image)
-        Me.Button10.Location = New System.Drawing.Point(311, 7)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(83, 38)
-        Me.Button10.TabIndex = 8
-        Me.Button10.Text = "Voltar"
-        Me.Button10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button10.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Button10.UseVisualStyleBackColor = False
+        Me.btnVoltarSalvar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnVoltarSalvar.BackColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.btnVoltarSalvar.FlatAppearance.BorderSize = 0
+        Me.btnVoltarSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnVoltarSalvar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnVoltarSalvar.Image = CType(resources.GetObject("btnVoltarSalvar.Image"), System.Drawing.Image)
+        Me.btnVoltarSalvar.Location = New System.Drawing.Point(311, 7)
+        Me.btnVoltarSalvar.Name = "btnVoltarSalvar"
+        Me.btnVoltarSalvar.Size = New System.Drawing.Size(83, 38)
+        Me.btnVoltarSalvar.TabIndex = 8
+        Me.btnVoltarSalvar.Text = "Voltar"
+        Me.btnVoltarSalvar.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnVoltarSalvar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnVoltarSalvar.UseVisualStyleBackColor = False
         '
         'GroupBox7
         '
         Me.GroupBox7.BackColor = System.Drawing.Color.Lavender
-        Me.GroupBox7.Controls.Add(Me.Button14)
-        Me.GroupBox7.Controls.Add(Me.Label10)
-        Me.GroupBox7.Controls.Add(Me.Button9)
-        Me.GroupBox7.Controls.Add(Me.Label11)
+        Me.GroupBox7.Controls.Add(Me.btnFundoTransparente)
+        Me.GroupBox7.Controls.Add(Me.lblCorPreenchimento)
+        Me.GroupBox7.Controls.Add(Me.btnCorFundo)
+        Me.GroupBox7.Controls.Add(Me.lblAmostraFundo)
         Me.GroupBox7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox7.Location = New System.Drawing.Point(98, 52)
         Me.GroupBox7.Name = "GroupBox7"
@@ -546,70 +546,70 @@ Partial Class FormFundo
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Fundo:"
         '
-        'Button14
+        'btnFundoTransparente
         '
-        Me.Button14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button14.Location = New System.Drawing.Point(5, 39)
-        Me.Button14.Name = "Button14"
-        Me.Button14.Size = New System.Drawing.Size(78, 22)
-        Me.Button14.TabIndex = 13
-        Me.Button14.Text = "Transparente"
-        Me.Button14.UseVisualStyleBackColor = True
+        Me.btnFundoTransparente.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnFundoTransparente.Location = New System.Drawing.Point(5, 39)
+        Me.btnFundoTransparente.Name = "btnFundoTransparente"
+        Me.btnFundoTransparente.Size = New System.Drawing.Size(78, 22)
+        Me.btnFundoTransparente.TabIndex = 13
+        Me.btnFundoTransparente.Text = "Transparente"
+        Me.btnFundoTransparente.UseVisualStyleBackColor = True
         '
-        'Label10
+        'lblCorPreenchimento
         '
-        Me.Label10.BackColor = System.Drawing.Color.Lavender
-        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 3.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label10.Location = New System.Drawing.Point(8, 31)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(51, 10)
-        Me.Label10.TabIndex = 12
-        Me.Label10.Text = "Cor"
+        Me.lblCorPreenchimento.BackColor = System.Drawing.Color.Lavender
+        Me.lblCorPreenchimento.Font = New System.Drawing.Font("Microsoft Sans Serif", 3.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCorPreenchimento.ForeColor = System.Drawing.Color.SteelBlue
+        Me.lblCorPreenchimento.Location = New System.Drawing.Point(8, 31)
+        Me.lblCorPreenchimento.Name = "lblCorPreenchimento"
+        Me.lblCorPreenchimento.Size = New System.Drawing.Size(51, 10)
+        Me.lblCorPreenchimento.TabIndex = 12
+        Me.lblCorPreenchimento.Text = "Cor"
         '
-        'Button9
+        'btnCorFundo
         '
-        Me.Button9.FlatAppearance.BorderSize = 0
-        Me.Button9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button9.Image = CType(resources.GetObject("Button9.Image"), System.Drawing.Image)
-        Me.Button9.Location = New System.Drawing.Point(51, 0)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(23, 25)
-        Me.Button9.TabIndex = 11
-        Me.Button9.UseVisualStyleBackColor = True
+        Me.btnCorFundo.FlatAppearance.BorderSize = 0
+        Me.btnCorFundo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCorFundo.Image = CType(resources.GetObject("btnCorFundo.Image"), System.Drawing.Image)
+        Me.btnCorFundo.Location = New System.Drawing.Point(51, 0)
+        Me.btnCorFundo.Name = "btnCorFundo"
+        Me.btnCorFundo.Size = New System.Drawing.Size(23, 25)
+        Me.btnCorFundo.TabIndex = 11
+        Me.btnCorFundo.UseVisualStyleBackColor = True
         '
-        'Label11
+        'lblAmostraFundo
         '
-        Me.Label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label11.Location = New System.Drawing.Point(8, 14)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(37, 15)
-        Me.Label11.TabIndex = 12
+        Me.lblAmostraFundo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblAmostraFundo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAmostraFundo.ForeColor = System.Drawing.Color.SteelBlue
+        Me.lblAmostraFundo.Location = New System.Drawing.Point(8, 14)
+        Me.lblAmostraFundo.Name = "lblAmostraFundo"
+        Me.lblAmostraFundo.Size = New System.Drawing.Size(37, 15)
+        Me.lblAmostraFundo.TabIndex = 12
         '
-        'Label3
+        'lblTipoTexto
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.ForeColor = System.Drawing.Color.DodgerBlue
-        Me.Label3.Location = New System.Drawing.Point(11, 7)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(188, 13)
-        Me.Label3.TabIndex = 12
-        Me.Label3.Text = "Defina o tipo na aba:""TEXTOS"""
+        Me.lblTipoTexto.AutoSize = True
+        Me.lblTipoTexto.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTipoTexto.ForeColor = System.Drawing.Color.DodgerBlue
+        Me.lblTipoTexto.Location = New System.Drawing.Point(11, 7)
+        Me.lblTipoTexto.Name = "lblTipoTexto"
+        Me.lblTipoTexto.Size = New System.Drawing.Size(188, 13)
+        Me.lblTipoTexto.TabIndex = 12
+        Me.lblTipoTexto.Text = "Defina o tipo na aba:""TEXTOS"""
         '
         'GroupBox6
         '
         Me.GroupBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox6.BackColor = System.Drawing.Color.Lavender
-        Me.GroupBox6.Controls.Add(Me.Label9)
-        Me.GroupBox6.Controls.Add(Me.Label5)
-        Me.GroupBox6.Controls.Add(Me.Button8)
+        Me.GroupBox6.Controls.Add(Me.lblFonteCor)
+        Me.GroupBox6.Controls.Add(Me.lblFonteNome)
+        Me.GroupBox6.Controls.Add(Me.btnFonte)
         Me.GroupBox6.Controls.Add(Me.Label12)
-        Me.GroupBox6.Controls.Add(Me.Label8)
-        Me.GroupBox6.Controls.Add(Me.Label7)
+        Me.GroupBox6.Controls.Add(Me.lblFonteTamanho)
+        Me.GroupBox6.Controls.Add(Me.lblFonteEstilo)
         Me.GroupBox6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox6.Location = New System.Drawing.Point(187, 52)
         Me.GroupBox6.Name = "GroupBox6"
@@ -618,38 +618,38 @@ Partial Class FormFundo
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Fonte:"
         '
-        'Label9
+        'lblFonteCor
         '
-        Me.Label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 3.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label9.Location = New System.Drawing.Point(108, 13)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(41, 15)
-        Me.Label9.TabIndex = 12
-        Me.Label9.Text = "Cor"
+        Me.lblFonteCor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblFonteCor.Font = New System.Drawing.Font("Microsoft Sans Serif", 3.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFonteCor.ForeColor = System.Drawing.Color.SteelBlue
+        Me.lblFonteCor.Location = New System.Drawing.Point(108, 13)
+        Me.lblFonteCor.Name = "lblFonteCor"
+        Me.lblFonteCor.Size = New System.Drawing.Size(41, 15)
+        Me.lblFonteCor.TabIndex = 12
+        Me.lblFonteCor.Text = "Cor"
         '
-        'Label5
+        'lblFonteNome
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label5.Location = New System.Drawing.Point(6, 36)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(49, 18)
-        Me.Label5.TabIndex = 12
-        Me.Label5.Text = "Nome"
+        Me.lblFonteNome.AutoSize = True
+        Me.lblFonteNome.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFonteNome.ForeColor = System.Drawing.Color.SteelBlue
+        Me.lblFonteNome.Location = New System.Drawing.Point(6, 36)
+        Me.lblFonteNome.Name = "lblFonteNome"
+        Me.lblFonteNome.Size = New System.Drawing.Size(49, 18)
+        Me.lblFonteNome.TabIndex = 12
+        Me.lblFonteNome.Text = "Nome"
         '
-        'Button8
+        'btnFonte
         '
-        Me.Button8.FlatAppearance.BorderSize = 0
-        Me.Button8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button8.Image = CType(resources.GetObject("Button8.Image"), System.Drawing.Image)
-        Me.Button8.Location = New System.Drawing.Point(51, -1)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(25, 25)
-        Me.Button8.TabIndex = 11
-        Me.Button8.UseVisualStyleBackColor = True
+        Me.btnFonte.FlatAppearance.BorderSize = 0
+        Me.btnFonte.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnFonte.Image = CType(resources.GetObject("btnFonte.Image"), System.Drawing.Image)
+        Me.btnFonte.Location = New System.Drawing.Point(51, -1)
+        Me.btnFonte.Name = "btnFonte"
+        Me.btnFonte.Size = New System.Drawing.Size(25, 25)
+        Me.btnFonte.TabIndex = 11
+        Me.btnFonte.UseVisualStyleBackColor = True
         '
         'Label12
         '
@@ -662,41 +662,41 @@ Partial Class FormFundo
         Me.Label12.TabIndex = 12
         Me.Label12.Text = "Cor:"
         '
-        'Label8
+        'lblFonteTamanho
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label8.Location = New System.Drawing.Point(6, 16)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(32, 15)
-        Me.Label8.TabIndex = 12
-        Me.Label8.Text = "Tam"
+        Me.lblFonteTamanho.AutoSize = True
+        Me.lblFonteTamanho.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFonteTamanho.ForeColor = System.Drawing.Color.SteelBlue
+        Me.lblFonteTamanho.Location = New System.Drawing.Point(6, 16)
+        Me.lblFonteTamanho.Name = "lblFonteTamanho"
+        Me.lblFonteTamanho.Size = New System.Drawing.Size(32, 15)
+        Me.lblFonteTamanho.TabIndex = 12
+        Me.lblFonteTamanho.Text = "Tam"
         '
-        'Label7
+        'lblFonteEstilo
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label7.Location = New System.Drawing.Point(155, 13)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(37, 15)
-        Me.Label7.TabIndex = 12
-        Me.Label7.Text = "Estilo"
+        Me.lblFonteEstilo.AutoSize = True
+        Me.lblFonteEstilo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFonteEstilo.ForeColor = System.Drawing.Color.SteelBlue
+        Me.lblFonteEstilo.Location = New System.Drawing.Point(155, 13)
+        Me.lblFonteEstilo.Name = "lblFonteEstilo"
+        Me.lblFonteEstilo.Size = New System.Drawing.Size(37, 15)
+        Me.lblFonteEstilo.TabIndex = 12
+        Me.lblFonteEstilo.Text = "Estilo"
         '
         'GroupBox5
         '
         Me.GroupBox5.BackColor = System.Drawing.Color.Lavender
-        Me.GroupBox5.Controls.Add(Me.Button20)
-        Me.GroupBox5.Controls.Add(Me.Button19)
-        Me.GroupBox5.Controls.Add(Me.Button18)
-        Me.GroupBox5.Controls.Add(Me.Button17)
-        Me.GroupBox5.Controls.Add(Me.Button16)
-        Me.GroupBox5.Controls.Add(Me.Button15)
-        Me.GroupBox5.Controls.Add(Me.Button6)
-        Me.GroupBox5.Controls.Add(Me.Label4)
-        Me.GroupBox5.Controls.Add(Me.Button7)
-        Me.GroupBox5.Controls.Add(Me.Button5)
+        Me.GroupBox5.Controls.Add(Me.btnAlinhaInfDir)
+        Me.GroupBox5.Controls.Add(Me.btnAlinhaInfCentro)
+        Me.GroupBox5.Controls.Add(Me.btnAlinhaInfEsq)
+        Me.GroupBox5.Controls.Add(Me.btnAlinhaMeioDir)
+        Me.GroupBox5.Controls.Add(Me.btnAlinhaMeioCentro)
+        Me.GroupBox5.Controls.Add(Me.btnAlinhaMeioEsq)
+        Me.GroupBox5.Controls.Add(Me.btnAlinhaSupCentro)
+        Me.GroupBox5.Controls.Add(Me.lblAlinhamento)
+        Me.GroupBox5.Controls.Add(Me.btnAlinhaSupDir)
+        Me.GroupBox5.Controls.Add(Me.btnAlinhaSupEsq)
         Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox5.Location = New System.Drawing.Point(5, 51)
         Me.GroupBox5.Name = "GroupBox5"
@@ -705,127 +705,127 @@ Partial Class FormFundo
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Alinhamento:"
         '
-        'Button20
+        'btnAlinhaInfDir
         '
-        Me.Button20.FlatAppearance.BorderSize = 0
-        Me.Button20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button20.Image = CType(resources.GetObject("Button20.Image"), System.Drawing.Image)
-        Me.Button20.Location = New System.Drawing.Point(43, 49)
-        Me.Button20.Name = "Button20"
-        Me.Button20.Size = New System.Drawing.Size(19, 19)
-        Me.Button20.TabIndex = 18
-        Me.Button20.UseVisualStyleBackColor = True
+        Me.btnAlinhaInfDir.FlatAppearance.BorderSize = 0
+        Me.btnAlinhaInfDir.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAlinhaInfDir.Image = CType(resources.GetObject("btnAlinhaInfDir.Image"), System.Drawing.Image)
+        Me.btnAlinhaInfDir.Location = New System.Drawing.Point(43, 49)
+        Me.btnAlinhaInfDir.Name = "btnAlinhaInfDir"
+        Me.btnAlinhaInfDir.Size = New System.Drawing.Size(19, 19)
+        Me.btnAlinhaInfDir.TabIndex = 18
+        Me.btnAlinhaInfDir.UseVisualStyleBackColor = True
         '
-        'Button19
+        'btnAlinhaInfCentro
         '
-        Me.Button19.FlatAppearance.BorderSize = 0
-        Me.Button19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button19.Image = CType(resources.GetObject("Button19.Image"), System.Drawing.Image)
-        Me.Button19.Location = New System.Drawing.Point(25, 49)
-        Me.Button19.Name = "Button19"
-        Me.Button19.Size = New System.Drawing.Size(19, 19)
-        Me.Button19.TabIndex = 17
-        Me.Button19.UseVisualStyleBackColor = True
+        Me.btnAlinhaInfCentro.FlatAppearance.BorderSize = 0
+        Me.btnAlinhaInfCentro.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAlinhaInfCentro.Image = CType(resources.GetObject("btnAlinhaInfCentro.Image"), System.Drawing.Image)
+        Me.btnAlinhaInfCentro.Location = New System.Drawing.Point(25, 49)
+        Me.btnAlinhaInfCentro.Name = "btnAlinhaInfCentro"
+        Me.btnAlinhaInfCentro.Size = New System.Drawing.Size(19, 19)
+        Me.btnAlinhaInfCentro.TabIndex = 17
+        Me.btnAlinhaInfCentro.UseVisualStyleBackColor = True
         '
-        'Button18
+        'btnAlinhaInfEsq
         '
-        Me.Button18.FlatAppearance.BorderSize = 0
-        Me.Button18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button18.Image = CType(resources.GetObject("Button18.Image"), System.Drawing.Image)
-        Me.Button18.Location = New System.Drawing.Point(6, 49)
-        Me.Button18.Name = "Button18"
-        Me.Button18.Size = New System.Drawing.Size(19, 19)
-        Me.Button18.TabIndex = 16
-        Me.Button18.UseVisualStyleBackColor = True
+        Me.btnAlinhaInfEsq.FlatAppearance.BorderSize = 0
+        Me.btnAlinhaInfEsq.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAlinhaInfEsq.Image = CType(resources.GetObject("btnAlinhaInfEsq.Image"), System.Drawing.Image)
+        Me.btnAlinhaInfEsq.Location = New System.Drawing.Point(6, 49)
+        Me.btnAlinhaInfEsq.Name = "btnAlinhaInfEsq"
+        Me.btnAlinhaInfEsq.Size = New System.Drawing.Size(19, 19)
+        Me.btnAlinhaInfEsq.TabIndex = 16
+        Me.btnAlinhaInfEsq.UseVisualStyleBackColor = True
         '
-        'Button17
+        'btnAlinhaMeioDir
         '
-        Me.Button17.FlatAppearance.BorderSize = 0
-        Me.Button17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button17.Image = CType(resources.GetObject("Button17.Image"), System.Drawing.Image)
-        Me.Button17.Location = New System.Drawing.Point(43, 31)
-        Me.Button17.Name = "Button17"
-        Me.Button17.Size = New System.Drawing.Size(19, 19)
-        Me.Button17.TabIndex = 15
-        Me.Button17.UseVisualStyleBackColor = True
+        Me.btnAlinhaMeioDir.FlatAppearance.BorderSize = 0
+        Me.btnAlinhaMeioDir.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAlinhaMeioDir.Image = CType(resources.GetObject("btnAlinhaMeioDir.Image"), System.Drawing.Image)
+        Me.btnAlinhaMeioDir.Location = New System.Drawing.Point(43, 31)
+        Me.btnAlinhaMeioDir.Name = "btnAlinhaMeioDir"
+        Me.btnAlinhaMeioDir.Size = New System.Drawing.Size(19, 19)
+        Me.btnAlinhaMeioDir.TabIndex = 15
+        Me.btnAlinhaMeioDir.UseVisualStyleBackColor = True
         '
-        'Button16
+        'btnAlinhaMeioCentro
         '
-        Me.Button16.FlatAppearance.BorderSize = 0
-        Me.Button16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button16.Image = CType(resources.GetObject("Button16.Image"), System.Drawing.Image)
-        Me.Button16.Location = New System.Drawing.Point(25, 31)
-        Me.Button16.Name = "Button16"
-        Me.Button16.Size = New System.Drawing.Size(19, 19)
-        Me.Button16.TabIndex = 14
-        Me.Button16.UseVisualStyleBackColor = True
+        Me.btnAlinhaMeioCentro.FlatAppearance.BorderSize = 0
+        Me.btnAlinhaMeioCentro.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAlinhaMeioCentro.Image = CType(resources.GetObject("btnAlinhaMeioCentro.Image"), System.Drawing.Image)
+        Me.btnAlinhaMeioCentro.Location = New System.Drawing.Point(25, 31)
+        Me.btnAlinhaMeioCentro.Name = "btnAlinhaMeioCentro"
+        Me.btnAlinhaMeioCentro.Size = New System.Drawing.Size(19, 19)
+        Me.btnAlinhaMeioCentro.TabIndex = 14
+        Me.btnAlinhaMeioCentro.UseVisualStyleBackColor = True
         '
-        'Button15
+        'btnAlinhaMeioEsq
         '
-        Me.Button15.FlatAppearance.BorderSize = 0
-        Me.Button15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button15.Image = CType(resources.GetObject("Button15.Image"), System.Drawing.Image)
-        Me.Button15.Location = New System.Drawing.Point(6, 31)
-        Me.Button15.Name = "Button15"
-        Me.Button15.Size = New System.Drawing.Size(19, 19)
-        Me.Button15.TabIndex = 13
-        Me.Button15.UseVisualStyleBackColor = True
+        Me.btnAlinhaMeioEsq.FlatAppearance.BorderSize = 0
+        Me.btnAlinhaMeioEsq.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAlinhaMeioEsq.Image = CType(resources.GetObject("btnAlinhaMeioEsq.Image"), System.Drawing.Image)
+        Me.btnAlinhaMeioEsq.Location = New System.Drawing.Point(6, 31)
+        Me.btnAlinhaMeioEsq.Name = "btnAlinhaMeioEsq"
+        Me.btnAlinhaMeioEsq.Size = New System.Drawing.Size(19, 19)
+        Me.btnAlinhaMeioEsq.TabIndex = 13
+        Me.btnAlinhaMeioEsq.UseVisualStyleBackColor = True
         '
-        'Button6
+        'btnAlinhaSupCentro
         '
-        Me.Button6.FlatAppearance.BorderSize = 0
-        Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button6.Image = CType(resources.GetObject("Button6.Image"), System.Drawing.Image)
-        Me.Button6.Location = New System.Drawing.Point(25, 13)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(19, 19)
-        Me.Button6.TabIndex = 11
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.btnAlinhaSupCentro.FlatAppearance.BorderSize = 0
+        Me.btnAlinhaSupCentro.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAlinhaSupCentro.Image = CType(resources.GetObject("btnAlinhaSupCentro.Image"), System.Drawing.Image)
+        Me.btnAlinhaSupCentro.Location = New System.Drawing.Point(25, 13)
+        Me.btnAlinhaSupCentro.Name = "btnAlinhaSupCentro"
+        Me.btnAlinhaSupCentro.Size = New System.Drawing.Size(19, 19)
+        Me.btnAlinhaSupCentro.TabIndex = 11
+        Me.btnAlinhaSupCentro.UseVisualStyleBackColor = True
         '
-        'Label4
+        'lblAlinhamento
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label4.Location = New System.Drawing.Point(62, 19)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(17, 9)
-        Me.Label4.TabIndex = 12
-        Me.Label4.Text = "Left"
+        Me.lblAlinhamento.AutoSize = True
+        Me.lblAlinhamento.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAlinhamento.ForeColor = System.Drawing.Color.SteelBlue
+        Me.lblAlinhamento.Location = New System.Drawing.Point(62, 19)
+        Me.lblAlinhamento.Name = "lblAlinhamento"
+        Me.lblAlinhamento.Size = New System.Drawing.Size(17, 9)
+        Me.lblAlinhamento.TabIndex = 12
+        Me.lblAlinhamento.Text = "Left"
         '
-        'Button7
+        'btnAlinhaSupDir
         '
-        Me.Button7.FlatAppearance.BorderSize = 0
-        Me.Button7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button7.Image = CType(resources.GetObject("Button7.Image"), System.Drawing.Image)
-        Me.Button7.Location = New System.Drawing.Point(43, 13)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(19, 19)
-        Me.Button7.TabIndex = 11
-        Me.Button7.UseVisualStyleBackColor = True
+        Me.btnAlinhaSupDir.FlatAppearance.BorderSize = 0
+        Me.btnAlinhaSupDir.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAlinhaSupDir.Image = CType(resources.GetObject("btnAlinhaSupDir.Image"), System.Drawing.Image)
+        Me.btnAlinhaSupDir.Location = New System.Drawing.Point(43, 13)
+        Me.btnAlinhaSupDir.Name = "btnAlinhaSupDir"
+        Me.btnAlinhaSupDir.Size = New System.Drawing.Size(19, 19)
+        Me.btnAlinhaSupDir.TabIndex = 11
+        Me.btnAlinhaSupDir.UseVisualStyleBackColor = True
         '
-        'Button5
+        'btnAlinhaSupEsq
         '
-        Me.Button5.BackColor = System.Drawing.Color.SteelBlue
-        Me.Button5.FlatAppearance.BorderSize = 0
-        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.Image = CType(resources.GetObject("Button5.Image"), System.Drawing.Image)
-        Me.Button5.Location = New System.Drawing.Point(6, 13)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(19, 19)
-        Me.Button5.TabIndex = 11
-        Me.Button5.UseVisualStyleBackColor = False
+        Me.btnAlinhaSupEsq.BackColor = System.Drawing.Color.SteelBlue
+        Me.btnAlinhaSupEsq.FlatAppearance.BorderSize = 0
+        Me.btnAlinhaSupEsq.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAlinhaSupEsq.Image = CType(resources.GetObject("btnAlinhaSupEsq.Image"), System.Drawing.Image)
+        Me.btnAlinhaSupEsq.Location = New System.Drawing.Point(6, 13)
+        Me.btnAlinhaSupEsq.Name = "btnAlinhaSupEsq"
+        Me.btnAlinhaSupEsq.Size = New System.Drawing.Size(19, 19)
+        Me.btnAlinhaSupEsq.TabIndex = 11
+        Me.btnAlinhaSupEsq.UseVisualStyleBackColor = False
         '
-        'DataGridView1
+        'dgvTextos
         '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AllowUserToDeleteRows = False
-        Me.DataGridView1.AllowUserToResizeColumns = False
-        Me.DataGridView1.AllowUserToResizeRows = False
-        Me.DataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.dgvTextos.AllowUserToAddRows = False
+        Me.dgvTextos.AllowUserToDeleteRows = False
+        Me.dgvTextos.AllowUserToResizeColumns = False
+        Me.dgvTextos.AllowUserToResizeRows = False
+        Me.dgvTextos.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCellsExceptHeader
+        Me.dgvTextos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCellsExceptHeader
         DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -833,8 +833,8 @@ Partial Class FormFundo
         DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvTextos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        Me.dgvTextos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -842,9 +842,9 @@ Partial Class FormFundo
         DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle11
-        Me.DataGridView1.Location = New System.Drawing.Point(3, 125)
-        Me.DataGridView1.Name = "DataGridView1"
+        Me.dgvTextos.DefaultCellStyle = DataGridViewCellStyle11
+        Me.dgvTextos.Location = New System.Drawing.Point(3, 125)
+        Me.dgvTextos.Name = "dgvTextos"
         DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -852,39 +852,39 @@ Partial Class FormFundo
         DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
-        Me.DataGridView1.Size = New System.Drawing.Size(394, 90)
-        Me.DataGridView1.TabIndex = 14
+        Me.dgvTextos.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        Me.dgvTextos.Size = New System.Drawing.Size(394, 90)
+        Me.dgvTextos.TabIndex = 14
         '
-        'TextBox10
+        'txtEdicaoId
         '
-        Me.TextBox10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox10.BackColor = System.Drawing.Color.Gainsboro
-        Me.TextBox10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox10.Location = New System.Drawing.Point(269, 3)
-        Me.TextBox10.Name = "TextBox10"
-        Me.TextBox10.Size = New System.Drawing.Size(36, 21)
-        Me.TextBox10.TabIndex = 13
+        Me.txtEdicaoId.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtEdicaoId.BackColor = System.Drawing.Color.Gainsboro
+        Me.txtEdicaoId.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEdicaoId.Location = New System.Drawing.Point(269, 3)
+        Me.txtEdicaoId.Name = "txtEdicaoId"
+        Me.txtEdicaoId.Size = New System.Drawing.Size(36, 21)
+        Me.txtEdicaoId.TabIndex = 13
         '
-        'TextBox9
+        'txtEdicaoTexto
         '
-        Me.TextBox9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.txtEdicaoTexto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox9.Location = New System.Drawing.Point(6, 24)
-        Me.TextBox9.Name = "TextBox9"
-        Me.TextBox9.Size = New System.Drawing.Size(299, 21)
-        Me.TextBox9.TabIndex = 13
+        Me.txtEdicaoTexto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEdicaoTexto.Location = New System.Drawing.Point(6, 24)
+        Me.txtEdicaoTexto.Name = "txtEdicaoTexto"
+        Me.txtEdicaoTexto.Size = New System.Drawing.Size(299, 21)
+        Me.txtEdicaoTexto.TabIndex = 13
         '
-        'ComboBox1
+        'cboPastas
         '
-        Me.ComboBox1.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.ComboBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(4, 35)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(182, 21)
-        Me.ComboBox1.TabIndex = 5
+        Me.cboPastas.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.cboPastas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboPastas.FormattingEnabled = True
+        Me.cboPastas.Location = New System.Drawing.Point(4, 35)
+        Me.cboPastas.Name = "cboPastas"
+        Me.cboPastas.Size = New System.Drawing.Size(182, 21)
+        Me.cboPastas.TabIndex = 5
         '
         'TableLayoutPanel1
         '
@@ -895,7 +895,7 @@ Partial Class FormFundo
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 418.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.GroupBox2, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.WebBrowser1, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.webPastas, 0, 1)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
@@ -909,10 +909,10 @@ Partial Class FormFundo
         Me.GroupBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox2.Controls.Add(Me.Button12)
-        Me.GroupBox2.Controls.Add(Me.RadioButton2)
-        Me.GroupBox2.Controls.Add(Me.RadioButton1)
-        Me.GroupBox2.Controls.Add(Me.ComboBox1)
+        Me.GroupBox2.Controls.Add(Me.btnVoltarPasta)
+        Me.GroupBox2.Controls.Add(Me.rbMinhasImagens)
+        Me.GroupBox2.Controls.Add(Me.rbGerenciador)
+        Me.GroupBox2.Controls.Add(Me.cboPastas)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox2.Name = "GroupBox2"
@@ -921,47 +921,47 @@ Partial Class FormFundo
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "IMAGEM DE FUNDO"
         '
-        'Button12
+        'btnVoltarPasta
         '
-        Me.Button12.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.Button12.FlatAppearance.BorderSize = 0
-        Me.Button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button12.Image = CType(resources.GetObject("Button12.Image"), System.Drawing.Image)
-        Me.Button12.Location = New System.Drawing.Point(272, 32)
-        Me.Button12.Name = "Button12"
-        Me.Button12.Size = New System.Drawing.Size(68, 27)
-        Me.Button12.TabIndex = 8
-        Me.Button12.Text = "Voltar"
-        Me.Button12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button12.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Button12.UseVisualStyleBackColor = True
+        Me.btnVoltarPasta.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.btnVoltarPasta.FlatAppearance.BorderSize = 0
+        Me.btnVoltarPasta.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnVoltarPasta.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnVoltarPasta.Image = CType(resources.GetObject("btnVoltarPasta.Image"), System.Drawing.Image)
+        Me.btnVoltarPasta.Location = New System.Drawing.Point(272, 32)
+        Me.btnVoltarPasta.Name = "btnVoltarPasta"
+        Me.btnVoltarPasta.Size = New System.Drawing.Size(68, 27)
+        Me.btnVoltarPasta.TabIndex = 8
+        Me.btnVoltarPasta.Text = "Voltar"
+        Me.btnVoltarPasta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnVoltarPasta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnVoltarPasta.UseVisualStyleBackColor = True
         '
-        'RadioButton2
+        'rbMinhasImagens
         '
-        Me.RadioButton2.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RadioButton2.Location = New System.Drawing.Point(232, 15)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(102, 17)
-        Me.RadioButton2.TabIndex = 7
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Minhas Imagens"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.rbMinhasImagens.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.rbMinhasImagens.AutoSize = True
+        Me.rbMinhasImagens.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rbMinhasImagens.Location = New System.Drawing.Point(232, 15)
+        Me.rbMinhasImagens.Name = "rbMinhasImagens"
+        Me.rbMinhasImagens.Size = New System.Drawing.Size(102, 17)
+        Me.rbMinhasImagens.TabIndex = 7
+        Me.rbMinhasImagens.TabStop = True
+        Me.rbMinhasImagens.Text = "Minhas Imagens"
+        Me.rbMinhasImagens.UseVisualStyleBackColor = True
         '
-        'RadioButton1
+        'rbGerenciador
         '
-        Me.RadioButton1.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RadioButton1.Location = New System.Drawing.Point(7, 15)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(83, 17)
-        Me.RadioButton1.TabIndex = 6
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "Gerenciador"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.rbGerenciador.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.rbGerenciador.AutoSize = True
+        Me.rbGerenciador.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rbGerenciador.Location = New System.Drawing.Point(7, 15)
+        Me.rbGerenciador.Name = "rbGerenciador"
+        Me.rbGerenciador.Size = New System.Drawing.Size(83, 17)
+        Me.rbGerenciador.TabIndex = 6
+        Me.rbGerenciador.TabStop = True
+        Me.rbGerenciador.Text = "Gerenciador"
+        Me.rbGerenciador.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel2
         '
@@ -988,11 +988,11 @@ Partial Class FormFundo
         Me.GroupBox3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox3.Controls.Add(Me.Label16)
-        Me.GroupBox3.Controls.Add(Me.Label15)
-        Me.GroupBox3.Controls.Add(Me.Label14)
-        Me.GroupBox3.Controls.Add(Me.Label13)
-        Me.GroupBox3.Controls.Add(Me.PictureBox1)
+        Me.GroupBox3.Controls.Add(Me.lblPrevCorpo)
+        Me.GroupBox3.Controls.Add(Me.lblPrevSubtitulo)
+        Me.GroupBox3.Controls.Add(Me.lblPrevTitulo)
+        Me.GroupBox3.Controls.Add(Me.lblPrevRodape)
+        Me.GroupBox3.Controls.Add(Me.picPreview)
         Me.GroupBox3.Location = New System.Drawing.Point(0, 341)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(0)
         Me.GroupBox3.Name = "GroupBox3"
@@ -1000,141 +1000,141 @@ Partial Class FormFundo
         Me.GroupBox3.TabIndex = 11
         Me.GroupBox3.TabStop = False
         '
-        'Label16
+        'lblPrevCorpo
         '
-        Me.Label16.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lblPrevCorpo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label16.BackColor = System.Drawing.Color.Transparent
-        Me.Label16.Location = New System.Drawing.Point(2, 60)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(410, 138)
-        Me.Label16.TabIndex = 7
+        Me.lblPrevCorpo.BackColor = System.Drawing.Color.Transparent
+        Me.lblPrevCorpo.Location = New System.Drawing.Point(2, 60)
+        Me.lblPrevCorpo.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblPrevCorpo.Name = "lblPrevCorpo"
+        Me.lblPrevCorpo.Size = New System.Drawing.Size(410, 138)
+        Me.lblPrevCorpo.TabIndex = 7
         '
-        'Label15
+        'lblPrevSubtitulo
         '
-        Me.Label15.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lblPrevSubtitulo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label15.BackColor = System.Drawing.Color.Transparent
-        Me.Label15.Location = New System.Drawing.Point(2, 33)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(410, 27)
-        Me.Label15.TabIndex = 6
+        Me.lblPrevSubtitulo.BackColor = System.Drawing.Color.Transparent
+        Me.lblPrevSubtitulo.Location = New System.Drawing.Point(2, 33)
+        Me.lblPrevSubtitulo.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblPrevSubtitulo.Name = "lblPrevSubtitulo"
+        Me.lblPrevSubtitulo.Size = New System.Drawing.Size(410, 27)
+        Me.lblPrevSubtitulo.TabIndex = 6
         '
-        'Label14
+        'lblPrevTitulo
         '
-        Me.Label14.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lblPrevTitulo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(2, 2)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(410, 31)
-        Me.Label14.TabIndex = 5
+        Me.lblPrevTitulo.BackColor = System.Drawing.Color.Transparent
+        Me.lblPrevTitulo.Location = New System.Drawing.Point(2, 2)
+        Me.lblPrevTitulo.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblPrevTitulo.Name = "lblPrevTitulo"
+        Me.lblPrevTitulo.Size = New System.Drawing.Size(410, 31)
+        Me.lblPrevTitulo.TabIndex = 5
         '
-        'Label13
+        'lblPrevRodape
         '
-        Me.Label13.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lblPrevRodape.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.Location = New System.Drawing.Point(2, 196)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(410, 27)
-        Me.Label13.TabIndex = 4
+        Me.lblPrevRodape.BackColor = System.Drawing.Color.Transparent
+        Me.lblPrevRodape.Location = New System.Drawing.Point(2, 196)
+        Me.lblPrevRodape.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblPrevRodape.Name = "lblPrevRodape"
+        Me.lblPrevRodape.Size = New System.Drawing.Size(410, 27)
+        Me.lblPrevRodape.TabIndex = 4
         '
-        'PictureBox1
+        'picPreview
         '
-        Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PictureBox1.Location = New System.Drawing.Point(3, 16)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 3, 2, 2)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(410, 224)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
+        Me.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.picPreview.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.picPreview.Location = New System.Drawing.Point(3, 16)
+        Me.picPreview.Margin = New System.Windows.Forms.Padding(2, 3, 2, 2)
+        Me.picPreview.Name = "picPreview"
+        Me.picPreview.Size = New System.Drawing.Size(410, 224)
+        Me.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picPreview.TabIndex = 0
+        Me.picPreview.TabStop = False
         '
         'GroupBox4
         '
         Me.GroupBox4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox4.Controls.Add(Me.RadioButton4)
-        Me.GroupBox4.Controls.Add(Me.RadioButton3)
-        Me.GroupBox4.Controls.Add(Me.Button13)
-        Me.GroupBox4.Controls.Add(Me.Label1)
-        Me.GroupBox4.Controls.Add(Me.Label6)
+        Me.GroupBox4.Controls.Add(Me.rbLigado)
+        Me.GroupBox4.Controls.Add(Me.rbDesligado)
+        Me.GroupBox4.Controls.Add(Me.btnNovaImagem)
+        Me.GroupBox4.Controls.Add(Me.lblArquivo)
+        Me.GroupBox4.Controls.Add(Me.lblIndiceImagem)
         Me.GroupBox4.Location = New System.Drawing.Point(3, 259)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(410, 79)
         Me.GroupBox4.TabIndex = 12
         Me.GroupBox4.TabStop = False
         '
-        'RadioButton4
+        'rbLigado
         '
-        Me.RadioButton4.BackColor = System.Drawing.Color.Transparent
-        Me.RadioButton4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RadioButton4.Image = CType(resources.GetObject("RadioButton4.Image"), System.Drawing.Image)
-        Me.RadioButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.RadioButton4.Location = New System.Drawing.Point(284, 12)
-        Me.RadioButton4.Name = "RadioButton4"
-        Me.RadioButton4.Size = New System.Drawing.Size(93, 38)
-        Me.RadioButton4.TabIndex = 14
-        Me.RadioButton4.TabStop = True
-        Me.RadioButton4.Text = "Ligado"
-        Me.RadioButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.RadioButton4.UseVisualStyleBackColor = False
+        Me.rbLigado.BackColor = System.Drawing.Color.Transparent
+        Me.rbLigado.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rbLigado.Image = CType(resources.GetObject("rbLigado.Image"), System.Drawing.Image)
+        Me.rbLigado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.rbLigado.Location = New System.Drawing.Point(284, 12)
+        Me.rbLigado.Name = "rbLigado"
+        Me.rbLigado.Size = New System.Drawing.Size(93, 38)
+        Me.rbLigado.TabIndex = 14
+        Me.rbLigado.TabStop = True
+        Me.rbLigado.Text = "Ligado"
+        Me.rbLigado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.rbLigado.UseVisualStyleBackColor = False
         '
-        'RadioButton3
+        'rbDesligado
         '
-        Me.RadioButton3.BackColor = System.Drawing.Color.AliceBlue
-        Me.RadioButton3.Checked = True
-        Me.RadioButton3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RadioButton3.Image = CType(resources.GetObject("RadioButton3.Image"), System.Drawing.Image)
-        Me.RadioButton3.Location = New System.Drawing.Point(156, 12)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(111, 38)
-        Me.RadioButton3.TabIndex = 13
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "Desligado"
-        Me.RadioButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.RadioButton3.UseVisualStyleBackColor = False
+        Me.rbDesligado.BackColor = System.Drawing.Color.AliceBlue
+        Me.rbDesligado.Checked = True
+        Me.rbDesligado.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rbDesligado.Image = CType(resources.GetObject("rbDesligado.Image"), System.Drawing.Image)
+        Me.rbDesligado.Location = New System.Drawing.Point(156, 12)
+        Me.rbDesligado.Name = "rbDesligado"
+        Me.rbDesligado.Size = New System.Drawing.Size(111, 38)
+        Me.rbDesligado.TabIndex = 13
+        Me.rbDesligado.TabStop = True
+        Me.rbDesligado.Text = "Desligado"
+        Me.rbDesligado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.rbDesligado.UseVisualStyleBackColor = False
         '
-        'Button13
+        'btnNovaImagem
         '
-        Me.Button13.Image = CType(resources.GetObject("Button13.Image"), System.Drawing.Image)
-        Me.Button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button13.Location = New System.Drawing.Point(0, 6)
-        Me.Button13.Name = "Button13"
-        Me.Button13.Size = New System.Drawing.Size(98, 25)
-        Me.Button13.TabIndex = 11
-        Me.Button13.Text = "Nova Imagem"
-        Me.Button13.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Button13.UseVisualStyleBackColor = True
+        Me.btnNovaImagem.Image = CType(resources.GetObject("btnNovaImagem.Image"), System.Drawing.Image)
+        Me.btnNovaImagem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnNovaImagem.Location = New System.Drawing.Point(0, 6)
+        Me.btnNovaImagem.Name = "btnNovaImagem"
+        Me.btnNovaImagem.Size = New System.Drawing.Size(98, 25)
+        Me.btnNovaImagem.TabIndex = 11
+        Me.btnNovaImagem.Text = "Nova Imagem"
+        Me.btnNovaImagem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnNovaImagem.UseVisualStyleBackColor = True
         '
-        'Label1
+        'lblArquivo
         '
-        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label1.AutoSize = True
-        Me.Label1.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label1.Location = New System.Drawing.Point(3, 58)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(88, 13)
-        Me.Label1.TabIndex = 10
-        Me.Label1.Text = "Nome do arquivo"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblArquivo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblArquivo.AutoSize = True
+        Me.lblArquivo.ForeColor = System.Drawing.Color.SteelBlue
+        Me.lblArquivo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblArquivo.Location = New System.Drawing.Point(3, 58)
+        Me.lblArquivo.Name = "lblArquivo"
+        Me.lblArquivo.Size = New System.Drawing.Size(88, 13)
+        Me.lblArquivo.TabIndex = 10
+        Me.lblArquivo.Text = "Nome do arquivo"
+        Me.lblArquivo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label6
+        'lblIndiceImagem
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(104, 12)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(13, 13)
-        Me.Label6.TabIndex = 12
-        Me.Label6.Text = "0"
+        Me.lblIndiceImagem.AutoSize = True
+        Me.lblIndiceImagem.Location = New System.Drawing.Point(104, 12)
+        Me.lblIndiceImagem.Name = "lblIndiceImagem"
+        Me.lblIndiceImagem.Size = New System.Drawing.Size(13, 13)
+        Me.lblIndiceImagem.TabIndex = 12
+        Me.lblIndiceImagem.Text = "0"
         '
         'TableLayoutPanel3
         '
@@ -1165,11 +1165,11 @@ Partial Class FormFundo
         Me.Name = "FormFundo"
         Me.Text = "Form Fundo"
         Me.GroupBox1.ResumeLayout(False)
-        Me.TabControl1.ResumeLayout(False)
+        Me.tabTextos.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TableLayoutPanel5.ResumeLayout(False)
         Me.TableLayoutPanel5.PerformLayout()
-        CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.trkZoom, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
@@ -1177,92 +1177,92 @@ Partial Class FormFundo
         Me.GroupBox6.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvTextos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picPreview, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents WebBrowser1 As WebBrowser
+    Friend WithEvents webPastas As WebBrowser
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents Button7 As Button
-    Friend WithEvents Button6 As Button
-    Friend WithEvents Button5 As Button
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents btnAlinhaSupDir As Button
+    Friend WithEvents btnAlinhaSupCentro As Button
+    Friend WithEvents btnAlinhaSupEsq As Button
+    Friend WithEvents txtCorpo As TextBox
+    Friend WithEvents cboPastas As ComboBox
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents RadioButton2 As RadioButton
-    Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents Button12 As Button
+    Friend WithEvents rbMinhasImagens As RadioButton
+    Friend WithEvents rbGerenciador As RadioButton
+    Friend WithEvents btnVoltarPasta As Button
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblArquivo As Label
     Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents picPreview As PictureBox
     Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents Button13 As Button
-    Friend WithEvents Label6 As Label
-    Friend WithEvents RadioButton3 As RadioButton
-    Friend WithEvents RadioButton4 As RadioButton
-    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents btnNovaImagem As Button
+    Friend WithEvents lblIndiceImagem As Label
+    Friend WithEvents rbDesligado As RadioButton
+    Friend WithEvents rbLigado As RadioButton
+    Friend WithEvents tabTextos As TabControl
     Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents TextBox8 As TextBox
-    Friend WithEvents TextBox7 As TextBox
-    Friend WithEvents TextBox6 As TextBox
-    Friend WithEvents CheckBox4 As CheckBox
-    Friend WithEvents CheckBox3 As CheckBox
-    Friend WithEvents CheckBox2 As CheckBox
-    Friend WithEvents CheckBox1 As CheckBox
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents TextBox5 As TextBox
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents txtIdRodape As TextBox
+    Friend WithEvents txtIdCorpo As TextBox
+    Friend WithEvents txtIdSubtitulo As TextBox
+    Friend WithEvents chkRodape As CheckBox
+    Friend WithEvents chkCorpo As CheckBox
+    Friend WithEvents chkSubtitulo As CheckBox
+    Friend WithEvents chkTitulo As CheckBox
+    Friend WithEvents txtTitulo As TextBox
+    Friend WithEvents txtSubtitulo As TextBox
+    Friend WithEvents txtIdTitulo As TextBox
+    Friend WithEvents txtRodape As TextBox
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents TextBox10 As TextBox
-    Friend WithEvents TextBox9 As TextBox
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents btnEditarTitulo As Button
+    Friend WithEvents btnEditarRodape As Button
+    Friend WithEvents btnEditarCorpo As Button
+    Friend WithEvents btnEditarSubtitulo As Button
+    Friend WithEvents txtEdicaoId As TextBox
+    Friend WithEvents txtEdicaoTexto As TextBox
+    Friend WithEvents dgvTextos As DataGridView
     Friend WithEvents GroupBox6 As GroupBox
-    Friend WithEvents Button8 As Button
+    Friend WithEvents btnFonte As Button
     Friend WithEvents GroupBox5 As GroupBox
-    Friend WithEvents Button9 As Button
-    Friend WithEvents Button10 As Button
+    Friend WithEvents btnCorFundo As Button
+    Friend WithEvents btnVoltarSalvar As Button
     Friend WithEvents GroupBox7 As GroupBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Button11 As Button
-    Friend WithEvents Label13 As Label
-    Friend WithEvents Label16 As Label
-    Friend WithEvents Label15 As Label
-    Friend WithEvents Label14 As Label
-    Friend WithEvents Button14 As Button
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Button20 As Button
-    Friend WithEvents Button19 As Button
-    Friend WithEvents Button18 As Button
-    Friend WithEvents Button17 As Button
-    Friend WithEvents Button16 As Button
-    Friend WithEvents Button15 As Button
-    Friend WithEvents Label11 As Label
+    Friend WithEvents lblCorPreenchimento As Label
+    Friend WithEvents lblTipoTexto As Label
+    Friend WithEvents lblFonteCor As Label
+    Friend WithEvents lblFonteTamanho As Label
+    Friend WithEvents lblFonteEstilo As Label
+    Friend WithEvents lblFonteNome As Label
+    Friend WithEvents lblAlinhamento As Label
+    Friend WithEvents btnNovoTexto As Button
+    Friend WithEvents lblPrevRodape As Label
+    Friend WithEvents lblPrevCorpo As Label
+    Friend WithEvents lblPrevSubtitulo As Label
+    Friend WithEvents lblPrevTitulo As Label
+    Friend WithEvents btnFundoTransparente As Button
+    Friend WithEvents lblTituloTextos As Label
+    Friend WithEvents btnAlinhaInfDir As Button
+    Friend WithEvents btnAlinhaInfCentro As Button
+    Friend WithEvents btnAlinhaInfEsq As Button
+    Friend WithEvents btnAlinhaMeioDir As Button
+    Friend WithEvents btnAlinhaMeioCentro As Button
+    Friend WithEvents btnAlinhaMeioEsq As Button
+    Friend WithEvents lblAmostraFundo As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents Label17 As Label
-    Friend WithEvents TrackBar1 As TrackBar
-    Friend WithEvents Label18 As Label
+    Friend WithEvents trkZoom As TrackBar
+    Friend WithEvents lblZoom As Label
 End Class
