@@ -210,6 +210,12 @@ Module Module1
     Private ReadOnly CacheBiblia As New Dictionary(Of String, DataTable)(StringComparer.OrdinalIgnoreCase) 'chave "ACF"
     Private IndiceLivro As New Dictionary(Of Integer, DataRow) 'versículos do livro atual por (capítulo, versículo)
 
+    'Assunto (4) e Referências (5) existem só em algumas versões (ex.: ACF tem, NVI não)
+    Private Function ColunaOpcional(Linha As DataRow, Indice As Integer) As Object
+        If Indice < Linha.Table.Columns.Count Then Return Linha.Item(Indice)
+        Return DBNull.Value
+    End Function
+
     Private Function ChaveVersiculo(Cap As Integer, Ver As Integer) As Integer
         Return Cap * 1000 + Ver
     End Function
@@ -300,7 +306,7 @@ Module Module1
         ResultRef1 = Livro & " - " & Cap & ":" & Ver
         ResultRef2 = Cap & ":" & Ver
         ResultReferencia = ""
-        If Not IsDBNull(Linha.Item(5)) Then ResultReferencia = Linha.Item(5).ToString
+        If Not IsDBNull(ColunaOpcional(Linha, 5)) Then ResultReferencia = ColunaOpcional(Linha, 5).ToString
     End Sub
 
     'Monta (uma vez por versão) a tabela com todos os versículos, usada nas pesquisas
@@ -327,7 +333,7 @@ Module Module1
                 If Livro Is Nothing OrElse Not CacheLivros.ContainsKey(VersaoBiblia & "|" & NomeLivro) Then Completa = False
                 If Livro Is Nothing Then Continue For
                 For Each Linha As DataRow In Livro.Rows
-                    Tabela.Rows.Add(LL, NomeLivro, Linha.Item(1), Linha.Item(2), Linha.Item(3), Linha.Item(4), Linha.Item(5))
+                    Tabela.Rows.Add(LL, NomeLivro, Linha.Item(1), Linha.Item(2), Linha.Item(3), ColunaOpcional(Linha, 4), ColunaOpcional(Linha, 5))
                     LL += 1
                 Next
             Next
