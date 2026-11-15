@@ -252,7 +252,7 @@ Public Class FormFundo
                 RegTipoTexto.Columns.Add(Column)
             End If
         Next
-        For L As Long = 1 To RegTextos.Rows.Count - 1
+        For L As Long = 0 To RegTextos.Rows.Count - 1
             If Tipo = RegTextos.Rows(L).Item(2) Then
                 Row = RegTipoTexto.NewRow
                 Row("ID") = RegTextos.Rows(L).Item(0) 'ID
@@ -276,7 +276,7 @@ Public Class FormFundo
             Label7.Text = "0" 'Fonte estilo
             Label9.Text = "0" 'Fonte cor
         Else
-            For L As Long = 1 To RegTextos.Rows.Count - 1
+            For L As Long = 0 To RegTextos.Rows.Count - 1
                 If I = RegTextos.Rows(L).Item(0) Then
                     Label4.Text = RegTextos.Rows(L).Item(3) 'Alinhamento
                     Label10.Text = RegTextos.Rows(L).Item(4) 'Preenchimento
@@ -729,7 +729,7 @@ Public Class FormFundo
         For II As Integer = 0 To 3
             If Check(II).Checked = True And IndText(II).Text <> "" Then
                 I = IndText(II).Text
-                For L As Long = 1 To RegTextos.Rows.Count - 1
+                For L As Long = 0 To RegTextos.Rows.Count - 1
                     If I = RegTextos.Rows(L).Item(0) Then
                         Dim f As FontFamily = FontF(FN:=RegTextos.Rows(L).Item(5))
                         If f Is Nothing Then f = FontFamily.GenericSansSerif 'fonte não instalada neste computador

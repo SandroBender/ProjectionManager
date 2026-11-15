@@ -201,145 +201,145 @@ Module Module1
         Next
     End Sub
 
+    'Os 66 livros, na ordem e com os mesmos nomes das tabelas nos bancos ACF/NVI
+    Public ReadOnly LivrosBiblia() As String = {"Genesis", "Exodo", "Levitico", "Numeros", "Deuteronomio", "Josue", "Juizes", "Rute", "1Samuel", "2Samuel", "1Reis", "2Reis", "1Cronicas", "2Cronicas", "Esdras", "Neemias", "Ester", "Jo", "Salmos", "Proverbios", "Eclesiastes", "Cantares", "Isaias", "Jeremias", "Lamentacoes", "Ezequiel", "Daniel", "Oseias", "Joel", "Amos", "Obadias", "Jonas", "Miqueias", "Naum", "Habacuque", "Sofonias", "Ageu", "Zacarias", "Malaquias", "Mateus", "Marcos", "Lucas", "Joao", "Atos", "Romanos", "1Corintios", "2Corintios", "Galatas", "Efesios", "Filipenses", "Colossenses", "1Tessalonicenses", "2Tessalonicenses", "1Timoteo", "2Timoteo", "Tito", "Filemom", "Hebreus", "Tiago", "1Pedro", "2Pedro", "1Joao", "2Joao", "3Joao", "Judas", "Apocalipse"}
+    Private Const SeparadorTestamentos As String = "------------------------"
+
+    'Cache: cada livro e cada Bíblia completa são lidos do banco uma única vez por versão
+    Private ReadOnly CacheLivros As New Dictionary(Of String, DataTable)(StringComparer.OrdinalIgnoreCase) 'chave "ACF|Genesis"
+    Private ReadOnly CacheBiblia As New Dictionary(Of String, DataTable)(StringComparer.OrdinalIgnoreCase) 'chave "ACF"
+    Private IndiceLivro As New Dictionary(Of Integer, DataRow) 'versículos do livro atual por (capítulo, versículo)
+
+    Private Function ChaveVersiculo(Cap As Integer, Ver As Integer) As Integer
+        Return Cap * 1000 + Ver
+    End Function
+
     Public Sub CarregarListaLivros()
-        Dim Column As DataColumn
-        Dim Row As DataRow
-        Dim L As Long
-        Dim Livro() As String = {"Genesis", "Exodo", "Levitico", "Numeros", "Deuteronomio", "Josue", "Juizes", "Rute", "1Samuel", "2Samuel", "1Reis", "2Reis", "1Cronicas", "2Cronicas", "Esdras", "Neemias", "Ester", "Jo", "Salmos", "Proverbios", "Eclesiastes", "Cantares", "Isaias", "Jeremias", "Lamentacoes", "Ezequiel", "Daniel", "Oseias", "Joel", "Amos", "Obadias", "Jonas", "Miqueias", "Naum", "Habacuque", "Sofonias", "Ageu", "Zacarias", "Malaquias", "------------------------", "Mateus", "Marcos", "Lucas", "Joao", "Atos", "Romanos", "1Corintios", "2Corintios", "Galatas", "Efesios", "Filipenses", "Colossenses", "1Tessalonicenses", "2Tessalonicenses", "1Timoteo", "2Timoteo", "Tito", "Filemom", "Hebreus", "Tiago", "1Pedro", "2Pedro", "1Joao", "2Joao", "3Joao", "Judas", "Apocalipse"}
         ListaLivros = New DataTable
-        Column = New DataColumn With {.DataType = Type.GetType("System.Int32"), .ColumnName = "Indice", .ReadOnly = True, .Unique = True}
-        ListaLivros.Columns.Add(Column)
-        Column = New DataColumn With {.DataType = Type.GetType("System.String"), .ColumnName = "Livro", .ReadOnly = False, .Unique = False}
-        ListaLivros.Columns.Add(Column)
-        For L = 0 To 66
-            Row = ListaLivros.NewRow
+        ListaLivros.Columns.Add(New DataColumn With {.DataType = GetType(Integer), .ColumnName = "Indice", .ReadOnly = True, .Unique = True})
+        ListaLivros.Columns.Add(New DataColumn With {.DataType = GetType(String), .ColumnName = "Livro", .ReadOnly = False, .Unique = False})
+        Dim Nomes As New List(Of String)(LivrosBiblia)
+        Nomes.Insert(39, SeparadorTestamentos) 'entre Malaquias e Mateus
+        For L As Integer = 0 To Nomes.Count - 1
+            Dim Row As DataRow = ListaLivros.NewRow
             Row("Indice") = L + 1
-            Row("Livro") = Livro(L)
+            Row("Livro") = Nomes(L)
             ListaLivros.Rows.Add(Row)
         Next
     End Sub
 
+    Private Function ConexaoVersao() As OleDbConnection
+        If VersaoBiblia = "ACF" Then Return ConexACF
+        If VersaoBiblia = "NVI" Then Return ConexNVI
+        Return Nothing
+    End Function
+
+    'Lê um livro da versão atual (do cache, se já foi lido antes)
+    Private Function ObterLivro(Lv As String) As DataTable
+        Dim Chave As String = VersaoBiblia & "|" & Lv
+        Dim Tabela As DataTable = Nothing
+        If CacheLivros.TryGetValue(Chave, Tabela) Then Return Tabela
+        Dim Conex As OleDbConnection = ConexaoVersao()
+        If Conex Is Nothing Then Return Nothing
+        Tabela = New DataTable
+        Try
+            Using Adaptador As New OleDbDataAdapter("SELECT * FROM [" & Lv & "]", Conex) 'Fill abre/fecha a conexão se estiver fechada
+                Adaptador.Fill(Tabela)
+            End Using
+            CacheLivros(Chave) = Tabela
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "Acessar Biblia " & VersaoBiblia)
+        End Try
+        Return Tabela
+    End Function
+
     Public Sub CarregarLivro(Lv As String)
-        Dim Adaptador As OleDbDataAdapter
-        Dim SQL As String = "SELECT * FROM " & Lv
-        Dim Column As DataColumn
-        Dim Row As DataRow
-        Dim TL As Long  'total de linhas
-        If RegLivro IsNot Nothing Then RegLivro.Clear()
         If VersaoBiblia = "" Then Exit Sub
-        If VersaoBiblia = "ACF" Then
-            ConectarACF()
-            Adaptador = New OleDbDataAdapter(SQL, ConexACF)
-            RegLivro = New DataTable
-            Adaptador.Fill(RegLivro)
-            DesconectarACF()
-        End If
-        If VersaoBiblia = "NVI" Then
-            ConectarNVI()
-            Adaptador = New OleDbDataAdapter(SQL, ConexNVI)
-            RegLivro = New DataTable
-            Adaptador.Fill(RegLivro)
-            DesconectarNVI()
-        End If
-        If ListaCap IsNot Nothing Then ListaCap.Clear()
-        TL = RegLivro.Rows.Count - 1 'total de linhas
+        Dim Tabela As DataTable = ObterLivro(Lv)
+        If Tabela Is Nothing Then Exit Sub
+        RegLivro = Tabela
+        IndiceLivro = New Dictionary(Of Integer, DataRow)
+        Dim MaiorCap As Integer = 0
+        For Each Linha As DataRow In RegLivro.Rows
+            Dim Cap As Integer = CInt(Linha.Item(1))
+            IndiceLivro(ChaveVersiculo(Cap, CInt(Linha.Item(2)))) = Linha
+            If Cap > MaiorCap Then MaiorCap = Cap
+        Next
         ListaCap = New DataTable
-        Column = New DataColumn With {.DataType = Type.GetType("System.Int32"), .ColumnName = "Indice", .ReadOnly = True, .Unique = True}
-        ListaCap.Columns.Add(Column)
-        For C As Long = 0 To RegLivro.Rows(TL).Item(1) - 1
-            Row = ListaCap.NewRow
-            Row("Indice") = C + 1
+        ListaCap.Columns.Add(New DataColumn With {.DataType = GetType(Integer), .ColumnName = "Indice", .ReadOnly = True, .Unique = True})
+        For C As Integer = 1 To MaiorCap
+            Dim Row As DataRow = ListaCap.NewRow
+            Row("Indice") = C
             ListaCap.Rows.Add(Row)
         Next
     End Sub
 
     Public Sub CarregarVer(Cap As Integer)
-        Dim Column As DataColumn
-        Dim Row As DataRow
-        If ListaVer IsNot Nothing Then ListaVer.Clear()
         ListaVer = New DataTable
-        Column = New DataColumn With {.DataType = Type.GetType("System.Int32"), .ColumnName = "Indice", .ReadOnly = True, .Unique = True}
-        ListaVer.Columns.Add(Column)
-        For L As Long = 0 To RegLivro.Rows.Count - 1
-            If RegLivro.Rows(L).Item(1) = Cap Then
-                Row = ListaVer.NewRow
-                Row("Indice") = RegLivro.Rows(L).Item(2)
+        ListaVer.Columns.Add(New DataColumn With {.DataType = GetType(Integer), .ColumnName = "Indice", .ReadOnly = True, .Unique = True})
+        For Each Linha As DataRow In RegLivro.Rows
+            If CInt(Linha.Item(1)) = Cap Then
+                Dim Row As DataRow = ListaVer.NewRow
+                Row("Indice") = Linha.Item(2)
                 ListaVer.Rows.Add(Row)
             End If
         Next
     End Sub
 
+    'Devolve a linha do versículo no livro atual (ou Nothing se não existir)
+    Public Function BuscarVersiculo(Cap As Integer, Ver As Integer) As DataRow
+        Dim Linha As DataRow = Nothing
+        IndiceLivro.TryGetValue(ChaveVersiculo(Cap, Ver), Linha)
+        Return Linha
+    End Function
+
     Public Sub ResultadoVer(Cap As Integer, Ver As Integer)
-        For L As Long = 0 To RegLivro.Rows.Count - 1
-            If RegLivro.Rows(L).Item(1) = Cap And RegLivro.Rows(L).Item(2) = Ver Then
-                ResultVers = RegLivro.Rows(L).Item(3)
-                ResultRef1 = Livro & " - " & Cap & ":" & Ver
-                ResultRef2 = Cap & ":" & Ver
-                ResultReferencia = ""
-                If Not IsDBNull(RegLivro.Rows(L).Item(5)) Then ResultReferencia = RegLivro.Rows(L).Item(5)
-            End If
-        Next
+        Dim Linha As DataRow = BuscarVersiculo(Cap, Ver)
+        If Linha Is Nothing Then Exit Sub
+        ResultVers = Linha.Item(3).ToString
+        ResultRef1 = Livro & " - " & Cap & ":" & Ver
+        ResultRef2 = Cap & ":" & Ver
+        ResultReferencia = ""
+        If Not IsDBNull(Linha.Item(5)) Then ResultReferencia = Linha.Item(5).ToString
     End Sub
 
+    'Monta (uma vez por versão) a tabela com todos os versículos, usada nas pesquisas
     Public Sub CarregarBibliaCompleta()
+        If VersaoBiblia = "" Then Exit Sub
+        Dim Tabela As DataTable = Nothing
+        If CacheBiblia.TryGetValue(VersaoBiblia, Tabela) Then
+            RegBiblia = Tabela
+            Exit Sub
+        End If
         Dim Titulo() As String = {"ID", "Livro", "Cap", "Ver", "Texto", "Assunto", "Ref"}
-        Dim Livro() As String = {"Genesis", "Exodo", "Levitico", "Numeros", "Deuteronomio", "Josue", "Juizes", "Rute", "1Samuel", "2Samuel", "1Reis", "2Reis", "1Cronicas", "2Cronicas", "Esdras", "Neemias", "Ester", "Jo", "Salmos", "Proverbios", "Eclesiastes", "Cantares", "Isaias", "Jeremias", "Lamentacoes", "Ezequiel", "Daniel", "Oseias", "Joel", "Amos", "Obadias", "Jonas", "Miqueias", "Naum", "Habacuque", "Sofonias", "Ageu", "Zacarias", "Malaquias", "Mateus", "Marcos", "Lucas", "Joao", "Atos", "Romanos", "1Corintios", "2Corintios", "Galatas", "Efesios", "Filipenses", "Colossenses", "1Tessalonicenses", "2Tessalonicenses", "1Timoteo", "2Timoteo", "Tito", "Filemom", "Hebreus", "Tiago", "1Pedro", "2Pedro", "1Joao", "2Joao", "3Joao", "Judas", "Apocalipse"}
-        Dim Column As DataColumn
-        Dim Row As DataRow
-        Dim LL As Long = 1
-        If RegBiblia IsNot Nothing Then RegBiblia.Clear()
-        RegBiblia = New DataTable
-        For C As Integer = 0 To Titulo.Count - 1
-            Column = New DataColumn
-            If C = 0 Then
-                Column.DataType = Type.GetType("System.Int32")
-            Else
-                Column.DataType = Type.GetType("System.String")
-            End If
-            Column.ColumnName = Titulo(C)
-            Column.ReadOnly = True
-            Column.Unique = False
-            RegBiblia.Columns.Add(Column)
+        Tabela = New DataTable
+        For C As Integer = 0 To Titulo.Length - 1
+            Tabela.Columns.Add(New DataColumn With {.DataType = If(C = 0, GetType(Integer), GetType(String)), .ColumnName = Titulo(C), .ReadOnly = True, .Unique = False})
         Next
-        For LV As Integer = 0 To Livro.Count - 1
-            Dim Adaptador As OleDbDataAdapter
-            Dim SQL As String = "SELECT * FROM " & Livro(LV)
-            If VersaoBiblia = "" Then Exit Sub
-            If VersaoBiblia = "ACF" Then
-                ConectarACF()
-                Adaptador = New OleDbDataAdapter(SQL, ConexACF)
-                RegLivro = New DataTable
-                Adaptador.Fill(RegLivro)
-                DesconectarACF()
-            End If
-            If VersaoBiblia = "NVI" Then
-                ConectarNVI()
-                Adaptador = New OleDbDataAdapter(SQL, ConexNVI)
-                RegLivro = New DataTable
-                Adaptador.Fill(RegLivro)
-                DesconectarNVI()
-            End If
-            For L As Long = 0 To RegLivro.Rows.Count - 1
-                Row = RegBiblia.NewRow
-                Row("ID") = LL
-                Row("Livro") = Livro(LV)
-                Row("Cap") = RegLivro.Rows(L).Item(1)
-                Row("Ver") = RegLivro.Rows(L).Item(2)
-                Row("Texto") = RegLivro.Rows(L).Item(3)
-                If Not IsDBNull(RegLivro.Rows(L).Item(4)) Then
-                    Row("Assunto") = RegLivro.Rows(L).Item(4)
-                Else
-                    Row("Assunto") = DBNull.Value
-                End If
-                If Not IsDBNull(RegLivro.Rows(L).Item(5)) Then
-                    Row("Ref") = RegLivro.Rows(L).Item(5)
-                Else
-                    Row("Ref") = DBNull.Value
-                End If
-                RegBiblia.Rows.Add(Row)
-                LL += 1
+        Dim Conex As OleDbConnection = ConexaoVersao()
+        Dim LL As Integer = 1
+        Dim Completa As Boolean = True
+        Tabela.BeginLoadData()
+        Try
+            Conex.Open() 'uma conexão só para os 66 livros
+            For Each NomeLivro As String In LivrosBiblia
+                Dim Livro As DataTable = ObterLivro(NomeLivro)
+                If Livro Is Nothing OrElse Not CacheLivros.ContainsKey(VersaoBiblia & "|" & NomeLivro) Then Completa = False
+                If Livro Is Nothing Then Continue For
+                For Each Linha As DataRow In Livro.Rows
+                    Tabela.Rows.Add(LL, NomeLivro, Linha.Item(1), Linha.Item(2), Linha.Item(3), Linha.Item(4), Linha.Item(5))
+                    LL += 1
+                Next
             Next
-        Next
+        Catch ex As Exception
+            Completa = False
+            MsgBox(ex.Message, vbCritical, "Acessar Biblia " & VersaoBiblia)
+        Finally
+            If Conex.State <> ConnectionState.Closed Then Conex.Close()
+            Tabela.EndLoadData()
+        End Try
+        RegBiblia = Tabela
+        If Completa Then CacheBiblia(VersaoBiblia) = Tabela 'só guarda se todos os livros foram lidos
     End Sub
 
     Public Sub AtualizaApresentacao()

@@ -43,6 +43,7 @@ Public Class FormBiblia
     End Sub
 
     Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged 'Versão ACF
+        If Not RadioButton3.Checked Then Exit Sub 'ignora o evento do botão que foi desmarcado
         VersaoBiblia = RadioButton3.Text
         TextoBibliaCondensado = ""
         If Label8.Text <> "0" Then Icap = CInt(Label8.Text) - 1
@@ -54,6 +55,7 @@ Public Class FormBiblia
     End Sub
 
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged 'Versão NVI
+        If Not RadioButton4.Checked Then Exit Sub 'ignora o evento do botão que foi desmarcado
         VersaoBiblia = RadioButton4.Text
         TextoBibliaCondensado = ""
         If Label8.Text <> "0" Then Icap = CInt(Label8.Text) - 1
@@ -370,29 +372,29 @@ Public Class FormBiblia
                 RichTextBox1.Text = TextoBibliaCondensado & "[" & ResultRef1 & "] " & ResultVers
                 TextoBibliaCondensado = TextoBibliaCondensado & "[" & ResultRef1 & "] " & ResultVers
             End If
-            If V > 0 Then
-                TextoBibliaAnterior = ""
-                For I As Integer = 1 To V
-                    ResultadoVer(Cap:=C + 1, Ver:=I)
-                    TextoBibliaAnterior = TextoBibliaAnterior & " [ " & I & " ] " & ResultVers
-                    RichTextBox2.Text = TextoBibliaAnterior
-                Next
-            End If
-            If VI <= VF Then
-                TextoBibliaPosterior = ""
-                For I As Integer = VI To VF
-                    ResultadoVer(Cap:=C + 1, Ver:=I)
-                    TextoBibliaPosterior = TextoBibliaPosterior & " [ " & I & " ] " & ResultVers
-                    RichTextBox3.Text = TextoBibliaPosterior
-                Next
-            End If
+            TextoBibliaAnterior = ""
+            TextoBibliaPosterior = ""
+            Dim Anterior As New System.Text.StringBuilder
+            For I As Integer = 1 To V 'versículos antes do selecionado
+                Dim Linha As DataRow = BuscarVersiculo(C + 1, I)
+                If Linha IsNot Nothing Then Anterior.Append(" [ " & I & " ] " & Linha.Item(3).ToString)
+            Next
+            Dim Posterior As New System.Text.StringBuilder
+            For I As Integer = VI To VF 'versículos depois do selecionado
+                Dim Linha As DataRow = BuscarVersiculo(C + 1, I)
+                If Linha IsNot Nothing Then Posterior.Append(" [ " & I & " ] " & Linha.Item(3).ToString)
+            Next
+            TextoBibliaAnterior = Anterior.ToString
+            TextoBibliaPosterior = Posterior.ToString
+            RichTextBox2.Text = TextoBibliaAnterior
+            RichTextBox3.Text = TextoBibliaPosterior
         End If
         Transferir()
         Aad = False
     End Sub
 
     Private Sub SubstituirResultado()
-        Dim SubstituirTexto As String
+        Dim SubstituirTexto As String = ""
         If TabControl1.SelectedIndex = 0 And ListBox4.Text <> "" Then SubstituirTexto = ListBox4.Text 'localizar
         If TabControl1.SelectedIndex = 2 And ListBox5.Text <> "" Then SubstituirTexto = ListBox5.Text 'histórico
         If TabControl1.SelectedIndex = 1 And ListBox6.Text <> "" Then SubstituirTexto = ListBox6.Text 'referencia bíblica
@@ -401,6 +403,7 @@ Public Class FormBiblia
         Dim Cap As Integer
         Dim Ver As Integer
         Ref = SubstituirTexto.Split(";")
+        If Ref.Length < 3 Then Exit Sub 'nada selecionado ou formato inesperado
         Livro = Ref(0).ToString
         Cap = Ref(1).ToString
         Ver = Ref(2).ToString
