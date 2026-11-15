@@ -95,36 +95,14 @@ Public Class FormImagens
     End Sub
 
     Private Sub ProxArq(IP As Integer, Pasta As String)
-        Dim TA As Integer 'total arquivos
-        Dim IC As Integer = 0 'indice contagem
-        Dim Ext As String = "*.png,*.jpg,*.jpeg,*.bmp,*.JPG,*.JPEG,*.PNG"
-        Dim Arquivos As String() = Directory.GetFiles(Pasta, "*.*")
-        Array.Sort(Arquivos)
-        For Each Arq As String In Arquivos
-            If Ext.Contains(Path.GetExtension(Arq)) Then TA += 1
-        Next
-        For Each Arq As String In Arquivos
-            If Ext.Contains(Path.GetExtension(Arq)) Then
-                If IP >= TA Then
-                    lblIndiceImagem.Text = "0"
-                    picPreview.Image = CarregarImagem(Arq)
-                    ImageSobre = Arq
-                    lblArquivo.Text = Arq
-                    Transferir()
-                    Exit For
-                End If
-                'If IA = IC Then IP = IC + 1 'indice anterior encontrado
-                If IP = IC Then 'próximo indice encontrado
-                    picPreview.Image = CarregarImagem(Arq)
-                    ImageSobre = Arq
-                    lblArquivo.Text = Arq
-                    lblIndiceImagem.Text = IP
-                    Transferir()
-                    Exit For
-                End If
-                IC += 1
-            End If
-        Next
+        Dim Arq As String = Nothing
+        Dim Indice As Integer = ImagemDaPasta(Pasta, IP, Arq) 'volta para a 1ª imagem depois da última
+        If Indice < 0 Then Exit Sub 'pasta vazia ou inexistente
+        picPreview.Image = CarregarImagem(Arq)
+        ImageSobre = Arq
+        lblArquivo.Text = Arq
+        lblIndiceImagem.Text = Indice
+        Transferir()
     End Sub
 
     Private Sub rbDesligado_CheckedChanged(sender As Object, e As EventArgs) Handles rbDesligado.CheckedChanged 'imagem destivada
@@ -164,43 +142,17 @@ Public Class FormImagens
         webPastas.GoBack()
     End Sub
 
-    Private Sub rbTamanhoOriginal_CheckedChanged(sender As Object, e As EventArgs) Handles rbTamanhoOriginal.CheckedChanged
-        picPreview.SizeMode = PictureBoxSizeMode.Normal 'Tamanho original
-        AjusteDimensional = "N"
+    Private Sub rbAjuste_CheckedChanged(sender As Object, e As EventArgs) Handles rbTamanhoOriginal.CheckedChanged, rbAjustarTamanho.CheckedChanged, rbOriginalCentralizado.CheckedChanged, rbManterProporcao.CheckedChanged
+        If Not DirectCast(sender, RadioButton).Checked Then Exit Sub 'ignora o botão desmarcado
+        If sender Is rbTamanhoOriginal Then AjusteDimensional = "N" 'Tamanho original
+        If sender Is rbAjustarTamanho Then AjusteDimensional = "S" 'Ajustar ao tamanho
+        If sender Is rbOriginalCentralizado Then AjusteDimensional = "C" 'Original centralizado
+        If sender Is rbManterProporcao Then AjusteDimensional = "Z" 'Manter proporção
+        picPreview.SizeMode = ModoAjuste()
         If FormPrincipal.rbAtivada.Checked = True Then
-            FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.Normal
+            FormPrincipal.picSobreposicao.SizeMode = ModoAjuste()
             AtualizaApresentacao()
         End If
     End Sub
-
-    Private Sub rbAjustarTamanho_CheckedChanged(sender As Object, e As EventArgs) Handles rbAjustarTamanho.CheckedChanged
-        picPreview.SizeMode = PictureBoxSizeMode.StretchImage 'Ajustar ao tamanho
-        AjusteDimensional = "S"
-        If FormPrincipal.rbAtivada.Checked = True Then
-            FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.StretchImage
-            AtualizaApresentacao()
-        End If
-    End Sub
-
-    Private Sub rbOriginalCentralizado_CheckedChanged(sender As Object, e As EventArgs) Handles rbOriginalCentralizado.CheckedChanged
-        picPreview.SizeMode = PictureBoxSizeMode.CenterImage
-        AjusteDimensional = "C"
-        If FormPrincipal.rbAtivada.Checked = True Then
-            FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.CenterImage
-            AtualizaApresentacao()
-        End If
-    End Sub
-
-    Private Sub rbManterProporcao_CheckedChanged(sender As Object, e As EventArgs) Handles rbManterProporcao.CheckedChanged
-        picPreview.SizeMode = PictureBoxSizeMode.Zoom 'Manter proporção
-        AjusteDimensional = "Z"
-        If FormPrincipal.rbAtivada.Checked = True Then
-            FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.Zoom
-            AtualizaApresentacao()
-        End If
-    End Sub
-
-
-
 
 End Class

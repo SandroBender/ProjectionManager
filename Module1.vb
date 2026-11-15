@@ -342,6 +342,31 @@ Module Module1
         If Completa Then CacheBiblia(VersaoBiblia) = Tabela 'só guarda se todos os livros foram lidos
     End Sub
 
+    'Os 4 textos (Título, Subtítulo, Corpo, Rodapé) na tela principal e na projeção
+    Public Function TextosPrincipal() As Label()
+        Return {FormPrincipal.lblTitulo, FormPrincipal.lblSubtitulo, FormPrincipal.lblCorpo, FormPrincipal.lblRodape}
+    End Function
+    Public Function TextosApresentacao() As Label()
+        Return {FormApresentar.lblTitulo, FormApresentar.lblSubtitulo, FormApresentar.lblCorpo, FormApresentar.lblRodape}
+    End Function
+
+    'Para o player se estiver tocando ou pausado
+    Public Sub PararPlayer(Player As AxWMPLib.AxWindowsMediaPlayer)
+        If Player.playState = WMPLib.WMPPlayState.wmppsPlaying Or Player.playState = WMPLib.WMPPlayState.wmppsPaused Then
+            Player.Ctlcontrols.stop()
+        End If
+    End Sub
+
+    'Converte o AjusteDimensional (S/Z/N/C) no modo de exibição da imagem sobreposta
+    Public Function ModoAjuste() As PictureBoxSizeMode
+        Select Case AjusteDimensional
+            Case "Z" : Return PictureBoxSizeMode.Zoom
+            Case "N" : Return PictureBoxSizeMode.Normal
+            Case "C" : Return PictureBoxSizeMode.CenterImage
+            Case Else : Return PictureBoxSizeMode.StretchImage
+        End Select
+    End Function
+
     Public Sub AtualizaApresentacao()
         Dim IM As Integer
         If FormPrincipal.ComboMonitor.Text <> "" Then IM = Mid(FormPrincipal.ComboMonitor.Text, 1, 1)
@@ -373,16 +398,10 @@ Module Module1
                 If ImageS = True And File.Exists(ImageSobre) Then 'imagem sobreposta
                     FormPrincipal.picSobreposicao.Visible = True
                     FormPrincipal.picSobreposicao.Image = ImagemEmCache(ImageSobre, CacheSobreCam, CacheSobreImg)
-                    If AjusteDimensional = "S" Then FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.StretchImage
-                    If AjusteDimensional = "Z" Then FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.Zoom
-                    If AjusteDimensional = "N" Then FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.Normal
-                    If AjusteDimensional = "C" Then FormPrincipal.picSobreposicao.SizeMode = PictureBoxSizeMode.CenterImage
+                    FormPrincipal.picSobreposicao.SizeMode = ModoAjuste()
                     FormApresentar.picSobreposicao.Visible = True
                     FormApresentar.picSobreposicao.Image = FormPrincipal.picSobreposicao.Image 'imagem sobreposta
-                    If AjusteDimensional = "S" Then FormApresentar.picSobreposicao.SizeMode = PictureBoxSizeMode.StretchImage
-                    If AjusteDimensional = "Z" Then FormApresentar.picSobreposicao.SizeMode = PictureBoxSizeMode.Zoom
-                    If AjusteDimensional = "N" Then FormApresentar.picSobreposicao.SizeMode = PictureBoxSizeMode.Normal
-                    If AjusteDimensional = "C" Then FormApresentar.picSobreposicao.SizeMode = PictureBoxSizeMode.CenterImage
+                    FormApresentar.picSobreposicao.SizeMode = ModoAjuste()
                 Else
                     FormPrincipal.picSobreposicao.Visible = False
                     FormApresentar.picSobreposicao.Visible = False
@@ -396,26 +415,15 @@ Module Module1
                     FormApresentar.picFundo.Image = Nothing
                 End If
                 FormApresentar.picFundo.Image = FormPrincipal.picFundo.Image 'imagem fundo
-                FormApresentar.lblTitulo.Text = FormPrincipal.lblTitulo.Text 'Texto título
-                FormApresentar.lblTitulo.TextAlign = FormPrincipal.lblTitulo.TextAlign
-                FormApresentar.lblTitulo.Font = FonteProj(0)
-                FormApresentar.lblTitulo.ForeColor = FormPrincipal.lblTitulo.ForeColor
-                FormApresentar.lblTitulo.BackColor = FormPrincipal.lblTitulo.BackColor
-                FormApresentar.lblSubtitulo.Text = FormPrincipal.lblSubtitulo.Text 'Texto subtítulo
-                FormApresentar.lblSubtitulo.TextAlign = FormPrincipal.lblSubtitulo.TextAlign
-                FormApresentar.lblSubtitulo.Font = FonteProj(1)
-                FormApresentar.lblSubtitulo.ForeColor = FormPrincipal.lblSubtitulo.ForeColor
-                FormApresentar.lblSubtitulo.BackColor = FormPrincipal.lblSubtitulo.BackColor
-                FormApresentar.lblCorpo.Text = FormPrincipal.lblCorpo.Text 'Texto corpo
-                FormApresentar.lblCorpo.TextAlign = FormPrincipal.lblCorpo.TextAlign
-                FormApresentar.lblCorpo.Font = FonteProj(2)
-                FormApresentar.lblCorpo.ForeColor = FormPrincipal.lblCorpo.ForeColor
-                FormApresentar.lblCorpo.BackColor = FormPrincipal.lblCorpo.BackColor
-                FormApresentar.lblRodape.Text = FormPrincipal.lblRodape.Text 'Texto rodapé
-                FormApresentar.lblRodape.TextAlign = FormPrincipal.lblRodape.TextAlign
-                FormApresentar.lblRodape.Font = FonteProj(3)
-                FormApresentar.lblRodape.ForeColor = FormPrincipal.lblRodape.ForeColor
-                FormApresentar.lblRodape.BackColor = FormPrincipal.lblRodape.BackColor
+                Dim Origem() As Label = TextosPrincipal()
+                Dim Destino() As Label = TextosApresentacao()
+                For I As Integer = 0 To 3 'Título, Subtítulo, Corpo, Rodapé
+                    Destino(I).Text = Origem(I).Text
+                    Destino(I).TextAlign = Origem(I).TextAlign
+                    Destino(I).Font = FonteProj(I)
+                    Destino(I).ForeColor = Origem(I).ForeColor
+                    Destino(I).BackColor = Origem(I).BackColor
+                Next
                 If VideoOn = True And File.Exists(Video) Then 'Video
                     FormPrincipal.picFundo.Visible = False
                     FormPrincipal.picSobreposicao.Visible = False
@@ -433,9 +441,7 @@ Module Module1
                     End If
                 Else
                     FormPrincipal.lblStatusVideo.Visible = False
-                    If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPlaying Or FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPaused Then
-                        FormApresentar.wmpVideo.Ctlcontrols.stop()
-                    End If
+                    PararPlayer(FormApresentar.wmpVideo)
                     FormApresentar.wmpVideo.Visible = False
                 End If
                 If Harpa = True Then 'Harpa
@@ -477,23 +483,17 @@ Module Module1
             End If
             If FormPrincipal.rbNeutra.Checked = True Or FormPrincipal.rbFechada.Checked = True Then 'NEUTRO
                 FormPrincipal.lblStatusVideo.Visible = False
-                If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPlaying Or FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPaused Then
-                    FormApresentar.wmpVideo.Ctlcontrols.stop()
-                End If
+                PararPlayer(FormApresentar.wmpVideo)
                 FormApresentar.wmpVideo.Visible = False
                 FormPrincipal.picSobreposicao.Visible = False
                 FormPrincipal.picAudio.Visible = False
                 FormApresentar.picFundo.Image = Nothing 'imagem fundo
                 FormApresentar.picSobreposicao.Image = Nothing 'imagem sobreposta
                 FormApresentar.picAudio.Image = Nothing 'imagem audio
-                FormApresentar.lblTitulo.Text = "" 'Texto título
-                FormApresentar.lblTitulo.BackColor = Color.Transparent
-                FormApresentar.lblSubtitulo.Text = "" 'Texto subtítulo
-                FormApresentar.lblSubtitulo.BackColor = Color.Transparent
-                FormApresentar.lblCorpo.Text = "" 'Texto corpo
-                FormApresentar.lblCorpo.BackColor = Color.Transparent
-                FormApresentar.lblRodape.Text = "" 'Texto rodapé
-                FormApresentar.lblRodape.BackColor = Color.Transparent
+                For Each Rotulo As Label In TextosApresentacao()
+                    Rotulo.Text = ""
+                    Rotulo.BackColor = Color.Transparent
+                Next
                 FormPrincipal.rtbHarpa.Text = ""
                 FormPrincipal.rtbHarpa.Visible = False
                 FormPrincipal.rtbBiblia.Text = ""
@@ -508,6 +508,26 @@ Module Module1
             MsgBox(ex.Message, vbCritical, "Atualizar apresentação")
         End Try
     End Sub
+
+    Private ReadOnly ExtensoesImagem As New HashSet(Of String)({".png", ".jpg", ".jpeg", ".bmp"}, StringComparer.OrdinalIgnoreCase)
+
+    'Imagens da pasta, em ordem alfabética
+    Public Function ListarImagens(Pasta As String) As String()
+        If String.IsNullOrEmpty(Pasta) OrElse Not Directory.Exists(Pasta) Then Return New String() {}
+        Dim Arquivos() As String = Directory.GetFiles(Pasta).Where(Function(a) ExtensoesImagem.Contains(Path.GetExtension(a))).ToArray()
+        Array.Sort(Arquivos)
+        Return Arquivos
+    End Function
+
+    'Devolve em Arquivo a imagem de posição Indice da pasta (ou a 1ª, se Indice passar do fim).
+    'Retorna a posição usada, ou -1 se a pasta não tiver imagens.
+    Public Function ImagemDaPasta(Pasta As String, Indice As Integer, ByRef Arquivo As String) As Integer
+        Dim Imagens() As String = ListarImagens(Pasta)
+        If Imagens.Length = 0 Then Return -1
+        If Indice < 0 OrElse Indice >= Imagens.Length Then Indice = 0
+        Arquivo = Imagens(Indice)
+        Return Indice
+    End Function
 
     Public Function FontF(FN As String) As FontFamily
         Dim fonts As New InstalledFontCollection()

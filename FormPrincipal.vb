@@ -92,49 +92,28 @@ Public Class FormPrincipal
             FormApresentar.Show()
         End If
     End Sub
-    Private Sub btnFundo_Click(sender As Object, e As EventArgs) Handles btnFundo.Click 'Selecionar Fundo
-        AbrirFormNoPainel(Of FormFundo)()
-        btnFundo.BackColor = Color.DarkSlateBlue
-        btnHarpa.BackColor = Color.Transparent
-        btnBiblia.BackColor = Color.Transparent
-        btnImagens.BackColor = Color.Transparent
-        btnAudioVideo.BackColor = Color.Transparent
+    Private Sub btnMenu_Click(sender As Object, e As EventArgs) Handles btnFundo.Click, btnHarpa.Click, btnBiblia.Click, btnImagens.Click, btnAudioVideo.Click
+        If sender Is btnFundo Then AbrirFormNoPainel(Of FormFundo)()
+        If sender Is btnHarpa Then AbrirFormNoPainel(Of FormHarpa)()
+        If sender Is btnBiblia Then AbrirFormNoPainel(Of FormBiblia)()
+        If sender Is btnImagens Then AbrirFormNoPainel(Of FormImagens)()
+        If sender Is btnAudioVideo Then AbrirFormNoPainel(Of FormVideos)()
+        For Each Botao As Button In {btnFundo, btnHarpa, btnBiblia, btnImagens, btnAudioVideo} 'destaca o botão do painel aberto
+            Botao.BackColor = If(Botao Is sender, Color.DarkSlateBlue, Color.Transparent)
+        Next
     End Sub
 
-    Private Sub btnHarpa_Click(sender As Object, e As EventArgs) Handles btnHarpa.Click ''Selecionar Harpa
-        AbrirFormNoPainel(Of FormHarpa)()
-        btnFundo.BackColor = Color.Transparent
-        btnHarpa.BackColor = Color.DarkSlateBlue
-        btnBiblia.BackColor = Color.Transparent
-        btnImagens.BackColor = Color.Transparent
-        btnAudioVideo.BackColor = Color.Transparent
+    Private Sub DestacarEstado() 'destaca o estado selecionado da janela de projeção
+        For Each Estado As RadioButton In {rbAtivada, rbPausada, rbNeutra, rbFechada}
+            Estado.BackColor = If(Estado.Checked, Color.LightSteelBlue, Color.FromArgb(143, 134, 153))
+        Next
     End Sub
-
-    Private Sub btnBiblia_Click(sender As Object, e As EventArgs) Handles btnBiblia.Click 'Selecionar Bíblia
-        AbrirFormNoPainel(Of FormBiblia)()
-        btnFundo.BackColor = Color.Transparent
-        btnHarpa.BackColor = Color.Transparent
-        btnBiblia.BackColor = Color.DarkSlateBlue
-        btnImagens.BackColor = Color.Transparent
-        btnAudioVideo.BackColor = Color.Transparent
-    End Sub
-
-    Private Sub btnImagens_Click(sender As Object, e As EventArgs) Handles btnImagens.Click 'Selecionar Imagens/audio
-        AbrirFormNoPainel(Of FormImagens)()
-        btnFundo.BackColor = Color.Transparent
-        btnHarpa.BackColor = Color.Transparent
-        btnBiblia.BackColor = Color.Transparent
-        btnImagens.BackColor = Color.DarkSlateBlue
-        btnAudioVideo.BackColor = Color.Transparent
-    End Sub
-
-    Private Sub btnAudioVideo_Click(sender As Object, e As EventArgs) Handles btnAudioVideo.Click 'Selecionar Videos
-        AbrirFormNoPainel(Of FormVideos)()
-        btnFundo.BackColor = Color.Transparent
-        btnHarpa.BackColor = Color.Transparent
-        btnBiblia.BackColor = Color.Transparent
-        btnImagens.BackColor = Color.Transparent
-        btnAudioVideo.BackColor = Color.DarkSlateBlue
+    Private Sub LimparTextos()
+        picFundo.Image = Nothing 'imagem fundo
+        For Each Rotulo As Label In TextosPrincipal()
+            Rotulo.Text = ""
+            Rotulo.BackColor = Color.Transparent
+        Next
     End Sub
 
     Private Sub btnEscolherPasta_Click(sender As Object, e As EventArgs) Handles btnEscolherPasta.Click 'Selecionar outra pasta
@@ -143,103 +122,45 @@ Public Class FormPrincipal
         btnSalvarImagem.Enabled = True
     End Sub
     Private Sub rbAtivada_CheckedChanged(sender As Object, e As EventArgs) Handles rbAtivada.CheckedChanged 'ATIVADA
-        rbAtivada.BackColor = Color.FromArgb(143, 134, 153)
-        rbPausada.BackColor = Color.FromArgb(143, 134, 153)
-        rbNeutra.BackColor = Color.FromArgb(143, 134, 153)
-        rbFechada.BackColor = Color.FromArgb(143, 134, 153)
+        DestacarEstado()
         If rbAtivada.Checked = True Then
             If ImageF = True And File.Exists(ImageFundo) Then picFundo.Image = CarregarImagem(ImageFundo)
             If ImageS = True And picSobreposicao.Visible = True And File.Exists(ImageSobre) Then picSobreposicao.Image = CarregarImagem(ImageSobre)
             If ImageA = True And picAudio.Visible = True And File.Exists(ImageAudio) Then picAudio.Image = CarregarImagem(ImageAudio)
-            If TextActive(0) = True And Textos(0) IsNot Nothing Then
-                lblTitulo.Text = Textos(0)
-                lblTitulo.TextAlign = Alinham(0)
-                lblTitulo.Font = Fonte(0)
-                lblTitulo.ForeColor = CorFonte(0)
-                lblTitulo.BackColor = CorPrench(0)
-            Else
-                lblTitulo.Text = ""
-            End If
-            If TextActive(1) = True And Textos(1) IsNot Nothing Then
-                lblSubtitulo.Text = Textos(1)
-                lblSubtitulo.TextAlign = Alinham(1)
-                lblSubtitulo.Font = Fonte(1)
-                lblSubtitulo.ForeColor = CorFonte(1)
-                lblSubtitulo.BackColor = CorPrench(1)
-            Else
-                lblSubtitulo.Text = ""
-            End If
-            If TextActive(2) = True And Textos(2) IsNot Nothing Then
-                lblCorpo.Text = Textos(2)
-                lblCorpo.TextAlign = Alinham(2)
-                lblCorpo.Font = Fonte(2)
-                lblCorpo.ForeColor = CorFonte(2)
-                lblCorpo.BackColor = CorPrench(2)
-            Else
-                lblCorpo.Text = ""
-            End If
-            If TextActive(3) = True And Textos(3) IsNot Nothing Then
-                lblRodape.Text = Textos(3)
-                lblRodape.TextAlign = Alinham(3)
-                lblRodape.Font = Fonte(3)
-                lblRodape.ForeColor = CorFonte(3)
-                lblRodape.BackColor = CorPrench(3)
-            Else
-                lblRodape.Text = ""
-            End If
+            For I As Integer = 0 To 3
+                Dim Rotulo As Label = TextosPrincipal()(I)
+                If TextActive(I) = True And Textos(I) IsNot Nothing Then
+                    Rotulo.Text = Textos(I)
+                    Rotulo.TextAlign = Alinham(I)
+                    Rotulo.Font = Fonte(I)
+                    Rotulo.ForeColor = CorFonte(I)
+                    Rotulo.BackColor = CorPrench(I)
+                Else
+                    Rotulo.Text = ""
+                End If
+            Next
             If VideoOn = True Then lblStatusVideo.Text = "VIDEO EM REPRODUÇÃO"
-            rbAtivada.BackColor = Color.LightSteelBlue
         End If
         AtualizaApresentacao()
     End Sub
     Private Sub rbPausada_CheckedChanged(sender As Object, e As EventArgs) Handles rbPausada.CheckedChanged 'PAUSADA
-        rbAtivada.BackColor = Color.FromArgb(143, 134, 153)
-        rbPausada.BackColor = Color.FromArgb(143, 134, 153)
-        rbNeutra.BackColor = Color.FromArgb(143, 134, 153)
-        rbFechada.BackColor = Color.FromArgb(143, 134, 153)
-        If rbPausada.Checked = True Then
-            rbPausada.BackColor = Color.LightSteelBlue
-        End If
+        DestacarEstado()
         If VideoOn = True Then
             lblStatusVideo.Text = "VIDEO PAUSADO"
             If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPlaying Then FormApresentar.wmpVideo.Ctlcontrols.pause()
         End If
     End Sub
     Private Sub rbNeutra_CheckedChanged(sender As Object, e As EventArgs) Handles rbNeutra.CheckedChanged 'NEUTRO
-        rbAtivada.BackColor = Color.FromArgb(143, 134, 153)
-        rbPausada.BackColor = Color.FromArgb(143, 134, 153)
-        rbNeutra.BackColor = Color.FromArgb(143, 134, 153)
-        rbFechada.BackColor = Color.FromArgb(143, 134, 153)
+        DestacarEstado()
         If rbNeutra.Checked = True Then
-            picFundo.Image = Nothing 'imagem fundo
-            lblTitulo.Text = ""
-            lblTitulo.BackColor = Color.Transparent
-            lblSubtitulo.Text = ""
-            lblSubtitulo.BackColor = Color.Transparent
-            lblCorpo.Text = ""
-            lblCorpo.BackColor = Color.Transparent
-            lblRodape.Text = ""
-            lblRodape.BackColor = Color.Transparent
-            rbNeutra.BackColor = Color.LightSteelBlue
+            LimparTextos()
         End If
         AtualizaApresentacao()
     End Sub
     Private Sub rbFechada_CheckedChanged(sender As Object, e As EventArgs) Handles rbFechada.CheckedChanged ' FECHADO
-        rbAtivada.BackColor = Color.FromArgb(143, 134, 153)
-        rbPausada.BackColor = Color.FromArgb(143, 134, 153)
-        rbNeutra.BackColor = Color.FromArgb(143, 134, 153)
-        rbFechada.BackColor = Color.FromArgb(143, 134, 153)
+        DestacarEstado()
         If rbFechada.Checked = True Then
-            picFundo.Image = Nothing 'imagem fundo
-            lblTitulo.Text = ""
-            lblTitulo.BackColor = Color.Transparent
-            lblSubtitulo.Text = ""
-            lblSubtitulo.BackColor = Color.Transparent
-            lblCorpo.Text = ""
-            lblCorpo.BackColor = Color.Transparent
-            lblRodape.Text = ""
-            lblRodape.BackColor = Color.Transparent
-            rbFechada.BackColor = Color.LightSteelBlue
+            LimparTextos()
         End If
         FormApresentar.Close()
     End Sub

@@ -43,9 +43,7 @@ Public Class FormHarpa
             lblEstrofeAtual.Text = 0
             Transferir()
             lblArquivoAudio.Text = "Não Localizado"
-            If wmpAudio.playState = WMPLib.WMPPlayState.wmppsPlaying Or wmpAudio.playState = WMPLib.WMPPlayState.wmppsPaused Then
-                wmpAudio.Ctlcontrols.stop()
-            End If
+            PararPlayer(wmpAudio)
             wmpAudio.Visible = False
             LocalizarArquivo(I:=I)
         End If

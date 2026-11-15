@@ -124,9 +124,7 @@ Public Class FormVideos
     End Sub
 
     Private Sub btnLimparLista_Click(sender As Object, e As EventArgs) Handles btnLimparLista.Click 'Limpar lista
-        If wmpPlayer.playState = WMPLib.WMPPlayState.wmppsPlaying Or wmpPlayer.playState = WMPLib.WMPPlayState.wmppsPaused Then
-            wmpPlayer.Ctlcontrols.stop()
-        End If
+        PararPlayer(wmpPlayer)
         lstReproducao.Items.Clear()
         lblArquivoSelecionado.Text = ""
     End Sub
@@ -168,37 +166,13 @@ Public Class FormVideos
     End Sub
 
     Private Sub ProxArq(IP As Integer, Pasta As String)
-        Dim TA As Integer 'total arquivos
-        Dim IC As Integer = 0 'indice contagem
-        Dim Ext As String = "*.png,*.jpg,*.jpeg,*.bmp,*.JPG,*.JPEG,*.PNG"
-        If Not Directory.Exists(Pasta) Then Exit Sub
-        Dim Arquivos As String() = Directory.GetFiles(Pasta, "*.*")
-        If Arquivos.Count = 0 Then Exit Sub
-        Array.Sort(Arquivos)
-        For Each Arq As String In Arquivos
-            If Ext.Contains(Path.GetExtension(Arq)) Then TA += 1
-        Next
-        For Each Arq As String In Arquivos
-            If Ext.Contains(Path.GetExtension(Arq)) Then
-                If IP >= TA Then
-                    lblIndiceImagem.Text = "0"
-                    picImagem.Image = CarregarImagem(Arq)
-                    ImageAudio = Arq
-                    lblArquivoImagem.Text = Arq
-                    Transferir()
-                    Exit For
-                End If
-                'If IA = IC Then IP = IC + 1 'indice anterior encontrado
-                If IP = IC Then 'próximo indice encontrado
-                    picImagem.Image = CarregarImagem(Arq)
-                    ImageAudio = Arq
-                    lblArquivoImagem.Text = Arq
-                    lblIndiceImagem.Text = IP
-                    Transferir()
-                    Exit For
-                End If
-                IC += 1
-            End If
-        Next
+        Dim Arq As String = Nothing
+        Dim Indice As Integer = ImagemDaPasta(Pasta, IP, Arq) 'volta para a 1ª imagem depois da última
+        If Indice < 0 Then Exit Sub 'pasta vazia ou inexistente
+        picImagem.Image = CarregarImagem(Arq)
+        ImageAudio = Arq
+        lblArquivoImagem.Text = Arq
+        lblIndiceImagem.Text = Indice
+        Transferir()
     End Sub
 End Class
