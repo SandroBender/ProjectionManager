@@ -8,197 +8,171 @@ Public Class FormVideos
     Dim PlayLista As WMPLib.IWMPPlaylist
 
     Private Sub FormVideos_Load(sender As Object, e As EventArgs) Handles Me.Load
-        RadioButton1.Checked = True
+        rbVideos.Checked = True
     End Sub
 
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
-        If RadioButton1.Checked = True Then
-            WebBrowser1.Url = New Uri(PastaVideos)
+    Private Sub rbVideos_CheckedChanged(sender As Object, e As EventArgs) Handles rbVideos.CheckedChanged
+        If rbVideos.Checked = True Then
+            webPastas.Url = New Uri(PastaVideos)
             CamSelect = PastaVideos
-            AxWindowsMediaPlayer1.Size = New Size(394, 280)
-            AxWindowsMediaPlayer1.Location = New Point(0, 0)
-            RadioButton3.Checked = True
-            RadioButton4.Visible = True
-            RadioButton6.Visible = False
-            Label3.Text = "Nenhum arquivo"
-            Label6.Text = "0"
-            PictureBox1.Image = Nothing
+            wmpPlayer.Size = New Size(394, 280)
+            wmpPlayer.Location = New Point(0, 0)
+            rbDesligado.Checked = True
+            rbReproduzirVideo.Visible = True
+            rbApresentarImagem.Visible = False
+            lblArquivoImagem.Text = "Nenhum arquivo"
+            lblIndiceImagem.Text = "0"
+            picImagem.Image = Nothing
             ProxArq(IP:=1, Pasta:=CamSelect)
         End If
     End Sub
 
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
-        If RadioButton2.Checked = True Then
-            WebBrowser1.Url = New Uri(PastaAudios)
+    Private Sub rbAudios_CheckedChanged(sender As Object, e As EventArgs) Handles rbAudios.CheckedChanged
+        If rbAudios.Checked = True Then
+            webPastas.Url = New Uri(PastaAudios)
             CamSelect = PastaAudios
-            AxWindowsMediaPlayer1.Size = New Size(394, 100)
-            AxWindowsMediaPlayer1.Location = New Point(0, 0)
-            RadioButton3.Checked = True
-            RadioButton4.Visible = False
-            RadioButton6.Visible = True
-            Label3.Text = "Nenhum arquivo"
-            Label6.Text = "0"
-            PictureBox1.Image = Nothing
+            wmpPlayer.Size = New Size(394, 100)
+            wmpPlayer.Location = New Point(0, 0)
+            rbDesligado.Checked = True
+            rbReproduzirVideo.Visible = False
+            rbApresentarImagem.Visible = True
+            lblArquivoImagem.Text = "Nenhum arquivo"
+            lblIndiceImagem.Text = "0"
+            picImagem.Image = Nothing
             ProxArq(IP:=1, Pasta:=CamSelect)
         End If
     End Sub
 
-    Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton5.CheckedChanged
-        If RadioButton5.Checked = True Then
-            WebBrowser1.Url = New Uri(PastaMinhasMusicas)
+    Private Sub rbMinhasMusicas_CheckedChanged(sender As Object, e As EventArgs) Handles rbMinhasMusicas.CheckedChanged
+        If rbMinhasMusicas.Checked = True Then
+            webPastas.Url = New Uri(PastaMinhasMusicas)
             CamSelect = PastaMinhasMusicas
-            AxWindowsMediaPlayer1.Size = New Size(394, 100)
-            AxWindowsMediaPlayer1.Location = New Point(0, 0)
-            RadioButton3.Checked = True
-            RadioButton4.Visible = False
-            RadioButton6.Visible = True
-            Label3.Text = "Nenhum arquivo"
-            Label6.Text = "0"
-            PictureBox1.Image = Nothing
+            wmpPlayer.Size = New Size(394, 100)
+            wmpPlayer.Location = New Point(0, 0)
+            rbDesligado.Checked = True
+            rbReproduzirVideo.Visible = False
+            rbApresentarImagem.Visible = True
+            lblArquivoImagem.Text = "Nenhum arquivo"
+            lblIndiceImagem.Text = "0"
+            picImagem.Image = Nothing
             ProxArq(IP:=1, Pasta:=CamSelect)
         End If
     End Sub
 
-    Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged 'Desativado
-        RadioButton3.BackColor = Color.Transparent
-        If RadioButton3.Checked = True Then
-            RadioButton3.BackColor = Color.AliceBlue
-            FormPrincipal.CheckBox5.Checked = False
+    Private Sub rbDesligado_CheckedChanged(sender As Object, e As EventArgs) Handles rbDesligado.CheckedChanged 'Desativado
+        rbDesligado.BackColor = Color.Transparent
+        If rbDesligado.Checked = True Then
+            rbDesligado.BackColor = Color.AliceBlue
+            FormPrincipal.chkAudioVideo.Checked = False
         End If
         Transferir()
     End Sub
 
-    Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged 'Ativado Video
-        RadioButton4.BackColor = Color.Transparent
-        If RadioButton4.Checked = True Then
-            RadioButton4.BackColor = Color.AliceBlue
-            FormPrincipal.CheckBox5.Checked = True
+    Private Sub rbReproduzirVideo_CheckedChanged(sender As Object, e As EventArgs) Handles rbReproduzirVideo.CheckedChanged 'Ativado Video
+        rbReproduzirVideo.BackColor = Color.Transparent
+        If rbReproduzirVideo.Checked = True Then
+            rbReproduzirVideo.BackColor = Color.AliceBlue
+            FormPrincipal.chkAudioVideo.Checked = True
         End If
         Transferir()
     End Sub
 
-    Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton6.CheckedChanged 'Ativado Imagem
-        RadioButton6.BackColor = Color.Transparent
-        If RadioButton6.Checked = True Then
-            RadioButton6.BackColor = Color.AliceBlue
-            FormPrincipal.CheckBox5.Checked = True
+    Private Sub rbApresentarImagem_CheckedChanged(sender As Object, e As EventArgs) Handles rbApresentarImagem.CheckedChanged 'Ativado Imagem
+        rbApresentarImagem.BackColor = Color.Transparent
+        If rbApresentarImagem.Checked = True Then
+            rbApresentarImagem.BackColor = Color.AliceBlue
+            FormPrincipal.chkAudioVideo.Checked = True
         End If
         Transferir()
     End Sub
 
     Private Sub Transferir()
-        ImageAudio = Label3.Text
-        If RadioButton4.Checked = True Then 'video
+        ImageAudio = lblArquivoImagem.Text
+        If rbReproduzirVideo.Checked = True Then 'video
             ImageA = False
-            If FormPrincipal.RadioButton1.Checked = True Then FormPrincipal.PictureBox8.Image = Nothing
+            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picAudio.Image = Nothing
             VideoOn = True
-            If AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPlaying Then AxWindowsMediaPlayer1.Ctlcontrols.pause()
-        ElseIf RadioButton6.Checked = True Then 'imagem
+            If wmpPlayer.playState = WMPLib.WMPPlayState.wmppsPlaying Then wmpPlayer.Ctlcontrols.pause()
+        ElseIf rbApresentarImagem.Checked = True Then 'imagem
             VideoOn = False
             ImageA = False
-            If FormPrincipal.RadioButton1.Checked = True Then FormPrincipal.PictureBox8.Image = Nothing
-            If Label3.Text <> "Nenhum arquivo" Then
+            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picAudio.Image = Nothing
+            If lblArquivoImagem.Text <> "Nenhum arquivo" Then
                 ImageA = True
-                If FormPrincipal.RadioButton1.Checked = True Then FormPrincipal.PictureBox8.Image = PictureBox1.Image
+                If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picAudio.Image = picImagem.Image
             End If
         Else
             ImageA = False
-            If FormPrincipal.RadioButton1.Checked = True Then FormPrincipal.PictureBox8.Image = Nothing
+            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picAudio.Image = Nothing
             VideoOn = False
-            'If FormPrincipal.RadioButton1.Checked = True Then FormPrincipal.Label11.Visible = False
+            'If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.lblStatusVideo.Visible = False
         End If
         AtualizaApresentacao()
     End Sub
 
-    Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
-        Label1.Text = ""
+    Private Sub lstReproducao_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstReproducao.SelectedIndexChanged
+        lblArquivoSelecionado.Text = ""
         Video = ""
-        If ListBox1.Items.Count > 0 Then
-            Dim ArqVideo As String = ListBox1.SelectedItem.ToString
-            AxWindowsMediaPlayer1.URL = ArqVideo
+        If lstReproducao.Items.Count > 0 Then
+            Dim ArqVideo As String = lstReproducao.SelectedItem.ToString
+            wmpPlayer.URL = ArqVideo
             Video = ArqVideo
             Dim P As Integer = InStrRev(ArqVideo, "\", -1, CompareMethod.Text) 'conferir se for arquivo
-            Label1.Text = Mid(ArqVideo, P + 1, 50)
-            'AxWindowsMediaPlayer1.Ctlcontrols.play()
+            lblArquivoSelecionado.Text = Mid(ArqVideo, P + 1, 50)
+            'wmpPlayer.Ctlcontrols.play()
         End If
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click 'Limpar lista
-        If AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPlaying Or AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPaused Then
-            AxWindowsMediaPlayer1.Ctlcontrols.stop()
-        End If
-        ListBox1.Items.Clear()
-        Label1.Text = ""
+    Private Sub btnLimparLista_Click(sender As Object, e As EventArgs) Handles btnLimparLista.Click 'Limpar lista
+        PararPlayer(wmpPlayer)
+        lstReproducao.Items.Clear()
+        lblArquivoSelecionado.Text = ""
     End Sub
 
-    Private Sub ListBox1_DragEnter(sender As Object, e As DragEventArgs) Handles ListBox1.DragEnter
+    Private Sub lstReproducao_DragEnter(sender As Object, e As DragEventArgs) Handles lstReproducao.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
         End If
     End Sub
 
-    Private Sub ListBox1_DragDrop(sender As Object, e As DragEventArgs) Handles ListBox1.DragDrop
+    Private Sub lstReproducao_DragDrop(sender As Object, e As DragEventArgs) Handles lstReproducao.DragDrop
         Dim Videos() As String
         Try
             Videos = e.Data.GetData(DataFormats.FileDrop)
             For I As Integer = 0 To Videos.Length - 1
-                If File.Exists(Videos(I)) Then ListBox1.Items.Add(Videos(I))
+                If File.Exists(Videos(I)) Then lstReproducao.Items.Add(Videos(I))
             Next
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "Arrastar Video")
         End Try
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        WebBrowser1.GoBack()
+    Private Sub btnVoltarPasta_Click(sender As Object, e As EventArgs) Handles btnVoltarPasta.Click
+        webPastas.GoBack()
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click 'Retroceder
-        Dim IA As Integer = Label6.Text 'indice atual
+    Private Sub btnRetroceder_Click(sender As Object, e As EventArgs) Handles btnRetroceder.Click 'Retroceder
+        Dim IA As Integer = lblIndiceImagem.Text 'indice atual
         If CamSelect <> Nothing Then
             If IA > 1 Then ProxArq(IP:=IA - 1, Pasta:=CamSelect)
         End If
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click 'Avançar
-        Dim IA As Integer = Label6.Text 'indice atual
+    Private Sub btnAvancar_Click(sender As Object, e As EventArgs) Handles btnAvancar.Click 'Avançar
+        Dim IA As Integer = lblIndiceImagem.Text 'indice atual
         If CamSelect <> Nothing Then
             ProxArq(IP:=IA + 1, Pasta:=CamSelect)
         End If
     End Sub
 
     Private Sub ProxArq(IP As Integer, Pasta As String)
-        Dim TA As Integer 'total arquivos
-        Dim IC As Integer = 0 'indice contagem
-        Dim Ext As String = "*.png,*.jpg,*.jpeg,*.bmp,*.JPG,*.JPEG,*.PNG"
-        If Not Directory.Exists(Pasta) Then Exit Sub
-        Dim Arquivos As String() = Directory.GetFiles(Pasta, "*.*")
-        If Arquivos.Count = 0 Then Exit Sub
-        Array.Sort(Arquivos)
-        For Each Arq As String In Arquivos
-            If Ext.Contains(Path.GetExtension(Arq)) Then TA += 1
-        Next
-        For Each Arq As String In Arquivos
-            If Ext.Contains(Path.GetExtension(Arq)) Then
-                If IP >= TA Then
-                    Label6.Text = "0"
-                    PictureBox1.Image = CarregarImagem(Arq)
-                    ImageAudio = Arq
-                    Label3.Text = Arq
-                    Transferir()
-                    Exit For
-                End If
-                'If IA = IC Then IP = IC + 1 'indice anterior encontrado
-                If IP = IC Then 'próximo indice encontrado
-                    PictureBox1.Image = CarregarImagem(Arq)
-                    ImageAudio = Arq
-                    Label3.Text = Arq
-                    Label6.Text = IP
-                    Transferir()
-                    Exit For
-                End If
-                IC += 1
-            End If
-        Next
+        Dim Arq As String = Nothing
+        Dim Indice As Integer = ImagemDaPasta(Pasta, IP, Arq) 'volta para a 1ª imagem depois da última
+        If Indice < 0 Then Exit Sub 'pasta vazia ou inexistente
+        picImagem.Image = CarregarImagem(Arq)
+        ImageAudio = Arq
+        lblArquivoImagem.Text = Arq
+        lblIndiceImagem.Text = Indice
+        Transferir()
     End Sub
 End Class

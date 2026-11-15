@@ -201,152 +201,183 @@ Module Module1
         Next
     End Sub
 
+    'Os 66 livros, na ordem e com os mesmos nomes das tabelas nos bancos ACF/NVI
+    Public ReadOnly LivrosBiblia() As String = {"Genesis", "Exodo", "Levitico", "Numeros", "Deuteronomio", "Josue", "Juizes", "Rute", "1Samuel", "2Samuel", "1Reis", "2Reis", "1Cronicas", "2Cronicas", "Esdras", "Neemias", "Ester", "Jo", "Salmos", "Proverbios", "Eclesiastes", "Cantares", "Isaias", "Jeremias", "Lamentacoes", "Ezequiel", "Daniel", "Oseias", "Joel", "Amos", "Obadias", "Jonas", "Miqueias", "Naum", "Habacuque", "Sofonias", "Ageu", "Zacarias", "Malaquias", "Mateus", "Marcos", "Lucas", "Joao", "Atos", "Romanos", "1Corintios", "2Corintios", "Galatas", "Efesios", "Filipenses", "Colossenses", "1Tessalonicenses", "2Tessalonicenses", "1Timoteo", "2Timoteo", "Tito", "Filemom", "Hebreus", "Tiago", "1Pedro", "2Pedro", "1Joao", "2Joao", "3Joao", "Judas", "Apocalipse"}
+    Private Const SeparadorTestamentos As String = "------------------------"
+
+    'Cache: cada livro e cada Bíblia completa são lidos do banco uma única vez por versão
+    Private ReadOnly CacheLivros As New Dictionary(Of String, DataTable)(StringComparer.OrdinalIgnoreCase) 'chave "ACF|Genesis"
+    Private ReadOnly CacheBiblia As New Dictionary(Of String, DataTable)(StringComparer.OrdinalIgnoreCase) 'chave "ACF"
+    Private IndiceLivro As New Dictionary(Of Integer, DataRow) 'versículos do livro atual por (capítulo, versículo)
+
+    'Assunto (4) e Referências (5) existem só em algumas versões (ex.: ACF tem, NVI não)
+    Private Function ColunaOpcional(Linha As DataRow, Indice As Integer) As Object
+        If Indice < Linha.Table.Columns.Count Then Return Linha.Item(Indice)
+        Return DBNull.Value
+    End Function
+
+    Private Function ChaveVersiculo(Cap As Integer, Ver As Integer) As Integer
+        Return Cap * 1000 + Ver
+    End Function
+
     Public Sub CarregarListaLivros()
-        Dim Column As DataColumn
-        Dim Row As DataRow
-        Dim L As Long
-        Dim Livro() As String = {"Genesis", "Exodo", "Levitico", "Numeros", "Deuteronomio", "Josue", "Juizes", "Rute", "1Samuel", "2Samuel", "1Reis", "2Reis", "1Cronicas", "2Cronicas", "Esdras", "Neemias", "Ester", "Jo", "Salmos", "Proverbios", "Eclesiastes", "Cantares", "Isaias", "Jeremias", "Lamentacoes", "Ezequiel", "Daniel", "Oseias", "Joel", "Amos", "Obadias", "Jonas", "Miqueias", "Naum", "Habacuque", "Sofonias", "Ageu", "Zacarias", "Malaquias", "------------------------", "Mateus", "Marcos", "Lucas", "Joao", "Atos", "Romanos", "1Corintios", "2Corintios", "Galatas", "Efesios", "Filipenses", "Colossenses", "1Tessalonicenses", "2Tessalonicenses", "1Timoteo", "2Timoteo", "Tito", "Filemom", "Hebreus", "Tiago", "1Pedro", "2Pedro", "1Joao", "2Joao", "3Joao", "Judas", "Apocalipse"}
         ListaLivros = New DataTable
-        Column = New DataColumn With {.DataType = Type.GetType("System.Int32"), .ColumnName = "Indice", .ReadOnly = True, .Unique = True}
-        ListaLivros.Columns.Add(Column)
-        Column = New DataColumn With {.DataType = Type.GetType("System.String"), .ColumnName = "Livro", .ReadOnly = False, .Unique = False}
-        ListaLivros.Columns.Add(Column)
-        For L = 0 To 66
-            Row = ListaLivros.NewRow
+        ListaLivros.Columns.Add(New DataColumn With {.DataType = GetType(Integer), .ColumnName = "Indice", .ReadOnly = True, .Unique = True})
+        ListaLivros.Columns.Add(New DataColumn With {.DataType = GetType(String), .ColumnName = "Livro", .ReadOnly = False, .Unique = False})
+        Dim Nomes As New List(Of String)(LivrosBiblia)
+        Nomes.Insert(39, SeparadorTestamentos) 'entre Malaquias e Mateus
+        For L As Integer = 0 To Nomes.Count - 1
+            Dim Row As DataRow = ListaLivros.NewRow
             Row("Indice") = L + 1
-            Row("Livro") = Livro(L)
+            Row("Livro") = Nomes(L)
             ListaLivros.Rows.Add(Row)
         Next
     End Sub
 
+    Private Function ConexaoVersao() As OleDbConnection
+        If VersaoBiblia = "ACF" Then Return ConexACF
+        If VersaoBiblia = "NVI" Then Return ConexNVI
+        Return Nothing
+    End Function
+
+    'Lê um livro da versão atual (do cache, se já foi lido antes)
+    Private Function ObterLivro(Lv As String) As DataTable
+        Dim Chave As String = VersaoBiblia & "|" & Lv
+        Dim Tabela As DataTable = Nothing
+        If CacheLivros.TryGetValue(Chave, Tabela) Then Return Tabela
+        Dim Conex As OleDbConnection = ConexaoVersao()
+        If Conex Is Nothing Then Return Nothing
+        Tabela = New DataTable
+        Try
+            Using Adaptador As New OleDbDataAdapter("SELECT * FROM [" & Lv & "]", Conex) 'Fill abre/fecha a conexão se estiver fechada
+                Adaptador.Fill(Tabela)
+            End Using
+            CacheLivros(Chave) = Tabela
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "Acessar Biblia " & VersaoBiblia)
+        End Try
+        Return Tabela
+    End Function
+
     Public Sub CarregarLivro(Lv As String)
-        Dim Adaptador As OleDbDataAdapter
-        Dim SQL As String = "SELECT * FROM " & Lv
-        Dim Column As DataColumn
-        Dim Row As DataRow
-        Dim TL As Long  'total de linhas
-        If RegLivro IsNot Nothing Then RegLivro.Clear()
         If VersaoBiblia = "" Then Exit Sub
-        If VersaoBiblia = "ACF" Then
-            ConectarACF()
-            Adaptador = New OleDbDataAdapter(SQL, ConexACF)
-            RegLivro = New DataTable
-            Adaptador.Fill(RegLivro)
-            DesconectarACF()
-        End If
-        If VersaoBiblia = "NVI" Then
-            ConectarNVI()
-            Adaptador = New OleDbDataAdapter(SQL, ConexNVI)
-            RegLivro = New DataTable
-            Adaptador.Fill(RegLivro)
-            DesconectarNVI()
-        End If
-        If ListaCap IsNot Nothing Then ListaCap.Clear()
-        TL = RegLivro.Rows.Count - 1 'total de linhas
+        Dim Tabela As DataTable = ObterLivro(Lv)
+        If Tabela Is Nothing Then Exit Sub
+        RegLivro = Tabela
+        IndiceLivro = New Dictionary(Of Integer, DataRow)
+        Dim MaiorCap As Integer = 0
+        For Each Linha As DataRow In RegLivro.Rows
+            Dim Cap As Integer = CInt(Linha.Item(1))
+            IndiceLivro(ChaveVersiculo(Cap, CInt(Linha.Item(2)))) = Linha
+            If Cap > MaiorCap Then MaiorCap = Cap
+        Next
         ListaCap = New DataTable
-        Column = New DataColumn With {.DataType = Type.GetType("System.Int32"), .ColumnName = "Indice", .ReadOnly = True, .Unique = True}
-        ListaCap.Columns.Add(Column)
-        For C As Long = 0 To RegLivro.Rows(TL).Item(1) - 1
-            Row = ListaCap.NewRow
-            Row("Indice") = C + 1
+        ListaCap.Columns.Add(New DataColumn With {.DataType = GetType(Integer), .ColumnName = "Indice", .ReadOnly = True, .Unique = True})
+        For C As Integer = 1 To MaiorCap
+            Dim Row As DataRow = ListaCap.NewRow
+            Row("Indice") = C
             ListaCap.Rows.Add(Row)
         Next
     End Sub
 
     Public Sub CarregarVer(Cap As Integer)
-        Dim Column As DataColumn
-        Dim Row As DataRow
-        If ListaVer IsNot Nothing Then ListaVer.Clear()
         ListaVer = New DataTable
-        Column = New DataColumn With {.DataType = Type.GetType("System.Int32"), .ColumnName = "Indice", .ReadOnly = True, .Unique = True}
-        ListaVer.Columns.Add(Column)
-        For L As Long = 0 To RegLivro.Rows.Count - 1
-            If RegLivro.Rows(L).Item(1) = Cap Then
-                Row = ListaVer.NewRow
-                Row("Indice") = RegLivro.Rows(L).Item(2)
+        ListaVer.Columns.Add(New DataColumn With {.DataType = GetType(Integer), .ColumnName = "Indice", .ReadOnly = True, .Unique = True})
+        For Each Linha As DataRow In RegLivro.Rows
+            If CInt(Linha.Item(1)) = Cap Then
+                Dim Row As DataRow = ListaVer.NewRow
+                Row("Indice") = Linha.Item(2)
                 ListaVer.Rows.Add(Row)
             End If
         Next
     End Sub
 
+    'Devolve a linha do versículo no livro atual (ou Nothing se não existir)
+    Public Function BuscarVersiculo(Cap As Integer, Ver As Integer) As DataRow
+        Dim Linha As DataRow = Nothing
+        IndiceLivro.TryGetValue(ChaveVersiculo(Cap, Ver), Linha)
+        Return Linha
+    End Function
+
     Public Sub ResultadoVer(Cap As Integer, Ver As Integer)
-        For L As Long = 0 To RegLivro.Rows.Count - 1
-            If RegLivro.Rows(L).Item(1) = Cap And RegLivro.Rows(L).Item(2) = Ver Then
-                ResultVers = RegLivro.Rows(L).Item(3)
-                ResultRef1 = Livro & " - " & Cap & ":" & Ver
-                ResultRef2 = Cap & ":" & Ver
-                ResultReferencia = ""
-                If Not IsDBNull(RegLivro.Rows(L).Item(5)) Then ResultReferencia = RegLivro.Rows(L).Item(5)
-            End If
-        Next
+        Dim Linha As DataRow = BuscarVersiculo(Cap, Ver)
+        If Linha Is Nothing Then Exit Sub
+        ResultVers = Linha.Item(3).ToString
+        ResultRef1 = Livro & " - " & Cap & ":" & Ver
+        ResultRef2 = Cap & ":" & Ver
+        ResultReferencia = ""
+        If Not IsDBNull(ColunaOpcional(Linha, 5)) Then ResultReferencia = ColunaOpcional(Linha, 5).ToString
     End Sub
 
+    'Monta (uma vez por versão) a tabela com todos os versículos, usada nas pesquisas
     Public Sub CarregarBibliaCompleta()
+        If VersaoBiblia = "" Then Exit Sub
+        Dim Tabela As DataTable = Nothing
+        If CacheBiblia.TryGetValue(VersaoBiblia, Tabela) Then
+            RegBiblia = Tabela
+            Exit Sub
+        End If
         Dim Titulo() As String = {"ID", "Livro", "Cap", "Ver", "Texto", "Assunto", "Ref"}
-        Dim Livro() As String = {"Genesis", "Exodo", "Levitico", "Numeros", "Deuteronomio", "Josue", "Juizes", "Rute", "1Samuel", "2Samuel", "1Reis", "2Reis", "1Cronicas", "2Cronicas", "Esdras", "Neemias", "Ester", "Jo", "Salmos", "Proverbios", "Eclesiastes", "Cantares", "Isaias", "Jeremias", "Lamentacoes", "Ezequiel", "Daniel", "Oseias", "Joel", "Amos", "Obadias", "Jonas", "Miqueias", "Naum", "Habacuque", "Sofonias", "Ageu", "Zacarias", "Malaquias", "Mateus", "Marcos", "Lucas", "Joao", "Atos", "Romanos", "1Corintios", "2Corintios", "Galatas", "Efesios", "Filipenses", "Colossenses", "1Tessalonicenses", "2Tessalonicenses", "1Timoteo", "2Timoteo", "Tito", "Filemom", "Hebreus", "Tiago", "1Pedro", "2Pedro", "1Joao", "2Joao", "3Joao", "Judas", "Apocalipse"}
-        Dim Column As DataColumn
-        Dim Row As DataRow
-        Dim LL As Long = 1
-        If RegBiblia IsNot Nothing Then RegBiblia.Clear()
-        RegBiblia = New DataTable
-        For C As Integer = 0 To Titulo.Count - 1
-            Column = New DataColumn
-            If C = 0 Then
-                Column.DataType = Type.GetType("System.Int32")
-            Else
-                Column.DataType = Type.GetType("System.String")
-            End If
-            Column.ColumnName = Titulo(C)
-            Column.ReadOnly = True
-            Column.Unique = False
-            RegBiblia.Columns.Add(Column)
+        Tabela = New DataTable
+        For C As Integer = 0 To Titulo.Length - 1
+            Tabela.Columns.Add(New DataColumn With {.DataType = If(C = 0, GetType(Integer), GetType(String)), .ColumnName = Titulo(C), .ReadOnly = True, .Unique = False})
         Next
-        For LV As Integer = 0 To Livro.Count - 1
-            Dim Adaptador As OleDbDataAdapter
-            Dim SQL As String = "SELECT * FROM " & Livro(LV)
-            If VersaoBiblia = "" Then Exit Sub
-            If VersaoBiblia = "ACF" Then
-                ConectarACF()
-                Adaptador = New OleDbDataAdapter(SQL, ConexACF)
-                RegLivro = New DataTable
-                Adaptador.Fill(RegLivro)
-                DesconectarACF()
-            End If
-            If VersaoBiblia = "NVI" Then
-                ConectarNVI()
-                Adaptador = New OleDbDataAdapter(SQL, ConexNVI)
-                RegLivro = New DataTable
-                Adaptador.Fill(RegLivro)
-                DesconectarNVI()
-            End If
-            For L As Long = 0 To RegLivro.Rows.Count - 1
-                Row = RegBiblia.NewRow
-                Row("ID") = LL
-                Row("Livro") = Livro(LV)
-                Row("Cap") = RegLivro.Rows(L).Item(1)
-                Row("Ver") = RegLivro.Rows(L).Item(2)
-                Row("Texto") = RegLivro.Rows(L).Item(3)
-                If Not IsDBNull(RegLivro.Rows(L).Item(4)) Then
-                    Row("Assunto") = RegLivro.Rows(L).Item(4)
-                Else
-                    Row("Assunto") = DBNull.Value
-                End If
-                If Not IsDBNull(RegLivro.Rows(L).Item(5)) Then
-                    Row("Ref") = RegLivro.Rows(L).Item(5)
-                Else
-                    Row("Ref") = DBNull.Value
-                End If
-                RegBiblia.Rows.Add(Row)
-                LL += 1
+        Dim Conex As OleDbConnection = ConexaoVersao()
+        Dim LL As Integer = 1
+        Dim Completa As Boolean = True
+        Tabela.BeginLoadData()
+        Try
+            Conex.Open() 'uma conexão só para os 66 livros
+            For Each NomeLivro As String In LivrosBiblia
+                Dim Livro As DataTable = ObterLivro(NomeLivro)
+                If Livro Is Nothing OrElse Not CacheLivros.ContainsKey(VersaoBiblia & "|" & NomeLivro) Then Completa = False
+                If Livro Is Nothing Then Continue For
+                For Each Linha As DataRow In Livro.Rows
+                    Tabela.Rows.Add(LL, NomeLivro, Linha.Item(1), Linha.Item(2), Linha.Item(3), ColunaOpcional(Linha, 4), ColunaOpcional(Linha, 5))
+                    LL += 1
+                Next
             Next
-        Next
+        Catch ex As Exception
+            Completa = False
+            MsgBox(ex.Message, vbCritical, "Acessar Biblia " & VersaoBiblia)
+        Finally
+            If Conex.State <> ConnectionState.Closed Then Conex.Close()
+            Tabela.EndLoadData()
+        End Try
+        RegBiblia = Tabela
+        If Completa Then CacheBiblia(VersaoBiblia) = Tabela 'só guarda se todos os livros foram lidos
     End Sub
+
+    'Os 4 textos (Título, Subtítulo, Corpo, Rodapé) na tela principal e na projeção
+    Public Function TextosPrincipal() As Label()
+        Return {FormPrincipal.lblTitulo, FormPrincipal.lblSubtitulo, FormPrincipal.lblCorpo, FormPrincipal.lblRodape}
+    End Function
+    Public Function TextosApresentacao() As Label()
+        Return {FormApresentar.lblTitulo, FormApresentar.lblSubtitulo, FormApresentar.lblCorpo, FormApresentar.lblRodape}
+    End Function
+
+    'Para o player se estiver tocando ou pausado
+    Public Sub PararPlayer(Player As AxWMPLib.AxWindowsMediaPlayer)
+        If Player.playState = WMPLib.WMPPlayState.wmppsPlaying Or Player.playState = WMPLib.WMPPlayState.wmppsPaused Then
+            Player.Ctlcontrols.stop()
+        End If
+    End Sub
+
+    'Converte o AjusteDimensional (S/Z/N/C) no modo de exibição da imagem sobreposta
+    Public Function ModoAjuste() As PictureBoxSizeMode
+        Select Case AjusteDimensional
+            Case "Z" : Return PictureBoxSizeMode.Zoom
+            Case "N" : Return PictureBoxSizeMode.Normal
+            Case "C" : Return PictureBoxSizeMode.CenterImage
+            Case Else : Return PictureBoxSizeMode.StretchImage
+        End Select
+    End Function
 
     Public Sub AtualizaApresentacao()
         Dim IM As Integer
         If FormPrincipal.ComboMonitor.Text <> "" Then IM = Mid(FormPrincipal.ComboMonitor.Text, 1, 1)
         Try
-            If FormPrincipal.RadioButton4.Checked = True Then Exit Sub 'FECHADA
+            If FormPrincipal.rbFechada.Checked = True Then Exit Sub 'FECHADA
             If FormApresentar.Visible = False Then
                 If TelaUnica = True Then Exit Sub
                 FormApresentar.Bounds = Screen.AllScreens(IM).Bounds
@@ -354,160 +385,155 @@ Module Module1
                 FormApresentar.Show()
                 'FormApresentar.Location = Screen.AllScreens(UBound(Screen.AllScreens)).Bounds.Location
                 'FormApresentar.WindowState = FormWindowState.Maximized
-                FormApresentar.PictureBox1.Image = Nothing 'imagem fundo
+                FormApresentar.picFundo.Image = Nothing 'imagem fundo
             End If
-            FormPrincipal.PictureBox3.Visible = False
-            FormPrincipal.PictureBox4.Visible = False
-            FormPrincipal.PictureBox7.Visible = False
-            If FormPrincipal.RadioButton1.Checked = True Then 'ATIVADA
-                FormPrincipal.PictureBox4.Visible = True 'status
+            FormPrincipal.picStatusPausada.Visible = False
+            FormPrincipal.picStatusAtivada.Visible = False
+            FormPrincipal.picStatusFechada.Visible = False
+            If FormPrincipal.rbAtivada.Checked = True Then 'ATIVADA
+                FormPrincipal.picStatusAtivada.Visible = True 'status
                 If ImageA = True And File.Exists(ImageAudio) Then 'imagem de Audio
-                    FormPrincipal.PictureBox8.Visible = True
-                    FormPrincipal.PictureBox8.Image = ImagemEmCache(ImageAudio, CacheAudioCam, CacheAudioImg)
-                    FormApresentar.PictureBox3.Visible = True
-                    FormApresentar.PictureBox3.Image = FormPrincipal.PictureBox8.Image 'imagem audio
+                    FormPrincipal.picAudio.Visible = True
+                    FormPrincipal.picAudio.Image = ImagemEmCache(ImageAudio, CacheAudioCam, CacheAudioImg)
+                    FormApresentar.picAudio.Visible = True
+                    FormApresentar.picAudio.Image = FormPrincipal.picAudio.Image 'imagem audio
                 Else
-                    FormPrincipal.PictureBox8.Visible = False
-                    FormApresentar.PictureBox3.Visible = False
+                    FormPrincipal.picAudio.Visible = False
+                    FormApresentar.picAudio.Visible = False
                 End If
                 If ImageS = True And File.Exists(ImageSobre) Then 'imagem sobreposta
-                    FormPrincipal.PictureBox6.Visible = True
-                    FormPrincipal.PictureBox6.Image = ImagemEmCache(ImageSobre, CacheSobreCam, CacheSobreImg)
-                    If AjusteDimensional = "S" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.StretchImage
-                    If AjusteDimensional = "Z" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.Zoom
-                    If AjusteDimensional = "N" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.Normal
-                    If AjusteDimensional = "C" Then FormPrincipal.PictureBox6.SizeMode = PictureBoxSizeMode.CenterImage
-                    FormApresentar.PictureBox2.Visible = True
-                    FormApresentar.PictureBox2.Image = FormPrincipal.PictureBox6.Image 'imagem sobreposta
-                    If AjusteDimensional = "S" Then FormApresentar.PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage
-                    If AjusteDimensional = "Z" Then FormApresentar.PictureBox2.SizeMode = PictureBoxSizeMode.Zoom
-                    If AjusteDimensional = "N" Then FormApresentar.PictureBox2.SizeMode = PictureBoxSizeMode.Normal
-                    If AjusteDimensional = "C" Then FormApresentar.PictureBox2.SizeMode = PictureBoxSizeMode.CenterImage
+                    FormPrincipal.picSobreposicao.Visible = True
+                    FormPrincipal.picSobreposicao.Image = ImagemEmCache(ImageSobre, CacheSobreCam, CacheSobreImg)
+                    FormPrincipal.picSobreposicao.SizeMode = ModoAjuste()
+                    FormApresentar.picSobreposicao.Visible = True
+                    FormApresentar.picSobreposicao.Image = FormPrincipal.picSobreposicao.Image 'imagem sobreposta
+                    FormApresentar.picSobreposicao.SizeMode = ModoAjuste()
                 Else
-                    FormPrincipal.PictureBox6.Visible = False
-                    FormApresentar.PictureBox2.Visible = False
+                    FormPrincipal.picSobreposicao.Visible = False
+                    FormApresentar.picSobreposicao.Visible = False
                 End If
                 If ImageF = True And File.Exists(ImageFundo) Then 'imagem de fundo
-                    FormPrincipal.PictureBox5.Visible = True
-                    FormPrincipal.PictureBox5.Image = ImagemEmCache(ImageFundo, CacheFundoCam, CacheFundoImg)
-                    FormApresentar.PictureBox1.Image = FormPrincipal.PictureBox5.Image 'imagem fundo
+                    FormPrincipal.picFundo.Visible = True
+                    FormPrincipal.picFundo.Image = ImagemEmCache(ImageFundo, CacheFundoCam, CacheFundoImg)
+                    FormApresentar.picFundo.Image = FormPrincipal.picFundo.Image 'imagem fundo
                 Else
-                    FormPrincipal.PictureBox5.Image = Nothing
-                    FormApresentar.PictureBox1.Image = Nothing
+                    FormPrincipal.picFundo.Image = Nothing
+                    FormApresentar.picFundo.Image = Nothing
                 End If
-                FormApresentar.PictureBox1.Image = FormPrincipal.PictureBox5.Image 'imagem fundo
-                FormApresentar.Label1.Text = FormPrincipal.Label3.Text 'Texto título
-                FormApresentar.Label1.TextAlign = FormPrincipal.Label3.TextAlign
-                FormApresentar.Label1.Font = FonteProj(0)
-                FormApresentar.Label1.ForeColor = FormPrincipal.Label3.ForeColor
-                FormApresentar.Label1.BackColor = FormPrincipal.Label3.BackColor
-                FormApresentar.Label2.Text = FormPrincipal.Label4.Text 'Texto subtítulo
-                FormApresentar.Label2.TextAlign = FormPrincipal.Label4.TextAlign
-                FormApresentar.Label2.Font = FonteProj(1)
-                FormApresentar.Label2.ForeColor = FormPrincipal.Label4.ForeColor
-                FormApresentar.Label2.BackColor = FormPrincipal.Label4.BackColor
-                FormApresentar.Label3.Text = FormPrincipal.Label5.Text 'Texto corpo
-                FormApresentar.Label3.TextAlign = FormPrincipal.Label5.TextAlign
-                FormApresentar.Label3.Font = FonteProj(2)
-                FormApresentar.Label3.ForeColor = FormPrincipal.Label5.ForeColor
-                FormApresentar.Label3.BackColor = FormPrincipal.Label5.BackColor
-                FormApresentar.Label4.Text = FormPrincipal.Label6.Text 'Texto rodapé
-                FormApresentar.Label4.TextAlign = FormPrincipal.Label6.TextAlign
-                FormApresentar.Label4.Font = FonteProj(3)
-                FormApresentar.Label4.ForeColor = FormPrincipal.Label6.ForeColor
-                FormApresentar.Label4.BackColor = FormPrincipal.Label6.BackColor
+                FormApresentar.picFundo.Image = FormPrincipal.picFundo.Image 'imagem fundo
+                Dim Origem() As Label = TextosPrincipal()
+                Dim Destino() As Label = TextosApresentacao()
+                For I As Integer = 0 To 3 'Título, Subtítulo, Corpo, Rodapé
+                    Destino(I).Text = Origem(I).Text
+                    Destino(I).TextAlign = Origem(I).TextAlign
+                    Destino(I).Font = FonteProj(I)
+                    Destino(I).ForeColor = Origem(I).ForeColor
+                    Destino(I).BackColor = Origem(I).BackColor
+                Next
                 If VideoOn = True And File.Exists(Video) Then 'Video
-                    FormPrincipal.PictureBox5.Visible = False
-                    FormPrincipal.PictureBox6.Visible = False
-                    FormPrincipal.PictureBox8.Visible = False
-                    FormPrincipal.Label11.Visible = True
-                    'FormPrincipal.Label11.Text = "Video EM REPRODUÇÃO"
-                    FormPrincipal.Label11.Location = New Point(8, 170) 'POSIÇÃO
-                    'FormPrincipal.Label11.ForeColor = Color.Yellow
-                    If FormApresentar.AxWindowsMediaPlayer1.Visible = True Then
-                        If FormApresentar.AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPaused Then FormApresentar.AxWindowsMediaPlayer1.Ctlcontrols.play()
+                    FormPrincipal.picFundo.Visible = False
+                    FormPrincipal.picSobreposicao.Visible = False
+                    FormPrincipal.picAudio.Visible = False
+                    FormPrincipal.lblStatusVideo.Visible = True
+                    'FormPrincipal.lblStatusVideo.Text = "Video EM REPRODUÇÃO"
+                    FormPrincipal.lblStatusVideo.Location = New Point(8, 170) 'POSIÇÃO
+                    'FormPrincipal.lblStatusVideo.ForeColor = Color.Yellow
+                    If FormApresentar.wmpVideo.Visible = True Then
+                        If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPaused Then FormApresentar.wmpVideo.Ctlcontrols.play()
                     Else
-                        FormApresentar.AxWindowsMediaPlayer1.Visible = True
-                        FormApresentar.AxWindowsMediaPlayer1.URL = Video
-                        FormApresentar.AxWindowsMediaPlayer1.stretchToFit = True
+                        FormApresentar.wmpVideo.Visible = True
+                        FormApresentar.wmpVideo.URL = Video
+                        FormApresentar.wmpVideo.stretchToFit = True
                     End If
                 Else
-                    FormPrincipal.Label11.Visible = False
-                    If FormApresentar.AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPlaying Or FormApresentar.AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPaused Then
-                        FormApresentar.AxWindowsMediaPlayer1.Ctlcontrols.stop()
-                    End If
-                    FormApresentar.AxWindowsMediaPlayer1.Visible = False
+                    FormPrincipal.lblStatusVideo.Visible = False
+                    PararPlayer(FormApresentar.wmpVideo)
+                    FormApresentar.wmpVideo.Visible = False
                 End If
                 If Harpa = True Then 'Harpa
-                    FormPrincipal.RichTextBox1.Visible = True
-                    FormPrincipal.RichTextBox1.Text = TextoHarpa
-                    FormPrincipal.RichTextBox1.SelectAll()
-                    FormPrincipal.RichTextBox1.SelectionAlignment = HorizontalAlignment.Center
-                    FormPrincipal.RichTextBox1.DeselectAll()
-                    FormApresentar.RichTextBox1.Visible = True
-                    FormApresentar.RichTextBox1.Text = FormPrincipal.RichTextBox1.Text
-                    FormApresentar.RichTextBox1.SelectAll()
-                    FormApresentar.RichTextBox1.SelectionAlignment = HorizontalAlignment.Center
-                    FormApresentar.RichTextBox1.DeselectAll()
+                    FormPrincipal.rtbHarpa.Visible = True
+                    FormPrincipal.rtbHarpa.Text = TextoHarpa
+                    FormPrincipal.rtbHarpa.SelectAll()
+                    FormPrincipal.rtbHarpa.SelectionAlignment = HorizontalAlignment.Center
+                    FormPrincipal.rtbHarpa.DeselectAll()
+                    FormApresentar.rtbHarpa.Visible = True
+                    FormApresentar.rtbHarpa.Text = FormPrincipal.rtbHarpa.Text
+                    FormApresentar.rtbHarpa.SelectAll()
+                    FormApresentar.rtbHarpa.SelectionAlignment = HorizontalAlignment.Center
+                    FormApresentar.rtbHarpa.DeselectAll()
                 Else
-                    FormPrincipal.RichTextBox1.Clear()
-                    FormPrincipal.RichTextBox1.Visible = False
-                    FormApresentar.RichTextBox1.Clear()
-                    FormApresentar.RichTextBox1.Visible = False
+                    FormPrincipal.rtbHarpa.Clear()
+                    FormPrincipal.rtbHarpa.Visible = False
+                    FormApresentar.rtbHarpa.Clear()
+                    FormApresentar.rtbHarpa.Visible = False
                 End If
                 If Biblia = True Then 'bíblia
-                    FormPrincipal.RichTextBox2.Visible = True
+                    FormPrincipal.rtbBiblia.Visible = True
                     If Aad = False Then
-                        FormPrincipal.RichTextBox2.Text = TextoBiblia
+                        FormPrincipal.rtbBiblia.Text = TextoBiblia
                     Else
-                        FormPrincipal.RichTextBox2.Text = TextoBibliaCondensado
+                        FormPrincipal.rtbBiblia.Text = TextoBibliaCondensado
                     End If
-                    FormPrincipal.RichTextBox2.BringToFront()
-                    FormApresentar.RichTextBox2.Visible = True
-                    FormApresentar.RichTextBox2.Text = FormPrincipal.RichTextBox2.Text
+                    FormPrincipal.rtbBiblia.BringToFront()
+                    FormApresentar.rtbBiblia.Visible = True
+                    FormApresentar.rtbBiblia.Text = FormPrincipal.rtbBiblia.Text
                 Else
-                    FormPrincipal.RichTextBox2.Clear()
-                    FormPrincipal.RichTextBox2.Visible = False
-                    FormApresentar.RichTextBox2.Clear()
-                    FormApresentar.RichTextBox2.Visible = False
+                    FormPrincipal.rtbBiblia.Clear()
+                    FormPrincipal.rtbBiblia.Visible = False
+                    FormApresentar.rtbBiblia.Clear()
+                    FormApresentar.rtbBiblia.Visible = False
                 End If
             End If
-            If FormPrincipal.RadioButton2.Checked = True Then 'PAUSADA
-                FormPrincipal.PictureBox3.Visible = True 'status
+            If FormPrincipal.rbPausada.Checked = True Then 'PAUSADA
+                FormPrincipal.picStatusPausada.Visible = True 'status
             End If
-            If FormPrincipal.RadioButton3.Checked = True Or FormPrincipal.RadioButton4.Checked = True Then 'NEUTRO
-                FormPrincipal.Label11.Visible = False
-                If FormApresentar.AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPlaying Or FormApresentar.AxWindowsMediaPlayer1.playState = WMPLib.WMPPlayState.wmppsPaused Then
-                    FormApresentar.AxWindowsMediaPlayer1.Ctlcontrols.stop()
-                End If
-                FormApresentar.AxWindowsMediaPlayer1.Visible = False
-                FormPrincipal.PictureBox6.Visible = False
-                FormPrincipal.PictureBox8.Visible = False
-                FormApresentar.PictureBox1.Image = Nothing 'imagem fundo
-                FormApresentar.PictureBox2.Image = Nothing 'imagem sobreposta
-                FormApresentar.PictureBox3.Image = Nothing 'imagem audio
-                FormApresentar.Label1.Text = "" 'Texto título
-                FormApresentar.Label1.BackColor = Color.Transparent
-                FormApresentar.Label2.Text = "" 'Texto subtítulo
-                FormApresentar.Label2.BackColor = Color.Transparent
-                FormApresentar.Label3.Text = "" 'Texto corpo
-                FormApresentar.Label3.BackColor = Color.Transparent
-                FormApresentar.Label4.Text = "" 'Texto rodapé
-                FormApresentar.Label4.BackColor = Color.Transparent
-                FormPrincipal.RichTextBox1.Text = ""
-                FormPrincipal.RichTextBox1.Visible = False
-                FormPrincipal.RichTextBox2.Text = ""
-                FormPrincipal.RichTextBox2.Visible = False
-                FormApresentar.RichTextBox1.Text = ""
-                FormApresentar.RichTextBox1.Visible = False
-                FormApresentar.RichTextBox2.Text = ""
-                FormApresentar.RichTextBox2.Visible = False
-                If FormPrincipal.RadioButton4.Checked = True Then FormPrincipal.PictureBox7.Visible = True
+            If FormPrincipal.rbNeutra.Checked = True Or FormPrincipal.rbFechada.Checked = True Then 'NEUTRO
+                FormPrincipal.lblStatusVideo.Visible = False
+                PararPlayer(FormApresentar.wmpVideo)
+                FormApresentar.wmpVideo.Visible = False
+                FormPrincipal.picSobreposicao.Visible = False
+                FormPrincipal.picAudio.Visible = False
+                FormApresentar.picFundo.Image = Nothing 'imagem fundo
+                FormApresentar.picSobreposicao.Image = Nothing 'imagem sobreposta
+                FormApresentar.picAudio.Image = Nothing 'imagem audio
+                For Each Rotulo As Label In TextosApresentacao()
+                    Rotulo.Text = ""
+                    Rotulo.BackColor = Color.Transparent
+                Next
+                FormPrincipal.rtbHarpa.Text = ""
+                FormPrincipal.rtbHarpa.Visible = False
+                FormPrincipal.rtbBiblia.Text = ""
+                FormPrincipal.rtbBiblia.Visible = False
+                FormApresentar.rtbHarpa.Text = ""
+                FormApresentar.rtbHarpa.Visible = False
+                FormApresentar.rtbBiblia.Text = ""
+                FormApresentar.rtbBiblia.Visible = False
+                If FormPrincipal.rbFechada.Checked = True Then FormPrincipal.picStatusFechada.Visible = True
             End If
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "Atualizar apresentação")
         End Try
     End Sub
+
+    Private ReadOnly ExtensoesImagem As New HashSet(Of String)({".png", ".jpg", ".jpeg", ".bmp"}, StringComparer.OrdinalIgnoreCase)
+
+    'Imagens da pasta, em ordem alfabética
+    Public Function ListarImagens(Pasta As String) As String()
+        If String.IsNullOrEmpty(Pasta) OrElse Not Directory.Exists(Pasta) Then Return New String() {}
+        Dim Arquivos() As String = Directory.GetFiles(Pasta).Where(Function(a) ExtensoesImagem.Contains(Path.GetExtension(a))).ToArray()
+        Array.Sort(Arquivos)
+        Return Arquivos
+    End Function
+
+    'Devolve em Arquivo a imagem de posição Indice da pasta (ou a 1ª, se Indice passar do fim).
+    'Retorna a posição usada, ou -1 se a pasta não tiver imagens.
+    Public Function ImagemDaPasta(Pasta As String, Indice As Integer, ByRef Arquivo As String) As Integer
+        Dim Imagens() As String = ListarImagens(Pasta)
+        If Imagens.Length = 0 Then Return -1
+        If Indice < 0 OrElse Indice >= Imagens.Length Then Indice = 0
+        Arquivo = Imagens(Indice)
+        Return Indice
+    End Function
 
     Public Function FontF(FN As String) As FontFamily
         Dim fonts As New InstalledFontCollection()

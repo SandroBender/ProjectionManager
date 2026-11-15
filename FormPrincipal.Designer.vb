@@ -27,51 +27,51 @@ Partial Class FormPrincipal
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ComboMonitor = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.RichTextBox2 = New System.Windows.Forms.RichTextBox()
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.PictureBox8 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox6 = New System.Windows.Forms.PictureBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox7 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.lblStatusVideo = New System.Windows.Forms.Label()
+        Me.rtbBiblia = New System.Windows.Forms.RichTextBox()
+        Me.rtbHarpa = New System.Windows.Forms.RichTextBox()
+        Me.picAudio = New System.Windows.Forms.PictureBox()
+        Me.picSobreposicao = New System.Windows.Forms.PictureBox()
+        Me.lblTitulo = New System.Windows.Forms.Label()
+        Me.lblRodape = New System.Windows.Forms.Label()
+        Me.lblCorpo = New System.Windows.Forms.Label()
+        Me.lblSubtitulo = New System.Windows.Forms.Label()
+        Me.picFundo = New System.Windows.Forms.PictureBox()
+        Me.picStatusFechada = New System.Windows.Forms.PictureBox()
+        Me.picStatusAtivada = New System.Windows.Forms.PictureBox()
+        Me.picStatusPausada = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.rbFechada = New System.Windows.Forms.RadioButton()
+        Me.rbNeutra = New System.Windows.Forms.RadioButton()
+        Me.rbPausada = New System.Windows.Forms.RadioButton()
+        Me.rbAtivada = New System.Windows.Forms.RadioButton()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PainelMenu = New System.Windows.Forms.Panel()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
+        Me.btnEscolherPasta = New System.Windows.Forms.Button()
+        Me.lblLocalSalvamento = New System.Windows.Forms.Label()
+        Me.lblPastaPadrao = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button12 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.chkAudioVideo = New System.Windows.Forms.CheckBox()
+        Me.chkImagens = New System.Windows.Forms.CheckBox()
+        Me.chkBiblia = New System.Windows.Forms.CheckBox()
+        Me.chkHarpa = New System.Windows.Forms.CheckBox()
+        Me.chkFundo = New System.Windows.Forms.CheckBox()
+        Me.btnSalvarImagem = New System.Windows.Forms.Button()
+        Me.btnOpcoes = New System.Windows.Forms.Button()
+        Me.btnAudioVideo = New System.Windows.Forms.Button()
+        Me.btnImagens = New System.Windows.Forms.Button()
+        Me.btnBiblia = New System.Windows.Forms.Button()
+        Me.btnHarpa = New System.Windows.Forms.Button()
+        Me.btnFundo = New System.Windows.Forms.Button()
         Me.PainelControle = New System.Windows.Forms.Panel()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picAudio, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picSobreposicao, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picFundo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picStatusFechada, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picStatusAtivada, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picStatusPausada, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PainelMenu.SuspendLayout()
@@ -114,24 +114,24 @@ Partial Class FormPrincipal
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(143, Byte), Integer), CType(CType(134, Byte), Integer), CType(CType(153, Byte), Integer))
-        Me.GroupBox1.Controls.Add(Me.Label11)
-        Me.GroupBox1.Controls.Add(Me.RichTextBox2)
-        Me.GroupBox1.Controls.Add(Me.RichTextBox1)
-        Me.GroupBox1.Controls.Add(Me.PictureBox8)
-        Me.GroupBox1.Controls.Add(Me.PictureBox6)
-        Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.Label6)
-        Me.GroupBox1.Controls.Add(Me.Label5)
-        Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.PictureBox5)
-        Me.GroupBox1.Controls.Add(Me.PictureBox7)
-        Me.GroupBox1.Controls.Add(Me.PictureBox4)
-        Me.GroupBox1.Controls.Add(Me.PictureBox3)
+        Me.GroupBox1.Controls.Add(Me.lblStatusVideo)
+        Me.GroupBox1.Controls.Add(Me.rtbBiblia)
+        Me.GroupBox1.Controls.Add(Me.rtbHarpa)
+        Me.GroupBox1.Controls.Add(Me.picAudio)
+        Me.GroupBox1.Controls.Add(Me.picSobreposicao)
+        Me.GroupBox1.Controls.Add(Me.lblTitulo)
+        Me.GroupBox1.Controls.Add(Me.lblRodape)
+        Me.GroupBox1.Controls.Add(Me.lblCorpo)
+        Me.GroupBox1.Controls.Add(Me.lblSubtitulo)
+        Me.GroupBox1.Controls.Add(Me.picFundo)
+        Me.GroupBox1.Controls.Add(Me.picStatusFechada)
+        Me.GroupBox1.Controls.Add(Me.picStatusAtivada)
+        Me.GroupBox1.Controls.Add(Me.picStatusPausada)
         Me.GroupBox1.Controls.Add(Me.PictureBox2)
-        Me.GroupBox1.Controls.Add(Me.RadioButton4)
-        Me.GroupBox1.Controls.Add(Me.RadioButton3)
-        Me.GroupBox1.Controls.Add(Me.RadioButton2)
-        Me.GroupBox1.Controls.Add(Me.RadioButton1)
+        Me.GroupBox1.Controls.Add(Me.rbFechada)
+        Me.GroupBox1.Controls.Add(Me.rbNeutra)
+        Me.GroupBox1.Controls.Add(Me.rbPausada)
+        Me.GroupBox1.Controls.Add(Me.rbAtivada)
         Me.GroupBox1.ForeColor = System.Drawing.Color.White
         Me.GroupBox1.Location = New System.Drawing.Point(7, 161)
         Me.GroupBox1.Name = "GroupBox1"
@@ -140,155 +140,155 @@ Partial Class FormPrincipal
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "JANELA DE PROJEÇÃO:"
         '
-        'Label11
+        'lblStatusVideo
         '
-        Me.Label11.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.ForeColor = System.Drawing.Color.Gold
-        Me.Label11.Location = New System.Drawing.Point(8, 170)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(406, 80)
-        Me.Label11.TabIndex = 22
-        Me.Label11.Text = "VIDEO EM REPRODUÇÃO"
-        Me.Label11.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Label11.Visible = False
+        Me.lblStatusVideo.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.lblStatusVideo.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblStatusVideo.ForeColor = System.Drawing.Color.Gold
+        Me.lblStatusVideo.Location = New System.Drawing.Point(8, 170)
+        Me.lblStatusVideo.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblStatusVideo.Name = "lblStatusVideo"
+        Me.lblStatusVideo.Size = New System.Drawing.Size(406, 80)
+        Me.lblStatusVideo.TabIndex = 22
+        Me.lblStatusVideo.Text = "VIDEO EM REPRODUÇÃO"
+        Me.lblStatusVideo.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblStatusVideo.Visible = False
         '
-        'RichTextBox2
+        'rtbBiblia
         '
-        Me.RichTextBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.RichTextBox2.Font = New System.Drawing.Font("Calibri", 12.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RichTextBox2.ForeColor = System.Drawing.Color.White
-        Me.RichTextBox2.Location = New System.Drawing.Point(6, 77)
-        Me.RichTextBox2.Margin = New System.Windows.Forms.Padding(0)
-        Me.RichTextBox2.Name = "RichTextBox2"
-        Me.RichTextBox2.Size = New System.Drawing.Size(410, 224)
-        Me.RichTextBox2.TabIndex = 17
-        Me.RichTextBox2.Text = ""
-        Me.RichTextBox2.Visible = False
+        Me.rtbBiblia.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.rtbBiblia.Font = New System.Drawing.Font("Calibri", 12.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rtbBiblia.ForeColor = System.Drawing.Color.White
+        Me.rtbBiblia.Location = New System.Drawing.Point(6, 77)
+        Me.rtbBiblia.Margin = New System.Windows.Forms.Padding(0)
+        Me.rtbBiblia.Name = "rtbBiblia"
+        Me.rtbBiblia.Size = New System.Drawing.Size(410, 224)
+        Me.rtbBiblia.TabIndex = 17
+        Me.rtbBiblia.Text = ""
+        Me.rtbBiblia.Visible = False
         '
-        'RichTextBox1
+        'rtbHarpa
         '
-        Me.RichTextBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.RichTextBox1.Font = New System.Drawing.Font("Calibri", 12.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RichTextBox1.ForeColor = System.Drawing.Color.White
-        Me.RichTextBox1.Location = New System.Drawing.Point(6, 77)
-        Me.RichTextBox1.Margin = New System.Windows.Forms.Padding(0)
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(410, 224)
-        Me.RichTextBox1.TabIndex = 4
-        Me.RichTextBox1.Text = ""
-        Me.RichTextBox1.Visible = False
+        Me.rtbHarpa.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.rtbHarpa.Font = New System.Drawing.Font("Calibri", 12.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rtbHarpa.ForeColor = System.Drawing.Color.White
+        Me.rtbHarpa.Location = New System.Drawing.Point(6, 77)
+        Me.rtbHarpa.Margin = New System.Windows.Forms.Padding(0)
+        Me.rtbHarpa.Name = "rtbHarpa"
+        Me.rtbHarpa.Size = New System.Drawing.Size(410, 224)
+        Me.rtbHarpa.TabIndex = 4
+        Me.rtbHarpa.Text = ""
+        Me.rtbHarpa.Visible = False
         '
-        'PictureBox8
+        'picAudio
         '
-        Me.PictureBox8.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox8.Location = New System.Drawing.Point(6, 77)
-        Me.PictureBox8.Name = "PictureBox8"
-        Me.PictureBox8.Size = New System.Drawing.Size(410, 224)
-        Me.PictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox8.TabIndex = 24
-        Me.PictureBox8.TabStop = False
+        Me.picAudio.BackColor = System.Drawing.Color.Transparent
+        Me.picAudio.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.picAudio.Location = New System.Drawing.Point(6, 77)
+        Me.picAudio.Name = "picAudio"
+        Me.picAudio.Size = New System.Drawing.Size(410, 224)
+        Me.picAudio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picAudio.TabIndex = 24
+        Me.picAudio.TabStop = False
         '
-        'PictureBox6
+        'picSobreposicao
         '
-        Me.PictureBox6.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox6.Location = New System.Drawing.Point(6, 77)
-        Me.PictureBox6.Name = "PictureBox6"
-        Me.PictureBox6.Size = New System.Drawing.Size(410, 224)
-        Me.PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox6.TabIndex = 16
-        Me.PictureBox6.TabStop = False
+        Me.picSobreposicao.BackColor = System.Drawing.Color.Transparent
+        Me.picSobreposicao.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.picSobreposicao.Location = New System.Drawing.Point(6, 77)
+        Me.picSobreposicao.Name = "picSobreposicao"
+        Me.picSobreposicao.Size = New System.Drawing.Size(410, 224)
+        Me.picSobreposicao.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picSobreposicao.TabIndex = 16
+        Me.picSobreposicao.TabStop = False
         '
-        'Label3
+        'lblTitulo
         '
-        Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(7, 75)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(410, 31)
-        Me.Label3.TabIndex = 12
+        Me.lblTitulo.BackColor = System.Drawing.Color.Transparent
+        Me.lblTitulo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblTitulo.ForeColor = System.Drawing.Color.Black
+        Me.lblTitulo.Location = New System.Drawing.Point(7, 75)
+        Me.lblTitulo.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblTitulo.Name = "lblTitulo"
+        Me.lblTitulo.Size = New System.Drawing.Size(410, 31)
+        Me.lblTitulo.TabIndex = 12
         '
-        'Label6
+        'lblRodape
         '
-        Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(7, 272)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(410, 27)
-        Me.Label6.TabIndex = 15
+        Me.lblRodape.BackColor = System.Drawing.Color.Transparent
+        Me.lblRodape.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblRodape.ForeColor = System.Drawing.Color.Black
+        Me.lblRodape.Location = New System.Drawing.Point(7, 272)
+        Me.lblRodape.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblRodape.Name = "lblRodape"
+        Me.lblRodape.Size = New System.Drawing.Size(410, 27)
+        Me.lblRodape.TabIndex = 15
         '
-        'Label5
+        'lblCorpo
         '
-        Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(7, 133)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(410, 138)
-        Me.Label5.TabIndex = 14
+        Me.lblCorpo.BackColor = System.Drawing.Color.Transparent
+        Me.lblCorpo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblCorpo.ForeColor = System.Drawing.Color.Black
+        Me.lblCorpo.Location = New System.Drawing.Point(7, 133)
+        Me.lblCorpo.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblCorpo.Name = "lblCorpo"
+        Me.lblCorpo.Size = New System.Drawing.Size(410, 138)
+        Me.lblCorpo.TabIndex = 14
         '
-        'Label4
+        'lblSubtitulo
         '
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(7, 107)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(410, 27)
-        Me.Label4.TabIndex = 13
+        Me.lblSubtitulo.BackColor = System.Drawing.Color.Transparent
+        Me.lblSubtitulo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblSubtitulo.ForeColor = System.Drawing.Color.Black
+        Me.lblSubtitulo.Location = New System.Drawing.Point(7, 107)
+        Me.lblSubtitulo.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblSubtitulo.Name = "lblSubtitulo"
+        Me.lblSubtitulo.Size = New System.Drawing.Size(410, 27)
+        Me.lblSubtitulo.TabIndex = 13
         '
-        'PictureBox5
+        'picFundo
         '
-        Me.PictureBox5.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox5.Location = New System.Drawing.Point(6, 77)
-        Me.PictureBox5.Name = "PictureBox5"
-        Me.PictureBox5.Size = New System.Drawing.Size(410, 224)
-        Me.PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox5.TabIndex = 11
-        Me.PictureBox5.TabStop = False
+        Me.picFundo.BackColor = System.Drawing.Color.Transparent
+        Me.picFundo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.picFundo.Location = New System.Drawing.Point(6, 77)
+        Me.picFundo.Name = "picFundo"
+        Me.picFundo.Size = New System.Drawing.Size(410, 224)
+        Me.picFundo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picFundo.TabIndex = 11
+        Me.picFundo.TabStop = False
         '
-        'PictureBox7
+        'picStatusFechada
         '
-        Me.PictureBox7.Image = CType(resources.GetObject("PictureBox7.Image"), System.Drawing.Image)
-        Me.PictureBox7.Location = New System.Drawing.Point(6, 14)
-        Me.PictureBox7.Name = "PictureBox7"
-        Me.PictureBox7.Size = New System.Drawing.Size(74, 62)
-        Me.PictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PictureBox7.TabIndex = 23
-        Me.PictureBox7.TabStop = False
-        Me.PictureBox7.Visible = False
+        Me.picStatusFechada.Image = CType(resources.GetObject("picStatusFechada.Image"), System.Drawing.Image)
+        Me.picStatusFechada.Location = New System.Drawing.Point(6, 14)
+        Me.picStatusFechada.Name = "picStatusFechada"
+        Me.picStatusFechada.Size = New System.Drawing.Size(74, 62)
+        Me.picStatusFechada.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.picStatusFechada.TabIndex = 23
+        Me.picStatusFechada.TabStop = False
+        Me.picStatusFechada.Visible = False
         '
-        'PictureBox4
+        'picStatusAtivada
         '
-        Me.PictureBox4.Image = CType(resources.GetObject("PictureBox4.Image"), System.Drawing.Image)
-        Me.PictureBox4.Location = New System.Drawing.Point(6, 14)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(74, 62)
-        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PictureBox4.TabIndex = 10
-        Me.PictureBox4.TabStop = False
-        Me.PictureBox4.Visible = False
+        Me.picStatusAtivada.Image = CType(resources.GetObject("picStatusAtivada.Image"), System.Drawing.Image)
+        Me.picStatusAtivada.Location = New System.Drawing.Point(6, 14)
+        Me.picStatusAtivada.Name = "picStatusAtivada"
+        Me.picStatusAtivada.Size = New System.Drawing.Size(74, 62)
+        Me.picStatusAtivada.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.picStatusAtivada.TabIndex = 10
+        Me.picStatusAtivada.TabStop = False
+        Me.picStatusAtivada.Visible = False
         '
-        'PictureBox3
+        'picStatusPausada
         '
-        Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
-        Me.PictureBox3.Location = New System.Drawing.Point(6, 14)
-        Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(74, 62)
-        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PictureBox3.TabIndex = 9
-        Me.PictureBox3.TabStop = False
-        Me.PictureBox3.Visible = False
+        Me.picStatusPausada.Image = CType(resources.GetObject("picStatusPausada.Image"), System.Drawing.Image)
+        Me.picStatusPausada.Location = New System.Drawing.Point(6, 14)
+        Me.picStatusPausada.Name = "picStatusPausada"
+        Me.picStatusPausada.Size = New System.Drawing.Size(74, 62)
+        Me.picStatusPausada.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.picStatusPausada.TabIndex = 9
+        Me.picStatusPausada.TabStop = False
+        Me.picStatusPausada.Visible = False
         '
         'PictureBox2
         '
@@ -300,50 +300,50 @@ Partial Class FormPrincipal
         Me.PictureBox2.TabIndex = 7
         Me.PictureBox2.TabStop = False
         '
-        'RadioButton4
+        'rbFechada
         '
-        Me.RadioButton4.AutoSize = True
-        Me.RadioButton4.BackColor = System.Drawing.Color.FromArgb(CType(CType(143, Byte), Integer), CType(CType(134, Byte), Integer), CType(CType(153, Byte), Integer))
-        Me.RadioButton4.ForeColor = System.Drawing.Color.DarkRed
-        Me.RadioButton4.Location = New System.Drawing.Point(344, 36)
-        Me.RadioButton4.Name = "RadioButton4"
-        Me.RadioButton4.Size = New System.Drawing.Size(67, 17)
-        Me.RadioButton4.TabIndex = 8
-        Me.RadioButton4.Text = "Fechada"
-        Me.RadioButton4.UseVisualStyleBackColor = False
+        Me.rbFechada.AutoSize = True
+        Me.rbFechada.BackColor = System.Drawing.Color.FromArgb(CType(CType(143, Byte), Integer), CType(CType(134, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.rbFechada.ForeColor = System.Drawing.Color.DarkRed
+        Me.rbFechada.Location = New System.Drawing.Point(344, 36)
+        Me.rbFechada.Name = "rbFechada"
+        Me.rbFechada.Size = New System.Drawing.Size(67, 17)
+        Me.rbFechada.TabIndex = 8
+        Me.rbFechada.Text = "Fechada"
+        Me.rbFechada.UseVisualStyleBackColor = False
         '
-        'RadioButton3
+        'rbNeutra
         '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.ForeColor = System.Drawing.Color.Black
-        Me.RadioButton3.Location = New System.Drawing.Point(268, 35)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(57, 17)
-        Me.RadioButton3.TabIndex = 8
-        Me.RadioButton3.Text = "Neutra"
-        Me.RadioButton3.UseVisualStyleBackColor = True
+        Me.rbNeutra.AutoSize = True
+        Me.rbNeutra.ForeColor = System.Drawing.Color.Black
+        Me.rbNeutra.Location = New System.Drawing.Point(268, 35)
+        Me.rbNeutra.Name = "rbNeutra"
+        Me.rbNeutra.Size = New System.Drawing.Size(57, 17)
+        Me.rbNeutra.TabIndex = 8
+        Me.rbNeutra.Text = "Neutra"
+        Me.rbNeutra.UseVisualStyleBackColor = True
         '
-        'RadioButton2
+        'rbPausada
         '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.ForeColor = System.Drawing.Color.Black
-        Me.RadioButton2.Location = New System.Drawing.Point(180, 35)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(67, 17)
-        Me.RadioButton2.TabIndex = 8
-        Me.RadioButton2.Text = "Pausada"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.rbPausada.AutoSize = True
+        Me.rbPausada.ForeColor = System.Drawing.Color.Black
+        Me.rbPausada.Location = New System.Drawing.Point(180, 35)
+        Me.rbPausada.Name = "rbPausada"
+        Me.rbPausada.Size = New System.Drawing.Size(67, 17)
+        Me.rbPausada.TabIndex = 8
+        Me.rbPausada.Text = "Pausada"
+        Me.rbPausada.UseVisualStyleBackColor = True
         '
-        'RadioButton1
+        'rbAtivada
         '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.ForeColor = System.Drawing.Color.Black
-        Me.RadioButton1.Location = New System.Drawing.Point(98, 36)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(61, 17)
-        Me.RadioButton1.TabIndex = 8
-        Me.RadioButton1.Text = "Ativada"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.rbAtivada.AutoSize = True
+        Me.rbAtivada.ForeColor = System.Drawing.Color.Black
+        Me.rbAtivada.Location = New System.Drawing.Point(98, 36)
+        Me.rbAtivada.Name = "rbAtivada"
+        Me.rbAtivada.Size = New System.Drawing.Size(61, 17)
+        Me.rbAtivada.TabIndex = 8
+        Me.rbAtivada.Text = "Ativada"
+        Me.rbAtivada.UseVisualStyleBackColor = True
         '
         'PictureBox1
         '
@@ -360,66 +360,66 @@ Partial Class FormPrincipal
         '
         Me.PainelMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(62, Byte), Integer), CType(CType(46, Byte), Integer), CType(CType(67, Byte), Integer))
         Me.PainelMenu.BackgroundImage = CType(resources.GetObject("PainelMenu.BackgroundImage"), System.Drawing.Image)
-        Me.PainelMenu.Controls.Add(Me.Button8)
-        Me.PainelMenu.Controls.Add(Me.Label8)
-        Me.PainelMenu.Controls.Add(Me.Label10)
+        Me.PainelMenu.Controls.Add(Me.btnEscolherPasta)
+        Me.PainelMenu.Controls.Add(Me.lblLocalSalvamento)
+        Me.PainelMenu.Controls.Add(Me.lblPastaPadrao)
         Me.PainelMenu.Controls.Add(Me.Label9)
         Me.PainelMenu.Controls.Add(Me.Label7)
         Me.PainelMenu.Controls.Add(Me.Label1)
-        Me.PainelMenu.Controls.Add(Me.CheckBox5)
-        Me.PainelMenu.Controls.Add(Me.CheckBox4)
-        Me.PainelMenu.Controls.Add(Me.CheckBox3)
-        Me.PainelMenu.Controls.Add(Me.CheckBox2)
-        Me.PainelMenu.Controls.Add(Me.CheckBox1)
-        Me.PainelMenu.Controls.Add(Me.Button7)
-        Me.PainelMenu.Controls.Add(Me.Button12)
+        Me.PainelMenu.Controls.Add(Me.chkAudioVideo)
+        Me.PainelMenu.Controls.Add(Me.chkImagens)
+        Me.PainelMenu.Controls.Add(Me.chkBiblia)
+        Me.PainelMenu.Controls.Add(Me.chkHarpa)
+        Me.PainelMenu.Controls.Add(Me.chkFundo)
+        Me.PainelMenu.Controls.Add(Me.btnSalvarImagem)
+        Me.PainelMenu.Controls.Add(Me.btnOpcoes)
         Me.PainelMenu.Controls.Add(Me.ComboMonitor)
         Me.PainelMenu.Controls.Add(Me.GroupBox1)
         Me.PainelMenu.Controls.Add(Me.Label2)
-        Me.PainelMenu.Controls.Add(Me.Button5)
-        Me.PainelMenu.Controls.Add(Me.Button4)
+        Me.PainelMenu.Controls.Add(Me.btnAudioVideo)
+        Me.PainelMenu.Controls.Add(Me.btnImagens)
         Me.PainelMenu.Controls.Add(Me.PictureBox1)
-        Me.PainelMenu.Controls.Add(Me.Button3)
-        Me.PainelMenu.Controls.Add(Me.Button2)
-        Me.PainelMenu.Controls.Add(Me.Button1)
+        Me.PainelMenu.Controls.Add(Me.btnBiblia)
+        Me.PainelMenu.Controls.Add(Me.btnHarpa)
+        Me.PainelMenu.Controls.Add(Me.btnFundo)
         Me.PainelMenu.Dock = System.Windows.Forms.DockStyle.Left
         Me.PainelMenu.Location = New System.Drawing.Point(0, 0)
         Me.PainelMenu.Name = "PainelMenu"
         Me.PainelMenu.Size = New System.Drawing.Size(436, 621)
         Me.PainelMenu.TabIndex = 1
         '
-        'Button8
+        'btnEscolherPasta
         '
-        Me.Button8.BackColor = System.Drawing.Color.DarkGray
-        Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button8.Image = CType(resources.GetObject("Button8.Image"), System.Drawing.Image)
-        Me.Button8.Location = New System.Drawing.Point(122, 555)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(18, 16)
-        Me.Button8.TabIndex = 21
-        Me.Button8.UseVisualStyleBackColor = False
+        Me.btnEscolherPasta.BackColor = System.Drawing.Color.DarkGray
+        Me.btnEscolherPasta.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEscolherPasta.Image = CType(resources.GetObject("btnEscolherPasta.Image"), System.Drawing.Image)
+        Me.btnEscolherPasta.Location = New System.Drawing.Point(122, 555)
+        Me.btnEscolherPasta.Name = "btnEscolherPasta"
+        Me.btnEscolherPasta.Size = New System.Drawing.Size(18, 16)
+        Me.btnEscolherPasta.TabIndex = 21
+        Me.btnEscolherPasta.UseVisualStyleBackColor = False
         '
-        'Label8
+        'lblLocalSalvamento
         '
-        Me.Label8.BackColor = System.Drawing.Color.Transparent
-        Me.Label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label8.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label8.Location = New System.Drawing.Point(4, 573)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(426, 42)
-        Me.Label8.TabIndex = 20
-        Me.Label8.Text = "Caminho padrão não localizado."
+        Me.lblLocalSalvamento.BackColor = System.Drawing.Color.Transparent
+        Me.lblLocalSalvamento.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblLocalSalvamento.ForeColor = System.Drawing.Color.SteelBlue
+        Me.lblLocalSalvamento.Location = New System.Drawing.Point(4, 573)
+        Me.lblLocalSalvamento.Name = "lblLocalSalvamento"
+        Me.lblLocalSalvamento.Size = New System.Drawing.Size(426, 42)
+        Me.lblLocalSalvamento.TabIndex = 20
+        Me.lblLocalSalvamento.Text = "Caminho padrão não localizado."
         '
-        'Label10
+        'lblPastaPadrao
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label10.Location = New System.Drawing.Point(83, 536)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(287, 13)
-        Me.Label10.TabIndex = 19
-        Me.Label10.Text = "\ProjectionManager\IMAGENS\2-Imagens Caracterizadas\"
+        Me.lblPastaPadrao.AutoSize = True
+        Me.lblPastaPadrao.BackColor = System.Drawing.Color.Transparent
+        Me.lblPastaPadrao.ForeColor = System.Drawing.Color.SteelBlue
+        Me.lblPastaPadrao.Location = New System.Drawing.Point(83, 536)
+        Me.lblPastaPadrao.Name = "lblPastaPadrao"
+        Me.lblPastaPadrao.Size = New System.Drawing.Size(287, 13)
+        Me.lblPastaPadrao.TabIndex = 19
+        Me.lblPastaPadrao.Text = "\ProjectionManager\IMAGENS\2-Imagens Caracterizadas\"
         '
         'Label9
         '
@@ -443,181 +443,181 @@ Partial Class FormPrincipal
         Me.Label7.TabIndex = 19
         Me.Label7.Text = "Local de salvamento:"
         '
-        'CheckBox5
+        'chkAudioVideo
         '
-        Me.CheckBox5.BackColor = System.Drawing.Color.Transparent
-        Me.CheckBox5.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.CheckBox5.Enabled = False
-        Me.CheckBox5.Location = New System.Drawing.Point(183, 135)
-        Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(92, 18)
-        Me.CheckBox5.TabIndex = 17
-        Me.CheckBox5.UseVisualStyleBackColor = False
+        Me.chkAudioVideo.BackColor = System.Drawing.Color.Transparent
+        Me.chkAudioVideo.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkAudioVideo.Enabled = False
+        Me.chkAudioVideo.Location = New System.Drawing.Point(183, 135)
+        Me.chkAudioVideo.Name = "chkAudioVideo"
+        Me.chkAudioVideo.Size = New System.Drawing.Size(92, 18)
+        Me.chkAudioVideo.TabIndex = 17
+        Me.chkAudioVideo.UseVisualStyleBackColor = False
         '
-        'CheckBox4
+        'chkImagens
         '
-        Me.CheckBox4.BackColor = System.Drawing.Color.Transparent
-        Me.CheckBox4.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.CheckBox4.Enabled = False
-        Me.CheckBox4.Location = New System.Drawing.Point(122, 135)
-        Me.CheckBox4.Name = "CheckBox4"
-        Me.CheckBox4.Size = New System.Drawing.Size(55, 18)
-        Me.CheckBox4.TabIndex = 16
-        Me.CheckBox4.UseVisualStyleBackColor = False
+        Me.chkImagens.BackColor = System.Drawing.Color.Transparent
+        Me.chkImagens.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkImagens.Enabled = False
+        Me.chkImagens.Location = New System.Drawing.Point(122, 135)
+        Me.chkImagens.Name = "chkImagens"
+        Me.chkImagens.Size = New System.Drawing.Size(55, 18)
+        Me.chkImagens.TabIndex = 16
+        Me.chkImagens.UseVisualStyleBackColor = False
         '
-        'CheckBox3
+        'chkBiblia
         '
-        Me.CheckBox3.BackColor = System.Drawing.Color.Transparent
-        Me.CheckBox3.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.CheckBox3.Enabled = False
-        Me.CheckBox3.Location = New System.Drawing.Point(343, 135)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(50, 18)
-        Me.CheckBox3.TabIndex = 15
-        Me.CheckBox3.UseVisualStyleBackColor = False
+        Me.chkBiblia.BackColor = System.Drawing.Color.Transparent
+        Me.chkBiblia.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkBiblia.Enabled = False
+        Me.chkBiblia.Location = New System.Drawing.Point(343, 135)
+        Me.chkBiblia.Name = "chkBiblia"
+        Me.chkBiblia.Size = New System.Drawing.Size(50, 18)
+        Me.chkBiblia.TabIndex = 15
+        Me.chkBiblia.UseVisualStyleBackColor = False
         '
-        'CheckBox2
+        'chkHarpa
         '
-        Me.CheckBox2.BackColor = System.Drawing.Color.Transparent
-        Me.CheckBox2.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.CheckBox2.Enabled = False
-        Me.CheckBox2.Location = New System.Drawing.Point(285, 135)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(50, 18)
-        Me.CheckBox2.TabIndex = 14
-        Me.CheckBox2.UseVisualStyleBackColor = False
+        Me.chkHarpa.BackColor = System.Drawing.Color.Transparent
+        Me.chkHarpa.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkHarpa.Enabled = False
+        Me.chkHarpa.Location = New System.Drawing.Point(285, 135)
+        Me.chkHarpa.Name = "chkHarpa"
+        Me.chkHarpa.Size = New System.Drawing.Size(50, 18)
+        Me.chkHarpa.TabIndex = 14
+        Me.chkHarpa.UseVisualStyleBackColor = False
         '
-        'CheckBox1
+        'chkFundo
         '
-        Me.CheckBox1.BackColor = System.Drawing.Color.Transparent
-        Me.CheckBox1.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.CheckBox1.Enabled = False
-        Me.CheckBox1.Location = New System.Drawing.Point(59, 135)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(54, 18)
-        Me.CheckBox1.TabIndex = 13
-        Me.CheckBox1.UseVisualStyleBackColor = False
+        Me.chkFundo.BackColor = System.Drawing.Color.Transparent
+        Me.chkFundo.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkFundo.Enabled = False
+        Me.chkFundo.Location = New System.Drawing.Point(59, 135)
+        Me.chkFundo.Name = "chkFundo"
+        Me.chkFundo.Size = New System.Drawing.Size(54, 18)
+        Me.chkFundo.TabIndex = 13
+        Me.chkFundo.UseVisualStyleBackColor = False
         '
-        'Button7
+        'btnSalvarImagem
         '
-        Me.Button7.BackColor = System.Drawing.Color.Transparent
-        Me.Button7.FlatAppearance.BorderSize = 0
-        Me.Button7.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
-        Me.Button7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
-        Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button7.ForeColor = System.Drawing.SystemColors.Window
-        Me.Button7.Image = CType(resources.GetObject("Button7.Image"), System.Drawing.Image)
-        Me.Button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button7.Location = New System.Drawing.Point(15, 486)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(131, 47)
-        Me.Button7.TabIndex = 11
-        Me.Button7.Text = "Salvar Imagem Projetada"
-        Me.Button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Button7.UseVisualStyleBackColor = False
+        Me.btnSalvarImagem.BackColor = System.Drawing.Color.Transparent
+        Me.btnSalvarImagem.FlatAppearance.BorderSize = 0
+        Me.btnSalvarImagem.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
+        Me.btnSalvarImagem.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
+        Me.btnSalvarImagem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSalvarImagem.ForeColor = System.Drawing.SystemColors.Window
+        Me.btnSalvarImagem.Image = CType(resources.GetObject("btnSalvarImagem.Image"), System.Drawing.Image)
+        Me.btnSalvarImagem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnSalvarImagem.Location = New System.Drawing.Point(15, 486)
+        Me.btnSalvarImagem.Name = "btnSalvarImagem"
+        Me.btnSalvarImagem.Size = New System.Drawing.Size(131, 47)
+        Me.btnSalvarImagem.TabIndex = 11
+        Me.btnSalvarImagem.Text = "Salvar Imagem Projetada"
+        Me.btnSalvarImagem.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnSalvarImagem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnSalvarImagem.UseVisualStyleBackColor = False
         '
-        'Button12
+        'btnOpcoes
         '
-        Me.Button12.BackColor = System.Drawing.Color.Transparent
-        Me.Button12.FlatAppearance.BorderSize = 0
-        Me.Button12.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
-        Me.Button12.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
-        Me.Button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button12.ForeColor = System.Drawing.SystemColors.Window
-        Me.Button12.Image = CType(resources.GetObject("Button12.Image"), System.Drawing.Image)
-        Me.Button12.Location = New System.Drawing.Point(370, 473)
-        Me.Button12.Name = "Button12"
-        Me.Button12.Size = New System.Drawing.Size(60, 60)
-        Me.Button12.TabIndex = 11
-        Me.Button12.Text = "Opções"
-        Me.Button12.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
-        Me.Button12.UseVisualStyleBackColor = False
+        Me.btnOpcoes.BackColor = System.Drawing.Color.Transparent
+        Me.btnOpcoes.FlatAppearance.BorderSize = 0
+        Me.btnOpcoes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
+        Me.btnOpcoes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
+        Me.btnOpcoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnOpcoes.ForeColor = System.Drawing.SystemColors.Window
+        Me.btnOpcoes.Image = CType(resources.GetObject("btnOpcoes.Image"), System.Drawing.Image)
+        Me.btnOpcoes.Location = New System.Drawing.Point(370, 473)
+        Me.btnOpcoes.Name = "btnOpcoes"
+        Me.btnOpcoes.Size = New System.Drawing.Size(60, 60)
+        Me.btnOpcoes.TabIndex = 11
+        Me.btnOpcoes.Text = "Opções"
+        Me.btnOpcoes.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
+        Me.btnOpcoes.UseVisualStyleBackColor = False
         '
-        'Button5
+        'btnAudioVideo
         '
-        Me.Button5.BackColor = System.Drawing.Color.Transparent
-        Me.Button5.FlatAppearance.BorderSize = 0
-        Me.Button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
-        Me.Button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
-        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button5.ForeColor = System.Drawing.SystemColors.Window
-        Me.Button5.Image = CType(resources.GetObject("Button5.Image"), System.Drawing.Image)
-        Me.Button5.Location = New System.Drawing.Point(183, 61)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(92, 72)
-        Me.Button5.TabIndex = 10
-        Me.Button5.Text = "Audio/Imagem" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Vídeos"
-        Me.Button5.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
-        Me.Button5.UseVisualStyleBackColor = False
+        Me.btnAudioVideo.BackColor = System.Drawing.Color.Transparent
+        Me.btnAudioVideo.FlatAppearance.BorderSize = 0
+        Me.btnAudioVideo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
+        Me.btnAudioVideo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
+        Me.btnAudioVideo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnAudioVideo.ForeColor = System.Drawing.SystemColors.Window
+        Me.btnAudioVideo.Image = CType(resources.GetObject("btnAudioVideo.Image"), System.Drawing.Image)
+        Me.btnAudioVideo.Location = New System.Drawing.Point(183, 61)
+        Me.btnAudioVideo.Name = "btnAudioVideo"
+        Me.btnAudioVideo.Size = New System.Drawing.Size(92, 72)
+        Me.btnAudioVideo.TabIndex = 10
+        Me.btnAudioVideo.Text = "Audio/Imagem" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Vídeos"
+        Me.btnAudioVideo.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
+        Me.btnAudioVideo.UseVisualStyleBackColor = False
         '
-        'Button4
+        'btnImagens
         '
-        Me.Button4.BackColor = System.Drawing.Color.Transparent
-        Me.Button4.FlatAppearance.BorderSize = 0
-        Me.Button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
-        Me.Button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button4.ForeColor = System.Drawing.SystemColors.Window
-        Me.Button4.Image = CType(resources.GetObject("Button4.Image"), System.Drawing.Image)
-        Me.Button4.Location = New System.Drawing.Point(122, 73)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(55, 60)
-        Me.Button4.TabIndex = 9
-        Me.Button4.Text = "Imagens"
-        Me.Button4.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
-        Me.Button4.UseVisualStyleBackColor = False
+        Me.btnImagens.BackColor = System.Drawing.Color.Transparent
+        Me.btnImagens.FlatAppearance.BorderSize = 0
+        Me.btnImagens.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
+        Me.btnImagens.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
+        Me.btnImagens.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnImagens.ForeColor = System.Drawing.SystemColors.Window
+        Me.btnImagens.Image = CType(resources.GetObject("btnImagens.Image"), System.Drawing.Image)
+        Me.btnImagens.Location = New System.Drawing.Point(122, 73)
+        Me.btnImagens.Name = "btnImagens"
+        Me.btnImagens.Size = New System.Drawing.Size(55, 60)
+        Me.btnImagens.TabIndex = 9
+        Me.btnImagens.Text = "Imagens"
+        Me.btnImagens.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
+        Me.btnImagens.UseVisualStyleBackColor = False
         '
-        'Button3
+        'btnBiblia
         '
-        Me.Button3.BackColor = System.Drawing.Color.Transparent
-        Me.Button3.FlatAppearance.BorderSize = 0
-        Me.Button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
-        Me.Button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.ForeColor = System.Drawing.SystemColors.Window
-        Me.Button3.Image = CType(resources.GetObject("Button3.Image"), System.Drawing.Image)
-        Me.Button3.Location = New System.Drawing.Point(343, 73)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(50, 60)
-        Me.Button3.TabIndex = 8
-        Me.Button3.Text = " Bíblia"
-        Me.Button3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
-        Me.Button3.UseVisualStyleBackColor = False
+        Me.btnBiblia.BackColor = System.Drawing.Color.Transparent
+        Me.btnBiblia.FlatAppearance.BorderSize = 0
+        Me.btnBiblia.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
+        Me.btnBiblia.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
+        Me.btnBiblia.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnBiblia.ForeColor = System.Drawing.SystemColors.Window
+        Me.btnBiblia.Image = CType(resources.GetObject("btnBiblia.Image"), System.Drawing.Image)
+        Me.btnBiblia.Location = New System.Drawing.Point(343, 73)
+        Me.btnBiblia.Name = "btnBiblia"
+        Me.btnBiblia.Size = New System.Drawing.Size(50, 60)
+        Me.btnBiblia.TabIndex = 8
+        Me.btnBiblia.Text = " Bíblia"
+        Me.btnBiblia.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
+        Me.btnBiblia.UseVisualStyleBackColor = False
         '
-        'Button2
+        'btnHarpa
         '
-        Me.Button2.BackColor = System.Drawing.Color.Transparent
-        Me.Button2.FlatAppearance.BorderSize = 0
-        Me.Button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
-        Me.Button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.SystemColors.Window
-        Me.Button2.Image = CType(resources.GetObject("Button2.Image"), System.Drawing.Image)
-        Me.Button2.Location = New System.Drawing.Point(285, 73)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(50, 60)
-        Me.Button2.TabIndex = 7
-        Me.Button2.Text = "Harpa"
-        Me.Button2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
-        Me.Button2.UseVisualStyleBackColor = False
+        Me.btnHarpa.BackColor = System.Drawing.Color.Transparent
+        Me.btnHarpa.FlatAppearance.BorderSize = 0
+        Me.btnHarpa.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
+        Me.btnHarpa.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
+        Me.btnHarpa.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnHarpa.ForeColor = System.Drawing.SystemColors.Window
+        Me.btnHarpa.Image = CType(resources.GetObject("btnHarpa.Image"), System.Drawing.Image)
+        Me.btnHarpa.Location = New System.Drawing.Point(285, 73)
+        Me.btnHarpa.Name = "btnHarpa"
+        Me.btnHarpa.Size = New System.Drawing.Size(50, 60)
+        Me.btnHarpa.TabIndex = 7
+        Me.btnHarpa.Text = "Harpa"
+        Me.btnHarpa.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
+        Me.btnHarpa.UseVisualStyleBackColor = False
         '
-        'Button1
+        'btnFundo
         '
-        Me.Button1.BackColor = System.Drawing.Color.Transparent
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
-        Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.SystemColors.Window
-        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(59, 73)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(54, 60)
-        Me.Button1.TabIndex = 6
-        Me.Button1.Text = "Fundo"
-        Me.Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnFundo.BackColor = System.Drawing.Color.Transparent
+        Me.btnFundo.FlatAppearance.BorderSize = 0
+        Me.btnFundo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
+        Me.btnFundo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
+        Me.btnFundo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnFundo.ForeColor = System.Drawing.SystemColors.Window
+        Me.btnFundo.Image = CType(resources.GetObject("btnFundo.Image"), System.Drawing.Image)
+        Me.btnFundo.Location = New System.Drawing.Point(59, 73)
+        Me.btnFundo.Name = "btnFundo"
+        Me.btnFundo.Size = New System.Drawing.Size(54, 60)
+        Me.btnFundo.TabIndex = 6
+        Me.btnFundo.Text = "Fundo"
+        Me.btnFundo.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
+        Me.btnFundo.UseVisualStyleBackColor = False
         '
         'PainelControle
         '
@@ -641,12 +641,12 @@ Partial Class FormPrincipal
         Me.Text = "Projection Manager"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picAudio, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picSobreposicao, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picFundo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picStatusFechada, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picStatusAtivada, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picStatusPausada, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PainelMenu.ResumeLayout(False)
@@ -661,39 +661,39 @@ Partial Class FormPrincipal
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents ComboMonitor As ComboBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button5 As Button
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button12 As Button
+    Friend WithEvents btnFundo As Button
+    Friend WithEvents btnAudioVideo As Button
+    Friend WithEvents btnImagens As Button
+    Friend WithEvents btnBiblia As Button
+    Friend WithEvents btnHarpa As Button
+    Friend WithEvents btnOpcoes As Button
     Friend WithEvents PictureBox2 As PictureBox
-    Friend WithEvents RadioButton3 As RadioButton
-    Friend WithEvents RadioButton2 As RadioButton
-    Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents PictureBox4 As PictureBox
-    Friend WithEvents PictureBox3 As PictureBox
-    Friend WithEvents PictureBox5 As PictureBox
-    Friend WithEvents Label6 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents RichTextBox1 As RichTextBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents PictureBox6 As PictureBox
-    Friend WithEvents CheckBox1 As CheckBox
-    Friend WithEvents CheckBox5 As CheckBox
-    Friend WithEvents CheckBox4 As CheckBox
-    Friend WithEvents CheckBox3 As CheckBox
-    Friend WithEvents CheckBox2 As CheckBox
-    Friend WithEvents RichTextBox2 As RichTextBox
-    Friend WithEvents Label8 As Label
+    Friend WithEvents rbNeutra As RadioButton
+    Friend WithEvents rbPausada As RadioButton
+    Friend WithEvents rbAtivada As RadioButton
+    Friend WithEvents picStatusAtivada As PictureBox
+    Friend WithEvents picStatusPausada As PictureBox
+    Friend WithEvents picFundo As PictureBox
+    Friend WithEvents lblRodape As Label
+    Friend WithEvents lblCorpo As Label
+    Friend WithEvents lblSubtitulo As Label
+    Friend WithEvents rtbHarpa As RichTextBox
+    Friend WithEvents lblTitulo As Label
+    Friend WithEvents picSobreposicao As PictureBox
+    Friend WithEvents chkFundo As CheckBox
+    Friend WithEvents chkAudioVideo As CheckBox
+    Friend WithEvents chkImagens As CheckBox
+    Friend WithEvents chkBiblia As CheckBox
+    Friend WithEvents chkHarpa As CheckBox
+    Friend WithEvents rtbBiblia As RichTextBox
+    Friend WithEvents lblLocalSalvamento As Label
     Friend WithEvents Label7 As Label
-    Friend WithEvents Button7 As Button
-    Friend WithEvents Button8 As Button
-    Friend WithEvents Label10 As Label
+    Friend WithEvents btnSalvarImagem As Button
+    Friend WithEvents btnEscolherPasta As Button
+    Friend WithEvents lblPastaPadrao As Label
     Friend WithEvents Label9 As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents RadioButton4 As RadioButton
-    Friend WithEvents PictureBox7 As PictureBox
-    Friend WithEvents PictureBox8 As PictureBox
+    Friend WithEvents lblStatusVideo As Label
+    Friend WithEvents rbFechada As RadioButton
+    Friend WithEvents picStatusFechada As PictureBox
+    Friend WithEvents picAudio As PictureBox
 End Class
