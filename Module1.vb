@@ -3,7 +3,7 @@ Imports System.Drawing.Text
 Imports System.IO
 Module Module1
     Public MyDocSystem As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments
-    Public AlternativeSystem As String = My.Settings.LocalAlternativoSistema
+    Public AlternativeSystem As String
     Public LocalSystem As String
     Public ConexDados As New OleDbConnection
     Public ConexHarpa As New OleDbConnection
@@ -26,6 +26,7 @@ Module Module1
     Public ResultRef2 As String 'Cap-vers
     Public ResultReferencia As String 'Referencia bíblica
     Public BARef As Integer 'Botão avançar versículo
+    Public RegLocalSistema As New DataTable
     Public RegTextos As New DataTable
     Public RegTipoTexto As New DataTable
     Public RegImagens As New DataTable
@@ -157,6 +158,13 @@ Module Module1
 
     Public Sub DesconectarDados()
         ConexDados.Close()
+    End Sub
+    Public Sub CarregarLocalSistema()
+        Dim Adaptador As OleDbDataAdapter
+        Dim SQL As String = "SELECT * FROM Local"
+        Adaptador = New OleDbDataAdapter(SQL, ConexDados)
+        RegLocalSistema = New DataTable
+        Adaptador.Fill(RegLocalSistema)
     End Sub
 
     Public Sub CarregarImagens()

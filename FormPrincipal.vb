@@ -3,10 +3,25 @@ Imports System.IO
 
 Public Class FormPrincipal
     Private Sub FormPrincipal_Load(sender As Object, e As EventArgs) Handles Me.Load
+        ConexDados = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqDados))
+        ConexHarpa = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqHarpa))
+        ConexNVI = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaNVI))
+        ConexACF = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaACF))
+        Try
+            CarregarLocalSistema(RegLocalSistema.Rows(0).Item("CamLocal"))
+            CarregarImagem(RegImagens.Rows(0).Item("CamImagem"))
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "Abrir Dados do systema")
+        End Try
+
         If Not Directory.Exists(MyDocSystem & "\ProjectionManager") Then
             If Not Directory.Exists(AlternativeSystem) Then
-                MsgBox("O conteúdo do sistema não foi encontrado em: " & AlternativeSystem, vbCritical, "Dados do systema")
-                Exit Sub
+                MsgBox("O conteúdo do sistema não foi encontrado. Selecione o local da pasta principal do programa.", vbCritical, "Dados do systema")
+                Dim OFds As New FolderBrowserDialog With {.ShowNewFolderButton = False, .RootFolder = Environment.SpecialFolder.MyComputer}
+                If OFds.ShowDialog = DialogResult.OK Then
+                    AlternativeSystem = OFds.SelectedPath
+                    LocalSystem = AlternativeSystem
+                End If
             Else
                 LocalSystem = AlternativeSystem
             End If
@@ -54,10 +69,6 @@ Public Class FormPrincipal
         lblSubtitulo.Location = New Point(2, 33)
         lblCorpo.Location = New Point(2, 58)
         lblRodape.Location = New Point(2, 196)
-        ConexDados = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqDados))
-        ConexHarpa = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqHarpa))
-        ConexNVI = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaNVI))
-        ConexACF = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaACF))
         If Not Directory.Exists(LocalSystem & lblPastaPadrao.Text) Then
             MsgBox("Pasta padrão de salvamento não encontrada. Reestabeleça o caminho ou selecione outra pasta.", vbCritical, "Salvar Dados do systema")
             btnSalvarImagem.Enabled = False
