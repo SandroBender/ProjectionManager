@@ -89,13 +89,14 @@ Public Class FormPrincipal
             FormApresentar.Show()
         End If
     End Sub
-    Private Sub btnMenu_Click(sender As Object, e As EventArgs) Handles btnFundo.Click, btnHarpa.Click, btnBiblia.Click, btnImagens.Click, btnAudioVideo.Click
+    Private Sub btnMenu_Click(sender As Object, e As EventArgs) Handles btnFundo.Click, btnHarpa.Click, btnBiblia.Click, btnImagens.Click, btnAudioVideo.Click, btnInternet.Click
         If sender Is btnFundo Then AbrirFormNoPainel(Of FormFundo)()
         If sender Is btnHarpa Then AbrirFormNoPainel(Of FormHarpa)()
         If sender Is btnBiblia Then AbrirFormNoPainel(Of FormBiblia)()
         If sender Is btnImagens Then AbrirFormNoPainel(Of FormImagens)()
         If sender Is btnAudioVideo Then AbrirFormNoPainel(Of FormVideos)()
-        For Each Botao As Button In {btnFundo, btnHarpa, btnBiblia, btnImagens, btnAudioVideo} 'destaca o botão do painel aberto
+        If sender Is btnInternet Then AbrirFormNoPainel(Of FormInternet)()
+        For Each Botao As Button In {btnFundo, btnHarpa, btnBiblia, btnImagens, btnAudioVideo, btnInternet} 'destaca o botão do painel aberto
             Botao.BackColor = If(Botao Is sender, Color.DarkSlateBlue, Color.Transparent)
         Next
     End Sub
@@ -136,15 +137,19 @@ Public Class FormPrincipal
                     Rotulo.Text = ""
                 End If
             Next
-            If VideoOn = True Then lblStatusVideo.Text = "VIDEO EM REPRODUÇÃO"
         End If
         AtualizaApresentacao()
     End Sub
     Private Sub rbPausada_CheckedChanged(sender As Object, e As EventArgs) Handles rbPausada.CheckedChanged 'PAUSADA
         DestacarEstado()
-        If VideoOn = True Then
+        If Not rbPausada.Checked Then Exit Sub 'ignora o evento de quando "Pausada" é desmarcada
+        If MidiaAtual() <> "" Then
             lblStatusVideo.Text = "VIDEO PAUSADO"
             If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPlaying Then FormApresentar.wmpVideo.Ctlcontrols.pause()
+        End If
+        If PaginaInternetAtiva() Then
+            lblStatusVideo.Text = "INTERNET PAUSADA"
+            PausarPaginaProjecao()
         End If
     End Sub
     Private Sub rbNeutra_CheckedChanged(sender As Object, e As EventArgs) Handles rbNeutra.CheckedChanged 'NEUTRO
@@ -190,6 +195,11 @@ Public Class FormPrincipal
     Private Sub chkImagens_CheckedChanged(sender As Object, e As EventArgs) Handles chkImagens.CheckedChanged
         chkImagens.BackColor = Color.Transparent
         If chkImagens.Checked = True Then chkImagens.BackColor = Color.SlateBlue
+    End Sub
+
+    Private Sub chkInternet_CheckedChanged(sender As Object, e As EventArgs) Handles chkInternet.CheckedChanged
+        chkInternet.BackColor = Color.Transparent
+        If chkInternet.Checked = True Then chkInternet.BackColor = Color.SlateBlue
     End Sub
 
     Private Sub chkAudioVideo_CheckedChanged(sender As Object, e As EventArgs) Handles chkAudioVideo.CheckedChanged

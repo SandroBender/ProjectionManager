@@ -519,25 +519,35 @@ Module Module1
                     Destino(I).ForeColor = Origem(I).ForeColor
                     Destino(I).BackColor = Origem(I).BackColor
                 Next
-                If VideoOn = True And File.Exists(Video) Then 'Video
+                Dim Midia As String = MidiaAtual() 'arquivo da tela Áudio/Vídeo ou link direto da Internet
+                If Midia <> "" Or PaginaInternetAtiva() Then 'Video ou página da internet
                     FormPrincipal.picFundo.Visible = False
                     FormPrincipal.picSobreposicao.Visible = False
                     FormPrincipal.picAudio.Visible = False
                     FormPrincipal.lblStatusVideo.Visible = True
-                    'FormPrincipal.lblStatusVideo.Text = "Video EM REPRODUÇÃO"
+                    FormPrincipal.lblStatusVideo.Text = If(PaginaInternetAtiva(), "INTERNET EM EXIBIÇÃO", "VIDEO EM REPRODUÇÃO")
                     FormPrincipal.lblStatusVideo.Location = New Point(8, 170) 'POSIÇÃO
                     'FormPrincipal.lblStatusVideo.ForeColor = Color.Yellow
-                    If FormApresentar.wmpVideo.Visible = True Then
+                End If
+                If Midia <> "" Then
+                    If FormApresentar.wmpVideo.Visible = True And String.Equals(TryCast(FormApresentar.wmpVideo.Tag, String), Midia) Then
                         If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPaused Then FormApresentar.wmpVideo.Ctlcontrols.play()
                     Else
                         FormApresentar.wmpVideo.Visible = True
-                        FormApresentar.wmpVideo.URL = Video
+                        FormApresentar.wmpVideo.URL = Midia
+                        FormApresentar.wmpVideo.Tag = Midia
                         FormApresentar.wmpVideo.stretchToFit = True
                     End If
                 Else
-                    FormPrincipal.lblStatusVideo.Visible = False
+                    FormApresentar.wmpVideo.Tag = Nothing
+                    If Not PaginaInternetAtiva() Then FormPrincipal.lblStatusVideo.Visible = False
                     PararPlayer(FormApresentar.wmpVideo)
                     FormApresentar.wmpVideo.Visible = False
+                End If
+                If PaginaInternetAtiva() Then 'Internet: página por cima de tudo
+                    MostrarPaginaProjecao()
+                Else
+                    EsconderPaginaProjecao()
                 End If
                 If Harpa = True Then 'Harpa
                     FormPrincipal.rtbHarpa.Visible = True
@@ -580,6 +590,8 @@ Module Module1
                 FormPrincipal.lblStatusVideo.Visible = False
                 PararPlayer(FormApresentar.wmpVideo)
                 FormApresentar.wmpVideo.Visible = False
+                FormApresentar.wmpVideo.Tag = Nothing
+                EsconderPaginaProjecao()
                 FormPrincipal.picSobreposicao.Visible = False
                 FormPrincipal.picAudio.Visible = False
                 FormApresentar.picFundo.Image = Nothing 'imagem fundo

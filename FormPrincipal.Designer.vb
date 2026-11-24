@@ -56,6 +56,7 @@ Partial Class FormPrincipal
         Me.chkImagens = New System.Windows.Forms.CheckBox()
         Me.chkBiblia = New System.Windows.Forms.CheckBox()
         Me.chkHarpa = New System.Windows.Forms.CheckBox()
+        Me.chkInternet = New System.Windows.Forms.CheckBox()
         Me.chkFundo = New System.Windows.Forms.CheckBox()
         Me.btnSalvarImagem = New System.Windows.Forms.Button()
         Me.btnOpcoes = New System.Windows.Forms.Button()
@@ -63,6 +64,7 @@ Partial Class FormPrincipal
         Me.btnImagens = New System.Windows.Forms.Button()
         Me.btnBiblia = New System.Windows.Forms.Button()
         Me.btnHarpa = New System.Windows.Forms.Button()
+        Me.btnInternet = New System.Windows.Forms.Button()
         Me.btnFundo = New System.Windows.Forms.Button()
         Me.PainelControle = New System.Windows.Forms.Panel()
         Me.GroupBox1.SuspendLayout()
@@ -370,6 +372,7 @@ Partial Class FormPrincipal
         Me.PainelMenu.Controls.Add(Me.chkImagens)
         Me.PainelMenu.Controls.Add(Me.chkBiblia)
         Me.PainelMenu.Controls.Add(Me.chkHarpa)
+        Me.PainelMenu.Controls.Add(Me.chkInternet)
         Me.PainelMenu.Controls.Add(Me.chkFundo)
         Me.PainelMenu.Controls.Add(Me.btnSalvarImagem)
         Me.PainelMenu.Controls.Add(Me.btnOpcoes)
@@ -381,6 +384,7 @@ Partial Class FormPrincipal
         Me.PainelMenu.Controls.Add(Me.PictureBox1)
         Me.PainelMenu.Controls.Add(Me.btnBiblia)
         Me.PainelMenu.Controls.Add(Me.btnHarpa)
+        Me.PainelMenu.Controls.Add(Me.btnInternet)
         Me.PainelMenu.Controls.Add(Me.btnFundo)
         Me.PainelMenu.Dock = System.Windows.Forms.DockStyle.Left
         Me.PainelMenu.Location = New System.Drawing.Point(0, 0)
@@ -475,6 +479,17 @@ Partial Class FormPrincipal
         Me.chkBiblia.Size = New System.Drawing.Size(50, 18)
         Me.chkBiblia.TabIndex = 15
         Me.chkBiblia.UseVisualStyleBackColor = False
+        '
+        'chkInternet
+        '
+        Me.chkInternet.BackColor = System.Drawing.Color.Transparent
+        Me.chkInternet.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkInternet.Enabled = False
+        Me.chkInternet.Location = New System.Drawing.Point(2, 135)
+        Me.chkInternet.Name = "chkInternet"
+        Me.chkInternet.Size = New System.Drawing.Size(55, 18)
+        Me.chkInternet.TabIndex = 19
+        Me.chkInternet.UseVisualStyleBackColor = False
         '
         'chkHarpa
         '
@@ -585,6 +600,23 @@ Partial Class FormPrincipal
         Me.btnBiblia.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         Me.btnBiblia.UseVisualStyleBackColor = False
         '
+        'btnInternet
+        '
+        Me.btnInternet.BackColor = System.Drawing.Color.Transparent
+        Me.btnInternet.FlatAppearance.BorderSize = 0
+        Me.btnInternet.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue
+        Me.btnInternet.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateBlue
+        Me.btnInternet.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnInternet.ForeColor = System.Drawing.SystemColors.Window
+        Me.btnInternet.Image = CType(resources.GetObject("btnInternet.Image"), System.Drawing.Image)
+        Me.btnInternet.Location = New System.Drawing.Point(2, 73)
+        Me.btnInternet.Name = "btnInternet"
+        Me.btnInternet.Size = New System.Drawing.Size(55, 60)
+        Me.btnInternet.TabIndex = 18
+        Me.btnInternet.Text = "Internet"
+        Me.btnInternet.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
+        Me.btnInternet.UseVisualStyleBackColor = False
+        '
         'btnHarpa
         '
         Me.btnHarpa.BackColor = System.Drawing.Color.Transparent
@@ -666,6 +698,7 @@ Partial Class FormPrincipal
     Friend WithEvents btnImagens As Button
     Friend WithEvents btnBiblia As Button
     Friend WithEvents btnHarpa As Button
+    Friend WithEvents btnInternet As Button
     Friend WithEvents btnOpcoes As Button
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents rbNeutra As RadioButton
@@ -685,6 +718,7 @@ Partial Class FormPrincipal
     Friend WithEvents chkImagens As CheckBox
     Friend WithEvents chkBiblia As CheckBox
     Friend WithEvents chkHarpa As CheckBox
+    Friend WithEvents chkInternet As CheckBox
     Friend WithEvents rtbBiblia As RichTextBox
     Friend WithEvents lblLocalSalvamento As Label
     Friend WithEvents Label7 As Label
