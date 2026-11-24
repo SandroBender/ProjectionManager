@@ -98,6 +98,18 @@ Namespace My
                 Return CType(Me("PastaSistema"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LocalSistema() As String
+            Get
+                Return CType(Me("LocalSistema"),String)
+            End Get
+            Set
+                Me("LocalSistema") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

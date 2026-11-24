@@ -3,31 +3,17 @@ Imports System.IO
 
 Public Class FormPrincipal
     Private Sub FormPrincipal_Load(sender As Object, e As EventArgs) Handles Me.Load
+        SistemaCarregado = DefinirLocalSistema()
+        If Not SistemaCarregado Then
+            MsgBox("Sem a pasta do sistema o programa não pode continuar e será fechado.", vbCritical, "Dados do systema")
+            Close()
+            Exit Sub
+        End If
         ConexDados = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqDados))
         ConexHarpa = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqHarpa))
         ConexNVI = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaNVI))
         ConexACF = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaACF))
-        Try
-            CarregarLocalSistema(RegLocalSistema.Rows(0).Item("CamLocal"))
-            CarregarImagem(RegImagens.Rows(0).Item("CamImagem"))
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "Abrir Dados do systema")
-        End Try
-
-        If Not Directory.Exists(MyDocSystem & "\ProjectionManager") Then
-            If Not Directory.Exists(AlternativeSystem) Then
-                MsgBox("O conteúdo do sistema não foi encontrado. Selecione o local da pasta principal do programa.", vbCritical, "Dados do systema")
-                Dim OFds As New FolderBrowserDialog With {.ShowNewFolderButton = False, .RootFolder = Environment.SpecialFolder.MyComputer}
-                If OFds.ShowDialog = DialogResult.OK Then
-                    AlternativeSystem = OFds.SelectedPath
-                    LocalSystem = AlternativeSystem
-                End If
-            Else
-                LocalSystem = AlternativeSystem
-            End If
-        Else
-            LocalSystem = MyDocSystem
-        End If
+        GravarLocalSistema()
         Dim I As Integer
         'Dim Monitor() As Screen = Screen.AllScreens
         'Dim TM As Integer = Screen.AllScreens.Count
@@ -238,6 +224,7 @@ Public Class FormPrincipal
     End Sub
 
     Private Sub FormPrincipal_Closed(sender As Object, e As EventArgs) Handles Me.Closed 'Fechar programa
+        If Not SistemaCarregado Then Exit Sub 'nada foi aberto
         ConectarDados()
         If ZoomTFundo > 0 Then SalvarZoom("TextoFundo", ZoomTFundo)
         If ZoomTHarpa > 0 Then SalvarZoom("TextoHarpa", ZoomTHarpa)
