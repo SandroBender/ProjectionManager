@@ -17,5 +17,8 @@
     <Setting Name="PastaSistema" Type="System.String" Scope="Application">
       <Value Profile="(Default)">\ProjectionManager\SISTEMA\</Value>
     </Setting>
+    <Setting Name="LocalSistema" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

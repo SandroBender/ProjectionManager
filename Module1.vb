@@ -3,7 +3,6 @@ Imports System.Drawing.Text
 Imports System.IO
 Module Module1
     Public MyDocSystem As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments
-    Public AlternativeSystem As String
     Public LocalSystem As String
     Public ConexDados As New OleDbConnection
     Public ConexHarpa As New OleDbConnection
@@ -159,12 +158,94 @@ Module Module1
     Public Sub DesconectarDados()
         ConexDados.Close()
     End Sub
+    '---- Local do sistema: pasta que CONTÉM a pasta "ProjectionManager" (ex.: Meus Documentos) ----
+    Public SistemaCarregado As Boolean 'False se o usuário cancelou a escolha do local
+
+    'Válido quando existe <Raiz>\ProjectionManager\SISTEMA\PMSystem.accdb
+    Public Function LocalSistemaValido(Raiz As String) As Boolean
+        If String.IsNullOrWhiteSpace(Raiz) Then Return False
+        Return File.Exists(Raiz.TrimEnd("\"c) & My.Settings.PastaSistema & My.Settings.ArqDados)
+    End Function
+
+    'Aceita a pasta-mãe ou a própria pasta "ProjectionManager"; devolve a raiz ou Nothing
+    Private Function AjustarRaiz(Pasta As String) As String
+        Dim P As String = Pasta.TrimEnd("\"c)
+        If LocalSistemaValido(P) Then Return P
+        Dim Mae As String = Path.GetDirectoryName(P)
+        If Mae IsNot Nothing AndAlso LocalSistemaValido(Mae) Then Return Mae.TrimEnd("\"c)
+        Return Nothing
+    End Function
+
+    'Define LocalSystem: 1) local salvo nas configurações do usuário; 2) Meus Documentos;
+    '3) pergunta ao usuário (e salva a escolha). Retorna False se o usuário cancelar.
+    Public Function DefinirLocalSistema() As Boolean
+        Dim Salvo As String = My.Settings.LocalSistema
+        If LocalSistemaValido(Salvo) Then
+            LocalSystem = Salvo.TrimEnd("\"c)
+            Return True
+        End If
+        If String.IsNullOrWhiteSpace(Salvo) AndAlso LocalSistemaValido(MyDocSystem) Then
+            LocalSystem = MyDocSystem.TrimEnd("\"c) 'instalação padrão: nada a perguntar
+            Return True
+        End If
+        If String.IsNullOrWhiteSpace(Salvo) Then
+            MsgBox("O conteúdo do sistema não foi encontrado em Meus Documentos." & vbCrLf & "Selecione o local da pasta principal do programa.", vbExclamation, "Dados do systema")
+        Else
+            MsgBox("O conteúdo do sistema não foi encontrado no local salvo:" & vbCrLf & Salvo & vbCrLf & "Selecione o local da pasta principal do programa.", vbExclamation, "Dados do systema")
+        End If
+        Return EscolherLocalSistema(If(Directory.Exists(Salvo), Salvo, MyDocSystem))
+    End Function
+
+    'Abre a seleção de pasta até o usuário escolher um local válido (True) ou cancelar (False)
+    Public Function EscolherLocalSistema(PastaInicial As String) As Boolean
+        Do
+            Using Dlg As New FolderBrowserDialog With {.ShowNewFolderButton = False, .RootFolder = Environment.SpecialFolder.MyComputer,
+                    .Description = "Selecione a pasta que contém a pasta ProjectionManager (ou a própria pasta ProjectionManager).",
+                    .SelectedPath = PastaInicial}
+                If Dlg.ShowDialog() <> DialogResult.OK Then Return False
+                Dim Raiz As String = AjustarRaiz(Dlg.SelectedPath)
+                If Raiz IsNot Nothing Then
+                    LocalSystem = Raiz
+                    My.Settings.LocalSistema = Raiz 'lido na próxima vez que o programa abrir
+                    My.Settings.Save()
+                    Return True
+                End If
+                MsgBox("A pasta escolhida não contém ProjectionManager\SISTEMA\" & My.Settings.ArqDados & "." & vbCrLf & "Escolha outra pasta.", vbExclamation, "Dados do systema")
+                PastaInicial = Dlg.SelectedPath
+            End Using
+        Loop
+    End Function
+
     Public Sub CarregarLocalSistema()
-        Dim Adaptador As OleDbDataAdapter
-        Dim SQL As String = "SELECT * FROM Local"
-        Adaptador = New OleDbDataAdapter(SQL, ConexDados)
-        RegLocalSistema = New DataTable
-        Adaptador.Fill(RegLocalSistema)
+        Dim SQL As String = "SELECT * FROM [Local]"
+        Using Adaptador As New OleDbDataAdapter(SQL, ConexDados)
+            RegLocalSistema = New DataTable
+            Adaptador.Fill(RegLocalSistema)
+        End Using
+    End Sub
+
+    'Registra no banco (tabela Local, campo CamLocal) o local em uso, se mudou
+    Public Sub GravarLocalSistema()
+        ConectarDados()
+        Try
+            CarregarLocalSistema()
+            Dim SQL As String
+            If RegLocalSistema.Rows.Count = 0 Then
+                SQL = "INSERT INTO [Local] (CamLocal) VALUES (?)"
+            ElseIf RegLocalSistema.Rows(0).Item("CamLocal").ToString <> LocalSystem Then
+                SQL = "UPDATE [Local] SET CamLocal = ?"
+            Else
+                Exit Sub 'já está registrado (o Finally fecha a conexão)
+            End If
+            Using Comando As New OleDbCommand(SQL, ConexDados)
+                Comando.Parameters.AddWithValue("@CamLocal", LocalSystem)
+                Comando.ExecuteNonQuery()
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "Registrar local do sistema")
+        Finally
+            DesconectarDados()
+        End Try
     End Sub
 
     Public Sub CarregarImagens()
