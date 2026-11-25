@@ -70,6 +70,12 @@
     <Reference Include="FontAwesome.Sharp, Version=5.15.4.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
       <HintPath>packages\FontAwesome.Sharp.5.15.4\lib\net472\FontAwesome.Sharp.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.4191.47, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.4191.47\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.4191.47, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.4191.47\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -129,6 +135,14 @@
     <Compile Include="FormVideos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Links.vb" />
+    <Compile Include="Navegador.vb" />
+    <Compile Include="FormInternet.Designer.vb">
+      <DependentUpon>FormInternet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormInternet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormApresentar.Designer.vb">
       <DependentUpon>FormApresentar.vb</DependentUpon>
     </Compile>
@@ -175,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormVideos.resx">
       <DependentUpon>FormVideos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInternet.resx">
+      <DependentUpon>FormInternet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormApresentar.resx">
       <DependentUpon>FormApresentar.vb</DependentUpon>
@@ -240,4 +257,11 @@
     </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="packages\Microsoft.Web.WebView2.1.0.4191.47\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.4191.47\build\Microsoft.Web.WebView2.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto referencia pacotes NuGet que não estão neste computador. Use a Restauração de Pacotes do NuGet para baixá-los. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.4191.47\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.4191.47\build\Microsoft.Web.WebView2.targets'))" />
+  </Target>
 </Project>
