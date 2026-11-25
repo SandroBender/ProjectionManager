@@ -135,6 +135,7 @@
     <Compile Include="FormVideos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="IgualarBiblias.vb" />
     <Compile Include="Links.vb" />
     <Compile Include="Navegador.vb" />
     <Compile Include="FormInternet.Designer.vb">

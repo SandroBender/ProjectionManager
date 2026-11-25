@@ -56,6 +56,7 @@ Public Class FormBiblia
 
     Private Sub rbNVI_CheckedChanged(sender As Object, e As EventArgs) Handles rbNVI.CheckedChanged 'Versão NVI
         If Not rbNVI.Checked Then Exit Sub 'ignora o evento do botão que foi desmarcado
+        VerificarIgualarNvi() 'na 1ª vez: completa a NVI com as colunas que só a ACF tem
         VersaoBiblia = rbNVI.Text
         TextoBibliaCondensado = ""
         If lblCapitulo.Text <> "0" Then Icap = CInt(lblCapitulo.Text) - 1

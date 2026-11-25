@@ -323,6 +323,14 @@ Module Module1
         Next
     End Sub
 
+    'Descarta o que já foi lido de uma versão (ex.: depois de alterar o banco da NVI)
+    Public Sub LimparCacheBiblia(Versao As String)
+        For Each Chave As String In CacheLivros.Keys.Where(Function(k) k.StartsWith(Versao & "|", StringComparison.OrdinalIgnoreCase)).ToList()
+            CacheLivros.Remove(Chave)
+        Next
+        CacheBiblia.Remove(Versao)
+    End Sub
+
     Private Function ConexaoVersao() As OleDbConnection
         If VersaoBiblia = "ACF" Then Return ConexACF
         If VersaoBiblia = "NVI" Then Return ConexNVI
