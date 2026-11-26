@@ -336,7 +336,6 @@ Public Class FormBiblia
 
     '---- Aba "Imagem": imagem ilustrativa do versículo na projeção ----
     Private OpcoesProntas As Boolean 'False enquanto a tela é criada/carregada (os eventos não podem gravar nada)
-    Private BaixandoDore As Threading.CancellationTokenSource
 
     Private Sub CarregarOpcoesImagem()
         cboModoImagem.Items.AddRange({"Sem imagem", "Foco alternado", "Fundo esmaecido"})
@@ -346,6 +345,7 @@ Public Class FormBiblia
         cboPosicaoTexto.SelectedItem = My.Settings.BibliaPosicaoTexto
         If cboPosicaoTexto.SelectedIndex < 0 Then cboPosicaoTexto.SelectedIndex = 1
         nudTempoFoco.Value = Math.Max(nudTempoFoco.Minimum, Math.Min(nudTempoFoco.Maximum, My.Settings.BibliaTempoFoco))
+        nudTempoTroca.Value = Math.Max(nudTempoTroca.Minimum, Math.Min(nudTempoTroca.Maximum, My.Settings.BibliaTempoTroca))
         AtualizarEstadoOpcoes()
         OpcoesProntas = True
     End Sub
@@ -353,15 +353,18 @@ Public Class FormBiblia
     Private Sub AtualizarEstadoOpcoes()
         nudTempoFoco.Enabled = cboModoImagem.Text = "Foco alternado"
         lblTempoFoco.Enabled = nudTempoFoco.Enabled
+        nudTempoTroca.Enabled = cboModoImagem.Text <> "Sem imagem"
+        lblTempoTroca.Enabled = nudTempoTroca.Enabled
     End Sub
 
     'Salva a escolha e atualiza a projeção na hora
-    Private Sub OpcaoImagem_Changed(sender As Object, e As EventArgs) Handles cboModoImagem.SelectedIndexChanged, cboPosicaoTexto.SelectedIndexChanged, nudTempoFoco.ValueChanged
+    Private Sub OpcaoImagem_Changed(sender As Object, e As EventArgs) Handles cboModoImagem.SelectedIndexChanged, cboPosicaoTexto.SelectedIndexChanged, nudTempoFoco.ValueChanged, nudTempoTroca.ValueChanged
         If Not OpcoesProntas Then Exit Sub
         AtualizarEstadoOpcoes()
         My.Settings.BibliaModoImagem = cboModoImagem.Text
         My.Settings.BibliaPosicaoTexto = cboPosicaoTexto.Text
         My.Settings.BibliaTempoFoco = CInt(nudTempoFoco.Value)
+        My.Settings.BibliaTempoTroca = CInt(nudTempoTroca.Value)
         My.Settings.Save()
         If Biblia Then AtualizaApresentacao()
     End Sub
@@ -410,30 +413,6 @@ Public Class FormBiblia
         RecarregarBiblioteca()
         If lstVersiculos.SelectedIndex > -1 Then EscolherImagem(CInt(lblCapitulo.Text), CInt(lblVersiculo.Text))
         lblImagemStatus.Text = "Biblioteca recarregada."
-        If Biblia Then AtualizaApresentacao()
-    End Sub
-
-    Private Async Sub btnBaixarDore_Click(sender As Object, e As EventArgs) Handles btnBaixarDore.Click
-        If BaixandoDore IsNot Nothing Then
-            BaixandoDore.Cancel() 'o botão vira "Cancelar" durante o download
-            Exit Sub
-        End If
-        If MsgBox("Baixar as 221 gravuras de Gustave Doré (domínio público) do Wikimedia Commons para a biblioteca de imagens?" & vbCrLf &
-                  "São cerca de 100 MB; as que já existirem serão mantidas.", vbYesNo + vbQuestion, "Gravuras de Doré") <> MsgBoxResult.Yes Then Exit Sub
-        BaixandoDore = New Threading.CancellationTokenSource()
-        btnBaixarDore.Text = "Cancelar download"
-        Try
-            Dim R() As Integer = Await BaixarGravurasDore(Sub(t) lblImagemStatus.Text = t, BaixandoDore.Token)
-            lblImagemStatus.Text = "Doré: " & R(0) & " baixadas, " & R(1) & " já existiam" & If(R(2) > 0, ", " & R(2) & " falharam (tente de novo)", "") &
-                                   If(BaixandoDore.IsCancellationRequested, " - cancelado", "") & "."
-        Catch ex As Exception
-            lblImagemStatus.Text = "Erro no download: " & ex.Message
-        Finally
-            BaixandoDore.Dispose()
-            BaixandoDore = Nothing
-            btnBaixarDore.Text = "Baixar gravuras de Doré"
-        End Try
-        If lstVersiculos.SelectedIndex > -1 Then EscolherImagem(CInt(lblCapitulo.Text), CInt(lblVersiculo.Text))
         If Biblia Then AtualizaApresentacao()
     End Sub
 

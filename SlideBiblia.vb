@@ -22,6 +22,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#111;color:#fff;font-f
   transition:top 1.5s ease,transform 1.5s ease,font-size 1.5s ease,background-color 1.5s ease,padding 1.5s ease,opacity .6s ease;
   text-shadow:0 0 14px rgba(0,0,0,.95),0 2px 4px #000;border-radius:14px;padding:0}
 #caixa.visivel{opacity:1}
+#caixa.imediato{transition:none}
 #caixa.topo{top:5%;transform:translateY(0)}
 #caixa.centro{top:50%;transform:translateY(-50%)}
 #caixa.baixo{top:95%;transform:translateY(-100%)}
@@ -35,7 +36,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#111;color:#fff;font-f
 <div id=""caixa""><div id=""ref""></div><div id=""texto""></div></div>
 <div id=""medida""><div id=""mref""></div><div id=""mtexto"" style=""white-space:pre-line""></div></div>
 <script>
-var timer=null, ativa=null, urlAtual='';
+var timerFoco=null, timerTroca=null, ativa=null, urlAtual='', escuro=false;
 function q(id){return document.getElementById(id)}
 // maior tamanho (em pt) em que o texto cabe na altura indicada (fração da tela)
 function tamanho(base,fracao){
@@ -45,40 +46,54 @@ function tamanho(base,fracao){
   for(var n=0;n<80;n++){ m.style.fontSize=t+'pt'; if(m.scrollHeight<=lim||t<10) break; t*=0.95; }
   return t;
 }
-function trocarImagem(url,esmaecida){
+function escurecer(sim){ escuro=sim; if(ativa) ativa.classList.toggle('esmaecida',sim); }
+// troca suave para a imagem (pré-carrega antes de mostrar)
+function trocarImagem(url){
   var a=q('a'), b=q('b');
   if(!url){ a.classList.remove('visivel'); b.classList.remove('visivel'); urlAtual=''; return; }
-  if(url!==urlAtual){
-    urlAtual=url;
-    var nova=(ativa===a)?b:a, velha=ativa;
-    var img=new Image();
-    img.onload=img.onerror=function(){
-      if(urlAtual!==url) return;
-      nova.style.backgroundImage='url(""'+url+'"")';
-      nova.classList.toggle('esmaecida',esmaecida);
-      nova.classList.add('visivel'); if(velha) velha.classList.remove('visivel'); ativa=nova;
-    };
-    img.src=url;
-  } else if(ativa){ ativa.classList.toggle('esmaecida',esmaecida); }
+  if(url===urlAtual) return;
+  urlAtual=url;
+  var nova=(ativa===a)?b:a, velha=ativa, img=new Image();
+  img.onload=img.onerror=function(){
+    if(urlAtual!==url) return;
+    nova.style.backgroundImage='url(""'+url+'"")';
+    nova.classList.toggle('esmaecida',escuro);
+    nova.classList.add('visivel'); if(velha) velha.classList.remove('visivel'); ativa=nova;
+  };
+  img.src=url;
 }
-// d: {referencia, texto, imagem, modo: 'sem'|'foco'|'esmaecido', posicao: 'topo'|'centro'|'baixo', tempo (s), fonte (pt)}
+// passa pelas imagens em sequência (volta para a primeira no fim)
+function sequencia(lista,segundos){
+  clearInterval(timerTroca);
+  if(lista.length<2) return;
+  var i=lista.indexOf(urlAtual); if(i<0) i=0;
+  timerTroca=setInterval(function(){ i=(i+1)%lista.length; trocarImagem(lista[i]); }, Math.max(2,segundos)*1000);
+}
+// d: {referencia, texto, imagens: [url...], modo: 'sem'|'foco'|'esmaecido', posicao: 'topo'|'centro'|'baixo', tempo, troca (s), fonte (pt)}
 function mostrar(d){
-  clearTimeout(timer);
-  var c=q('caixa');
+  clearTimeout(timerFoco); clearInterval(timerTroca);
+  var c=q('caixa'), lista=(d.modo==='sem')?[]:(d.imagens||[]).filter(function(u){return !!u});
   q('ref').textContent=d.referencia||''; q('texto').textContent=d.texto||'';
-  var comImagem=d.modo!=='sem' && !!d.imagem;
-  trocarImagem(comImagem?d.imagem:'', comImagem);
-  c.className=d.posicao+' visivel';
+  // versículo novo aparece na hora, já no tamanho grande (sem animar posição/tamanho)
+  c.classList.add('imediato');
+  c.className=d.posicao+' visivel imediato';
   c.style.fontSize=tamanho(d.fonte,.86)+'pt';
-  if(comImagem && d.modo==='foco'){
-    timer=setTimeout(function(){
-      if(ativa) ativa.classList.remove('esmaecida');
+  void c.offsetHeight; c.classList.remove('imediato');
+  escurecer(lista.length>0);
+  trocarImagem(lista.length?lista[0]:'');
+  if(!lista.length) return;
+  if(d.modo==='foco'){
+    timerFoco=setTimeout(function(){
+      escurecer(false);
       c.className=(d.posicao==='topo'?'topo':'baixo')+' faixa visivel';
       c.style.fontSize=tamanho(Math.min(d.fonte*0.6,40),.32)+'pt';
+      sequencia(lista,d.troca); // depois do foco, mostra as outras imagens
     }, Math.max(1,d.tempo)*1000);
+  } else {
+    sequencia(lista,d.troca);
   }
 }
-function esconder(){ clearTimeout(timer); q('caixa').className=''; trocarImagem('',false); }
+function esconder(){ clearTimeout(timerFoco); clearInterval(timerTroca); q('caixa').className=''; trocarImagem(''); }
 </script>
 </body></html>"
 
@@ -156,9 +171,13 @@ function esconder(){ clearTimeout(timer); q('caixa').className=''; trocarImagem(
         If Not Await CarregarSlide(Nav) OrElse Nav.IsDisposed Then Exit Sub
         Nav.Visible = True
         Nav.BringToFront()
-        Dim Imagem As String = If(ImagemBibliaAtual Is Nothing, "", EnderecoImagem(ImagemBibliaAtual.Caminho))
-        Dim Dados As String = "{""referencia"":" & Json(Referencia) & ",""texto"":" & Json(Texto) & ",""imagem"":" & Json(Imagem) &
+        Dim Imagens As String = "[]"
+        If ImagemBibliaAtual IsNot Nothing Then
+            Imagens = "[" & String.Join(",", ImagemBibliaAtual.Caminhos.Select(Function(c) Json(EnderecoImagem(c)))) & "]"
+        End If
+        Dim Dados As String = "{""referencia"":" & Json(Referencia) & ",""texto"":" & Json(Texto) & ",""imagens"":" & Imagens &
                               ",""modo"":""" & ModoJs() & """,""posicao"":""" & PosicaoJs() & """,""tempo"":" & Math.Max(1, My.Settings.BibliaTempoFoco) &
+                              ",""troca"":" & Math.Max(2, My.Settings.BibliaTempoTroca) &
                               ",""fonte"":" & TamanhoFonte.ToString(Globalization.CultureInfo.InvariantCulture) & "}"
         Await ExecutarScript(Nav, "mostrar(" & Dados & ");")
     End Sub

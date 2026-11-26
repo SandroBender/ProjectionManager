@@ -66,7 +66,8 @@ Partial Class FormBiblia
         Me.nudTempoFoco = New System.Windows.Forms.NumericUpDown()
         Me.btnPastaImagens = New System.Windows.Forms.Button()
         Me.btnRecarregarImagens = New System.Windows.Forms.Button()
-        Me.btnBaixarDore = New System.Windows.Forms.Button()
+        Me.lblTempoTroca = New System.Windows.Forms.Label()
+        Me.nudTempoTroca = New System.Windows.Forms.NumericUpDown()
         Me.lblImagemStatus = New System.Windows.Forms.Label()
         Me.picImagemBiblia = New System.Windows.Forms.PictureBox()
         Me.lblImagemOrigem = New System.Windows.Forms.Label()
@@ -90,6 +91,7 @@ Partial Class FormBiblia
         Me.GroupBox4.SuspendLayout()
         CType(Me.trkZoom, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudTempoFoco, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nudTempoTroca, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picImagemBiblia, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.tabPesquisa.SuspendLayout()
@@ -587,7 +589,8 @@ Partial Class FormBiblia
         Me.TabImagem.Controls.Add(Me.nudTempoFoco)
         Me.TabImagem.Controls.Add(Me.btnPastaImagens)
         Me.TabImagem.Controls.Add(Me.btnRecarregarImagens)
-        Me.TabImagem.Controls.Add(Me.btnBaixarDore)
+        Me.TabImagem.Controls.Add(Me.lblTempoTroca)
+        Me.TabImagem.Controls.Add(Me.nudTempoTroca)
         Me.TabImagem.Controls.Add(Me.lblImagemStatus)
         Me.TabImagem.Controls.Add(Me.picImagemBiblia)
         Me.TabImagem.Controls.Add(Me.lblImagemOrigem)
@@ -677,22 +680,30 @@ Partial Class FormBiblia
         Me.btnRecarregarImagens.Size = New System.Drawing.Size(104, 26)
         Me.btnRecarregarImagens.TabIndex = 7
         '
-        'btnBaixarDore
+        'lblTempoTroca
         '
-        Me.btnBaixarDore.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnBaixarDore.Text = "Baixar gravuras de Doré"
-        Me.btnBaixarDore.BackColor = System.Drawing.Color.Lavender
-        Me.btnBaixarDore.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnBaixarDore.UseVisualStyleBackColor = False
-        Me.btnBaixarDore.Location = New System.Drawing.Point(6, 122)
-        Me.btnBaixarDore.Name = "btnBaixarDore"
-        Me.btnBaixarDore.Size = New System.Drawing.Size(212, 26)
-        Me.btnBaixarDore.TabIndex = 8
+        Me.lblTempoTroca.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTempoTroca.Text = "Trocar imagem a cada (seg.):"
+        Me.lblTempoTroca.Location = New System.Drawing.Point(6, 128)
+        Me.lblTempoTroca.Name = "lblTempoTroca"
+        Me.lblTempoTroca.Size = New System.Drawing.Size(150, 16)
+        Me.lblTempoTroca.TabIndex = 8
+        '
+        'nudTempoTroca
+        '
+        Me.nudTempoTroca.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.nudTempoTroca.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.nudTempoTroca.Maximum = New Decimal(New Integer() {120, 0, 0, 0})
+        Me.nudTempoTroca.Value = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.nudTempoTroca.Location = New System.Drawing.Point(158, 125)
+        Me.nudTempoTroca.Name = "nudTempoTroca"
+        Me.nudTempoTroca.Size = New System.Drawing.Size(50, 20)
+        Me.nudTempoTroca.TabIndex = 9
         '
         'lblImagemStatus
         '
         Me.lblImagemStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.5!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImagemStatus.Text = "Imagens em IMAGENS\Biblia\<Livro>\ (ex.: 23.jpg, 3_16.jpg, 3_1-8.jpg)"
+        Me.lblImagemStatus.Text = "Pasta IMAGENS\Biblia\<Livro>\ - ex.: 23.jpg, 3_16.jpg, 3_1-8.jpg. Várias imagens: 3_16_1.jpg, 3_16_2.jpg"
         Me.lblImagemStatus.Location = New System.Drawing.Point(6, 152)
         Me.lblImagemStatus.Name = "lblImagemStatus"
         Me.lblImagemStatus.Size = New System.Drawing.Size(212, 42)
@@ -994,6 +1005,7 @@ Partial Class FormBiblia
         Me.GroupBox4.PerformLayout()
         CType(Me.trkZoom, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudTempoFoco, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudTempoTroca, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picImagemBiblia, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
@@ -1068,7 +1080,8 @@ Partial Class FormBiblia
     Friend WithEvents nudTempoFoco As NumericUpDown
     Friend WithEvents btnPastaImagens As Button
     Friend WithEvents btnRecarregarImagens As Button
-    Friend WithEvents btnBaixarDore As Button
+    Friend WithEvents lblTempoTroca As Label
+    Friend WithEvents nudTempoTroca As NumericUpDown
     Friend WithEvents lblImagemStatus As Label
     Friend WithEvents picImagemBiblia As PictureBox
     Friend WithEvents lblImagemOrigem As Label

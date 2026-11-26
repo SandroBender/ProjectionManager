@@ -146,6 +146,18 @@ Namespace My
                 Me("BibliaTempoFoco") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("6")>  _
+        Public Property BibliaTempoTroca() As Integer
+            Get
+                Return CType(Me("BibliaTempoTroca"),Integer)
+            End Get
+            Set
+                Me("BibliaTempoTroca") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
