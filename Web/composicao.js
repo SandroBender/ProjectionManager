@@ -5,6 +5,9 @@
 
 const W = 1920, H = 1080;
 const MODO = new URLSearchParams(location.search).get('modo') || 'editor';
+// camada: 'fundo' (tela Fundo) ou 'sobreposicao' (tela Imagens, por cima do fundo, com fundo transparente)
+const CAMADA = new URLSearchParams(location.search).get('camada') || 'fundo';
+const SOBREPOSICAO = CAMADA === 'sobreposicao';
 const BASE_IMAGENS = window.BASE_IMAGENS || 'https://composicoes.projectionmanager.example/';
 const $ = s => document.querySelector(s);
 
@@ -14,7 +17,7 @@ function enviarHost(msg) { if (host) host.postMessage(msg); }
 if (host) host.addEventListener('message', e => receberHost(e.data));
 
 // ---------- documento ----------
-function novoDoc() { return { versao: 1, fundo: '#000000', elementos: [] }; }
+function novoDoc() { return { versao: 1, fundo: SOBREPOSICAO ? 'transparent' : '#000000', elementos: [] }; }
 let doc = novoDoc();
 let seq = 1;
 const novoId = () => 'e' + Date.now().toString(36) + (seq++);
@@ -120,15 +123,21 @@ function miniatura(d, cont) {
 }
 
 // ---------- modo projeção (telão e prévia) ----------
-function renderizar(d) {
-  doc = (typeof d === 'string') ? JSON.parse(d) : d;
+// desenha uma ou mais camadas empilhadas (fundo embaixo, sobreposição por cima); null = camada desligada
+function renderizarCamadas(...camadas) {
   const c = $('#projecao');
   c.innerHTML = '';
-  const p = criarPalco(doc);
-  c.appendChild(p);
-  encaixar(p, c, 0);
+  for (let d of camadas) {
+    if (!d) continue;
+    if (typeof d === 'string') d = JSON.parse(d);
+    const p = criarPalco(d);
+    c.appendChild(p);
+    encaixar(p, c, 0);
+  }
 }
+function renderizar(d) { renderizarCamadas(d); }
 function limpar() { $('#projecao').innerHTML = ''; }
+window.renderizarCamadas = renderizarCamadas;
 window.renderizar = renderizar;
 window.limpar = limpar;
 
@@ -140,6 +149,7 @@ let nomeAtual = '', alterado = false;
 let historico = [], posHist = -1;
 let fontes = ['Calibri', 'Arial', 'Segoe UI', 'Times New Roman', 'Georgia', 'Verdana', 'Tahoma', 'Impact'];
 let composicoes = [], textosSalvos = [];
+let referencia = null, mostrarReferencia = true, palcoRef = null; // fundo atual, só para visualizar (sobreposição)
 const porId = id => doc.elementos.find(e => e.id === id);
 const noDe = id => palco && palco.querySelector(`.el[data-id="${id}"]`);
 const selecionado = () => porId(selId);
@@ -151,6 +161,14 @@ function montarPalco() {
   // seleção e guias ficam numa camada por cima, sem o corte das bordas do palco
   camadaSel = document.createElement('div');
   camadaSel.className = 'palco camada-sel';
+  // sobreposição: o fundo atual aparece por baixo, só como referência (não é salvo junto)
+  palcoRef = null;
+  if (SOBREPOSICAO) {
+    palcoRef = (referencia && mostrarReferencia) ? criarPalco(referencia) : criarPalco({ fundo: '#000000', elementos: [] });
+    palcoRef.classList.add('camada-ref');
+    area.appendChild(palcoRef);
+    palco.classList.add('transparente');
+  }
   area.append(palco, camadaSel);
   reencaixar();
   medirTextos();
@@ -159,6 +177,7 @@ function montarPalco() {
 function reencaixar() {
   escala = encaixar(palco, $('#palcoEditor'), 18);
   camadaSel.style.transform = palco.style.transform;
+  if (palcoRef) palcoRef.style.transform = palco.style.transform;
 }
 function medirTextos() {
   for (const e of doc.elementos) if (e.tipo === 'texto') { const n = noDe(e.id); if (n) e.h = Math.round(n.offsetHeight); }
@@ -498,8 +517,22 @@ function montarPainel() {
   p.innerHTML = '';
   const e = selecionado();
   if (!e) {
-    const h = document.createElement('h3'); h.textContent = 'Composição';
-    p.append(h, grupo('Tela', campo('Cor de fundo', controle(doc, 'fundo', 'color'))));
+    const h = document.createElement('h3'); h.textContent = SOBREPOSICAO ? 'Sobreposição' : 'Composição';
+    p.appendChild(h);
+    if (SOBREPOSICAO) {
+      // fundo transparente deixa ver a imagem de fundo; desmarcado, a sobreposição cobre tudo com uma cor
+      const transp = document.createElement('input'); transp.type = 'checkbox'; transp.checked = doc.fundo === 'transparent';
+      transp.onchange = () => { doc.fundo = transp.checked ? 'transparent' : '#000000'; montarPalco(); montarPainel(); registrar(); };
+      const ver = document.createElement('input'); ver.type = 'checkbox'; ver.checked = mostrarReferencia;
+      ver.onchange = () => { mostrarReferencia = ver.checked; montarPalco(); };
+      const itens = [campo('Transparente', transp)];
+      if (doc.fundo !== 'transparent') itens.push(campo('Cor de fundo', controle(doc, 'fundo', 'color')));
+      itens.push(campo('Ver o fundo', ver));
+      p.appendChild(grupo('Fundo', ...itens));
+      if (!referencia) { const r = document.createElement('p'); r.className = 'dica'; r.textContent = 'Nenhum fundo enviado para a projeção ainda (aparece preto aqui).'; p.appendChild(r); }
+    } else {
+      p.appendChild(grupo('Tela', campo('Cor de fundo', controle(doc, 'fundo', 'color'))));
+    }
     const d = document.createElement('p'); d.className = 'dica';
     d.textContent = 'Use os botões + Imagem, + Texto e + Forma, ou arraste imagens do computador para a tela. Duplo clique numa área vazia cria um texto.';
     p.appendChild(d);
@@ -736,8 +769,12 @@ function receberHost(m) {
     composicoes = m.composicoes || [];
     textosSalvos = m.textos || [];
     $('#opLigado').checked = !!m.ligado; $('#opDesligado').checked = !m.ligado;
-    if (m.atual && m.atual.docJson) abrirDoc(m.atual.docJson, m.atual.nome || '');
+    try { referencia = m.referencia ? JSON.parse(m.referencia) : null; } catch (x) { referencia = null; }
+    if (m.atual && m.atual.docJson) abrirDoc(m.atual.docJson, m.atual.nome || ''); else montarPalco();
     montarPainel();
+  } else if (m.tipo === 'referencia') { // o fundo mudou enquanto a tela estava aberta
+    try { referencia = m.referencia ? JSON.parse(m.referencia) : null; } catch (x) { referencia = null; }
+    montarPalco(); if (!selId) montarPainel();
   } else if (m.tipo === 'lista') {
     composicoes = m.composicoes || [];
     if (!$('#janela').hidden && $('#janelaTitulo').textContent === 'Abrir composição') mostrarAbrir();
@@ -834,7 +871,7 @@ function iniciarEditor() {
 
 if (MODO === 'projecao') {
   $('#projecao').hidden = false;
-  window.addEventListener('resize', () => { const p = $('#projecao .palco'); if (p) encaixar(p, $('#projecao'), 0); });
+  window.addEventListener('resize', () => { for (const p of document.querySelectorAll('#projecao .palco')) encaixar(p, $('#projecao'), 0); });
 } else {
   iniciarEditor();
 }

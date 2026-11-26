@@ -552,7 +552,7 @@ Module Module1
                     PararPlayer(FormApresentar.wmpVideo)
                     FormApresentar.wmpVideo.Visible = False
                 End If
-                If ComposicaoOn AndAlso ComposicaoJson <> "" Then 'tela Fundo: composição na camada de fundo
+                If AlgumaCamadaAtiva() Then 'telas Fundo e Imagens: composições na camada de fundo
                     MostrarComposicao()
                 Else
                     EsconderComposicao()

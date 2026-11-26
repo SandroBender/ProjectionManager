@@ -52,6 +52,10 @@ main { flex: 1; display: flex; min-height: 0; }
 #palcoEditor { position: absolute; inset: 0; }
 #palcoEditor .palco { box-shadow: 0 0 0 1px #000, 0 4px 18px rgba(0,0,0,.5); }
 #palcoEditor .camada-sel { background: transparent; box-shadow: none; overflow: visible; pointer-events: none; }
+#palcoEditor .camada-ref { pointer-events: none; }
+#palcoEditor .palco.transparente { box-shadow: none; }
+/* a sobreposição transparente mostra o fundo por baixo; nas miniaturas, sobre preto */
+.cartao .mini .palco[style*="transparent"] { background: #000 !important; }
 .el { position: absolute; }
 .el .img { position: absolute; inset: 0; background-repeat: no-repeat; background-position: center; }
 .el .txt { white-space: pre-wrap; overflow-wrap: break-word; outline: none; }
