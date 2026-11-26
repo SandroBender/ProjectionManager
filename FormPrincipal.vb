@@ -34,6 +34,7 @@ Public Class FormPrincipal
         ConexNVI = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaNVI))
         ConexACF = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaACF))
         GravarLocalSistema()
+        CarregarFundoSalvo() 'fundo da tela Fundo, como estava ao fechar
         Dim I As Integer
         'Dim Monitor() As Screen = Screen.AllScreens
         'Dim TM As Integer = Screen.AllScreens.Count

@@ -35,7 +35,7 @@ main { flex: 1; display: flex; min-height: 0; }
 
 /* painel de propriedades */
 #painel h3 { margin: 4px 0 6px; font-size: 13px; }
-#painel fieldset { border: 1px solid var(--borda); border-radius: 4px; margin: 0 0 8px; padding: 6px; }
+#painel fieldset { border: 1px solid var(--borda); border-radius: 4px; margin: 0 0 8px; padding: 6px; min-width: 0; }
 #painel legend { font-weight: 600; padding: 0 3px; }
 .linha { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
 .linha > span { width: 74px; flex: none; }

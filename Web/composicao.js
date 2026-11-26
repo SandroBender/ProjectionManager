@@ -14,7 +14,7 @@ const $ = s => document.querySelector(s);
 // ---------- comunicação com o programa (WebView2) ----------
 const host = window.chrome && window.chrome.webview;
 function enviarHost(msg) { if (host) host.postMessage(msg); }
-if (host) host.addEventListener('message', e => receberHost(e.data));
+if (host && MODO === 'editor') host.addEventListener('message', e => receberHost(e.data));
 
 // ---------- documento ----------
 function novoDoc() { return { versao: 1, fundo: SOBREPOSICAO ? 'transparent' : '#000000', elementos: [] }; }
@@ -116,12 +116,6 @@ function encaixar(palco, cont, margem) {
   palco.style.transform = `translate(${(cw - W * k) / 2}px, ${(ch - H * k) / 2}px) scale(${k})`;
   return k;
 }
-function miniatura(d, cont) {
-  const p = criarPalco(d);
-  cont.appendChild(p);
-  requestAnimationFrame(() => encaixar(p, cont, 0));
-}
-
 // ---------- modo projeção (telão e prévia) ----------
 // desenha uma ou mais camadas empilhadas (fundo embaixo, sobreposição por cima); null = camada desligada
 function renderizarCamadas(...camadas) {
@@ -145,10 +139,9 @@ window.limpar = limpar;
 //                               EDITOR
 // ======================================================================
 let palco = null, camadaSel = null, escala = 1, selId = null, editandoId = null;
-let nomeAtual = '', alterado = false;
+let alterado = false;
 let historico = [], posHist = -1;
 let fontes = ['Calibri', 'Arial', 'Segoe UI', 'Times New Roman', 'Georgia', 'Verdana', 'Tahoma', 'Impact'];
-let composicoes = [], textosSalvos = [];
 let referencia = null, mostrarReferencia = true, palcoRef = null; // fundo atual, só para visualizar (sobreposição)
 const porId = id => doc.elementos.find(e => e.id === id);
 const noDe = id => palco && palco.querySelector(`.el[data-id="${id}"]`);
@@ -254,8 +247,6 @@ function atualizarBotoesHist() {
 }
 function marcarAlterado(sim) {
   alterado = sim;
-  $('#nome').textContent = nomeAtual || 'Sem nome';
-  $('#nome').classList.toggle('alterado', sim);
   atualizarBotoesHist();
 }
 let timerVivo = null;
@@ -449,17 +440,20 @@ function centralizar(eixo) {
   if (eixo !== 'h') e.y = Math.round((H - e.h) / 2);
   atualizarEl(e); atualizarCamposPosicao(); registrar();
 }
-function abrirDoc(d, nome) {
+function abrirDoc(d) {
   doc = (typeof d === 'string') ? JSON.parse(d) : JSON.parse(JSON.stringify(d));
   if (!doc.elementos) doc.elementos = [];
   for (const e of doc.elementos) if (!e.id) e.id = novoId();
-  nomeAtual = nome || '';
   selId = null; editandoId = null;
   montarPalco(); montarPainel(); reiniciarHistorico(); marcarAlterado(false);
   aoVivoAgora();
 }
-function confirmarDescarte() {
-  return !alterado || confirm('A composição atual tem alterações não salvas. Deseja descartá-las?');
+// "Limpar": recomeça a sobreposição (dá para voltar com Ctrl+Z)
+function limparTudo() {
+  if (doc.elementos.length && !confirm('Remover todos os itens da sobreposição?')) return;
+  if (editandoId) sairEdicao();
+  doc = novoDoc(); selId = null;
+  montarPalco(); montarPainel(); registrar();
 }
 
 // ---------- painel de propriedades ----------
@@ -662,125 +656,19 @@ function soltarArquivos(ev) {
   if (arquivos.length && !host) inserirImagens(arquivos.map(f => URL.createObjectURL(f)));
 }
 
-// ---------- janelas: abrir, textos salvos, nome ----------
-function janela(titulo, conteudo) {
-  $('#janelaTitulo').textContent = titulo;
-  const c = $('#janelaConteudo');
-  c.innerHTML = '';
-  c.append(...[].concat(conteudo));
-  $('#janela').hidden = false;
-}
-function fecharJanela() { $('#janela').hidden = true; }
-
-function cartao(nome, d, abrir, excluir) {
-  const c = document.createElement('div');
-  c.className = 'cartao';
-  const m = document.createElement('div'); m.className = 'mini';
-  const r = document.createElement('div'); r.className = 'rotulo';
-  const s = document.createElement('span'); s.textContent = nome; s.title = nome;
-  r.appendChild(s);
-  if (excluir) r.appendChild(botao('Excluir', 'Excluir esta composição', ev => { ev.stopPropagation(); excluir(); }));
-  c.append(m, r);
-  c.onclick = abrir;
-  setTimeout(() => miniatura(d, m), 0);
-  return c;
-}
-function mostrarAbrir() {
-  const t1 = document.createElement('h4'); t1.textContent = 'Composições salvas';
-  const g1 = document.createElement('div'); g1.className = 'galeria';
-  for (const c of composicoes) {
-    let d; try { d = JSON.parse(c.docJson); } catch (x) { continue; }
-    g1.appendChild(cartao(c.nome, d,
-      () => { if (confirmarDescarte()) { abrirDoc(d, c.nome); fecharJanela(); } },
-      () => { if (confirm(`Excluir a composição "${c.nome}"?`)) enviarHost({ acao: 'excluir', nome: c.nome }); }));
-  }
-  if (!composicoes.length) g1.textContent = 'Nenhuma composição salva ainda.';
-  const t2 = document.createElement('h4'); t2.textContent = 'Modelos prontos';
-  const g2 = document.createElement('div'); g2.className = 'galeria';
-  for (const [nome, criar] of MODELOS) {
-    const d = criar();
-    g2.appendChild(cartao(nome, d, () => { if (confirmarDescarte()) { abrirDoc(criar(), ''); fecharJanela(); } }));
-  }
-  janela('Abrir composição', [t1, g1, t2, g2]);
-}
-function mostrarTextosSalvos() {
-  const l = document.createElement('div'); l.className = 'lista-textos';
-  for (const t of textosSalvos) {
-    l.appendChild(botao(`${t.tipo ? '[' + t.tipo + '] ' : ''}${t.texto}`, 'Inserir este texto', () => {
-      const e = elTexto(460, 420, t.texto);
-      if (t.fonte) e.fonte = t.fonte;
-      if (t.tamanho > 0) e.tamanho = Math.round(t.tamanho * 2.2); // tamanho antigo (prévia) -> telão
-      e.negrito = !!(t.estilo & 1); e.italico = !!(t.estilo & 2); e.sublinhado = !!(t.estilo & 4);
-      if (t.cor) e.cor = t.cor;
-      if (t.fundo) { e.fundoCor = t.fundo; e.fundoOpacidade = t.fundoAlfa; }
-      e.alinhamento = /Left/.test(t.alinhamento) ? 'left' : /Right/.test(t.alinhamento) ? 'right' : 'center';
-      adicionar(e); fecharJanela();
-    }));
-  }
-  if (!textosSalvos.length) l.textContent = 'Nenhum texto salvo na versão anterior.';
-  janela('Textos salvos (versão anterior)', l);
-}
-function pedirNome(aoConfirmar) {
-  const f = document.createElement('form'); f.className = 'form-nome';
-  const i = document.createElement('input'); i.value = nomeAtual; i.placeholder = 'Nome da composição'; i.maxLength = 80;
-  const b = document.createElement('button'); b.textContent = 'Salvar'; b.className = 'destaque';
-  f.append(i, b);
-  f.onsubmit = ev => {
-    ev.preventDefault();
-    const n = i.value.replace(/[\\/:*?"<>|]/g, ' ').trim();
-    if (!n) { i.focus(); return; }
-    if (n !== nomeAtual && composicoes.some(c => c.nome.toLowerCase() === n.toLowerCase()) && !confirm(`Já existe "${n}". Substituir?`)) return;
-    fecharJanela(); aoConfirmar(n);
-  };
-  janela('Salvar composição', f);
-  setTimeout(() => { i.focus(); i.select(); }, 0);
-}
-function salvar(comoNovo) {
-  if (editandoId) sairEdicao();
-  const gravar = n => { nomeAtual = n; enviarHost({ acao: 'salvar', nome: n, docJson: JSON.stringify(doc) }); if (!host) marcarAlterado(false); };
-  if (nomeAtual && !comoNovo) gravar(nomeAtual); else pedirNome(gravar);
-}
-
-// ---------- modelos prontos ----------
-function modelo(fundo, ...elementos) { return { versao: 1, fundo: fundo, elementos: elementos }; }
-const MODELOS = [
-  ['Título centralizado', () => modelo('#000000',
-    Object.assign(elTexto(160, 330, 'Título'), { w: 1600, tamanho: 140 }),
-    Object.assign(elTexto(260, 560, 'Subtítulo'), { w: 1400, tamanho: 64, negrito: false, cor: '#d9d9d9' }))],
-  ['Aviso com faixa', () => modelo('#1b1f3b',
-    Object.assign(elForma(), { y: 700, h: 300, cor: '#000000', opacidade: 0.7 }),
-    Object.assign(elTexto(120, 730, 'AVISO'), { w: 1680, tamanho: 70, alinhamento: 'left', cor: '#ffd54a' }),
-    Object.assign(elTexto(120, 840, 'Escreva aqui o aviso da semana.'), { w: 1680, tamanho: 56, negrito: false, alinhamento: 'left' }))],
-  ['Imagem com moldura', () => modelo('#000000',
-    Object.assign(elImagem('', 1600, 900), { x: 240, y: 90, w: 1440, h: 810, bordaLargura: 18, bordaCor: '#ffffff', raio: 24, sombra: true }),
-    Object.assign(elTexto(240, 930, 'Legenda da imagem'), { w: 1440, tamanho: 54, negrito: false }))],
-  ['Versículo em destaque', () => modelo('#0d0d0d',
-    Object.assign(elForma(), { x: 120, y: 160, w: 1680, h: 760, cor: '#ffffff', opacidade: 0.08, raio: 40, bordaLargura: 4, bordaCor: '#c9a227' }),
-    Object.assign(elTexto(200, 260, '“Lâmpada para os meus pés é tua palavra, e luz para o meu caminho.”'), { w: 1520, tamanho: 84, italico: true }),
-    Object.assign(elTexto(200, 760, 'Salmos 119:105'), { w: 1520, tamanho: 54, cor: '#c9a227' }))],
-];
-
 // ---------- mensagens do programa ----------
 function receberHost(m) {
   if (typeof m === 'string') { try { m = JSON.parse(m); } catch (x) { return; } }
   if (!m || !m.tipo) return;
   if (m.tipo === 'iniciar') {
     if (m.fontes && m.fontes.length) fontes = m.fontes;
-    composicoes = m.composicoes || [];
-    textosSalvos = m.textos || [];
     $('#opLigado').checked = !!m.ligado; $('#opDesligado').checked = !m.ligado;
     try { referencia = m.referencia ? JSON.parse(m.referencia) : null; } catch (x) { referencia = null; }
-    if (m.atual && m.atual.docJson) abrirDoc(m.atual.docJson, m.atual.nome || ''); else montarPalco();
+    if (m.atual && m.atual.docJson) abrirDoc(m.atual.docJson); else montarPalco();
     montarPainel();
   } else if (m.tipo === 'referencia') { // o fundo mudou enquanto a tela estava aberta
     try { referencia = m.referencia ? JSON.parse(m.referencia) : null; } catch (x) { referencia = null; }
     montarPalco(); if (!selId) montarPainel();
-  } else if (m.tipo === 'lista') {
-    composicoes = m.composicoes || [];
-    if (!$('#janela').hidden && $('#janelaTitulo').textContent === 'Abrir composição') mostrarAbrir();
-  } else if (m.tipo === 'salvo') {
-    nomeAtual = m.nome; marcarAlterado(false);
-    $('#status').textContent = `Composição "${m.nome}" salva.`;
   } else if (m.tipo === 'imagens') {
     inserirImagens(m.srcs || [], m.trocar);
   } else if (m.tipo === 'ligado') {
@@ -824,14 +712,10 @@ function iniciarEditor() {
   document.addEventListener('dragover', ev => ev.preventDefault());
   document.addEventListener('drop', ev => ev.preventDefault());
 
-  $('#bNovo').onclick = () => { if (confirmarDescarte()) abrirDoc(novoDoc(), ''); };
-  $('#bAbrir').onclick = mostrarAbrir;
-  $('#bSalvar').onclick = () => salvar(false);
-  $('#bSalvarComo').onclick = () => salvar(true);
+  $('#bLimpar').onclick = limparTudo;
   $('#bImagem').onclick = () => enviarHost({ acao: 'escolherImagem' });
   $('#bTexto').onclick = () => { const e = elTexto(460, 440, 'Novo texto'); adicionar(e); entrarEdicao(e.id); };
   $('#bForma').onclick = () => adicionar(elForma());
-  $('#bTextosSalvos').onclick = mostrarTextosSalvos;
   $('#bDesfazer').onclick = () => irHistorico(-1);
   $('#bRefazer').onclick = () => irHistorico(1);
   $('#bEnviar').onclick = () => {
@@ -841,16 +725,13 @@ function iniciarEditor() {
   };
   $('#aoVivo').onchange = aoVivoAgora;
   for (const r of ['#opLigado', '#opDesligado']) $(r).onchange = () => enviarHost({ acao: 'operacao', ligado: $('#opLigado').checked, docJson: JSON.stringify(doc) });
-  $('#janelaFechar').onclick = fecharJanela;
-  $('#janela').addEventListener('pointerdown', ev => { if (ev.target.id === 'janela') fecharJanela(); });
 
   document.addEventListener('keydown', ev => {
-    if (ev.key === 'Escape') { if (!$('#janela').hidden) fecharJanela(); else if (editandoId) sairEdicao(); else selecionar(null); return; }
+    if (ev.key === 'Escape') { if (editandoId) sairEdicao(); else selecionar(null); return; }
     const ae = document.activeElement;
     const emCampo = editandoId || /^(SELECT|TEXTAREA)$/.test(ae.tagName) ||
       (ae.tagName === 'INPUT' && !/^(checkbox|radio|range|color|button)$/.test(ae.type));
     const ctrl = ev.ctrlKey || ev.metaKey, k = ev.key.toLowerCase();
-    if (ctrl && k === 's') { ev.preventDefault(); salvar(false); return; }
     if (emCampo) return;
     if (ctrl && k === 'z') { ev.preventDefault(); irHistorico(ev.shiftKey ? 1 : -1); }
     else if (ctrl && k === 'y') { ev.preventDefault(); irHistorico(1); }
@@ -872,6 +753,6 @@ function iniciarEditor() {
 if (MODO === 'projecao') {
   $('#projecao').hidden = false;
   window.addEventListener('resize', () => { for (const p of document.querySelectorAll('#projecao .palco')) encaixar(p, $('#projecao'), 0); });
-} else {
+} else if (MODO === 'editor') {
   iniciarEditor();
-}
+} // modo=fundo: a página fundo.html usa só as funções de desenho daqui

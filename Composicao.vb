@@ -4,9 +4,10 @@ Imports System.Web.Script.Serialization
 Imports Microsoft.Web.WebView2.Core
 Imports Microsoft.Web.WebView2.WinForms
 
-'Composições da tela Fundo (editor visual em Web\composicao.html).
-'Cada composição é um arquivo .json em <pasta do sistema>\ProjectionManager\COMPOSICOES,
-'e as imagens usadas são copiadas para COMPOSICOES\imagens (basta copiar a pasta para outro computador).
+'Camadas da projeção montadas no navegador embutido:
+'  Fundo        - tela Fundo (Web\fundo.html): uma imagem fixa com margem e moldura; lembrada em COMPOSICOES\fundo.json
+'  Sobreposição - tela Imagens (Web\composicao.html): editor de imagens, textos e formas; temporária
+'As imagens usadas são copiadas para <pasta do sistema>\ProjectionManager\COMPOSICOES\imagens.
 Public Module Composicao
 
     Public Const HostApp As String = "app." & HostLocal                  'pasta Web do programa
@@ -25,7 +26,8 @@ Public Module Composicao
     Public SobreposicaoJson As String = ""  'sobreposição enviada para a projeção
 
     Public Function EnderecoEditor(C As Camada) As String
-        Return "https://" & HostApp & "/composicao.html?modo=editor&camada=" & If(C = Camada.Sobreposicao, "sobreposicao", "fundo")
+        If C = Camada.Fundo Then Return "https://" & HostApp & "/fundo.html?modo=fundo"
+        Return "https://" & HostApp & "/composicao.html?modo=editor&camada=sobreposicao"
     End Function
 
     Public Function AlgumaCamadaAtiva() As Boolean
@@ -44,19 +46,29 @@ Public Module Composicao
         Return Path.Combine(PastaComposicoes(), "imagens")
     End Function
 
-    '---- arquivos ----
-    Public Function ListarComposicoes() As List(Of Dictionary(Of String, Object))
-        Dim Lista As New List(Of Dictionary(Of String, Object))
-        If Not Directory.Exists(PastaComposicoes()) Then Return Lista
-        For Each Arq As String In Directory.GetFiles(PastaComposicoes(), "*.json").OrderBy(Function(a) Path.GetFileNameWithoutExtension(a), StringComparer.CurrentCultureIgnoreCase)
-            Try
-                Lista.Add(New Dictionary(Of String, Object) From {{"nome", Path.GetFileNameWithoutExtension(Arq)}, {"docJson", File.ReadAllText(Arq, Text.Encoding.UTF8)}})
-            Catch
-                'arquivo em uso ou corrompido: ignora
-            End Try
-        Next
-        Return Lista
+    '---- fundo atual: lembrado ao reabrir o programa ----
+    Private Function ArquivoFundo() As String
+        Return Path.Combine(PastaComposicoes(), "fundo.json")
     End Function
+
+    Public Sub GravarFundo()
+        Directory.CreateDirectory(PastaComposicoes())
+        Dim Dados As New Dictionary(Of String, Object) From {{"ligado", ComposicaoOn}, {"docJson", ComposicaoJson}}
+        File.WriteAllText(ArquivoFundo(), New JavaScriptSerializer With {.MaxJsonLength = Integer.MaxValue}.Serialize(Dados), Text.Encoding.UTF8)
+    End Sub
+
+    'Chamado ao abrir o programa (depois de definir a pasta do sistema)
+    Public Sub CarregarFundoSalvo()
+        Try
+            If Not File.Exists(ArquivoFundo()) Then Exit Sub
+            Dim Dados = New JavaScriptSerializer With {.MaxJsonLength = Integer.MaxValue}.Deserialize(Of Dictionary(Of String, Object))(File.ReadAllText(ArquivoFundo(), Text.Encoding.UTF8))
+            ComposicaoJson = If(Dados.ContainsKey("docJson") AndAlso Dados("docJson") IsNot Nothing, Dados("docJson").ToString(), "")
+            ComposicaoOn = Dados.ContainsKey("ligado") AndAlso CBool(Dados("ligado")) AndAlso ComposicaoJson <> ""
+            FormPrincipal.chkFundo.Checked = ComposicaoOn
+        Catch ex As Exception
+            MsgBox("Não foi possível ler o fundo salvo:" & vbCrLf & ex.Message, vbExclamation, "Fundo")
+        End Try
+    End Sub
 
     Private Function NomeSeguro(Nome As String) As String
         For Each C As Char In Path.GetInvalidFileNameChars()
@@ -64,16 +76,6 @@ Public Module Composicao
         Next
         Return Nome.Trim()
     End Function
-
-    Public Sub SalvarComposicao(Nome As String, Json As String)
-        Directory.CreateDirectory(PastaComposicoes())
-        File.WriteAllText(Path.Combine(PastaComposicoes(), NomeSeguro(Nome) & ".json"), Json, Text.Encoding.UTF8)
-    End Sub
-
-    Public Sub ExcluirComposicao(Nome As String)
-        Dim Arq As String = Path.Combine(PastaComposicoes(), NomeSeguro(Nome) & ".json")
-        If File.Exists(Arq) Then File.Delete(Arq)
-    End Sub
 
     'Copia a imagem para COMPOSICOES\imagens e devolve o endereço relativo ("imagens/foto.jpg").
     'Se já existir uma cópia idêntica, reaproveita.
@@ -99,43 +101,6 @@ Public Module Composicao
         Using Colecao As New InstalledFontCollection()
             Return Colecao.Families.Select(Function(f) f.Name).OrderBy(Function(n) n).ToList()
         End Using
-    End Function
-
-    Private Function CorHex(C As Color) As String
-        Return "#" & C.R.ToString("x2") & C.G.ToString("x2") & C.B.ToString("x2")
-    End Function
-
-    'Textos da tela Fundo antiga (tabela Textos), para reaproveitar no editor
-    Public Function TextosAntigos() As List(Of Dictionary(Of String, Object))
-        Dim Lista As New List(Of Dictionary(Of String, Object))
-        Try
-            ConectarDados()
-            CarregarTextos()
-        Catch
-            Return Lista
-        Finally
-            DesconectarDados()
-        End Try
-        For Each Linha As DataRow In RegTextos.Rows
-            Try
-                Dim T As New Dictionary(Of String, Object) From {
-                    {"texto", Linha.Item(1).ToString()}, {"tipo", Linha.Item(2).ToString()}, {"alinhamento", Linha.Item(3).ToString()},
-                    {"fonte", Linha.Item(5).ToString()}}
-                Dim Tamanho As Double, Estilo As Integer, Argb As Integer
-                If Double.TryParse(Linha.Item(6).ToString(), Tamanho) Then T("tamanho") = Tamanho
-                If Integer.TryParse(Linha.Item(7).ToString(), Estilo) Then T("estilo") = Estilo
-                If Integer.TryParse(Linha.Item(8).ToString(), Argb) Then T("cor") = CorHex(Color.FromArgb(Argb))
-                If Integer.TryParse(Linha.Item(4).ToString(), Argb) Then
-                    Dim Fundo As Color = Color.FromArgb(Argb)
-                    T("fundo") = CorHex(Fundo)
-                    T("fundoAlfa") = Math.Round(Fundo.A / 255.0, 2)
-                End If
-                If T("texto").ToString().Trim() <> "" Then Lista.Add(T)
-            Catch
-                'linha com dados inesperados: ignora
-            End Try
-        Next
-        Return Lista
     End Function
 
     '---- projeção (telão) e prévia (tela principal) ----
@@ -252,12 +217,6 @@ Public Module Composicao
             Next
         End Sub
 
-        Private Sub AvisarLista()
-            For Each C As ControladorEditor In Abertos 'as duas telas usam a mesma pasta de composições
-                C.Responder(New Dictionary(Of String, Object) From {{"tipo", "lista"}, {"composicoes", ListarComposicoes()}})
-            Next
-        End Sub
-
         Private Sub Mensagem(sender As Object, e As CoreWebView2WebMessageReceivedEventArgs)
             Dim M As Dictionary(Of String, Object)
             Try
@@ -269,21 +228,11 @@ Public Module Composicao
             Try
                 Select Case Texto("acao")
                     Case "iniciar"
-                        Dim R As New Dictionary(Of String, Object) From {
-                            {"tipo", "iniciar"}, {"fontes", Fontes()}, {"composicoes", ListarComposicoes()},
-                            {"textos", TextosAntigos()}, {"ligado", Ligado}}
+                        Dim R As New Dictionary(Of String, Object) From {{"tipo", "iniciar"}, {"ligado", Ligado}}
+                        If Minha = Camada.Sobreposicao Then R("fontes") = Fontes()
                         If DocJson <> "" Then R("atual") = New Dictionary(Of String, Object) From {{"nome", ""}, {"docJson", DocJson}}
                         If Minha = Camada.Sobreposicao AndAlso ComposicaoJson <> "" Then R("referencia") = ComposicaoJson
                         Responder(R)
-
-                    Case "salvar"
-                        SalvarComposicao(Texto("nome"), Texto("docJson"))
-                        Responder(New Dictionary(Of String, Object) From {{"tipo", "salvo"}, {"nome", Texto("nome")}})
-                        AvisarLista()
-
-                    Case "excluir"
-                        ExcluirComposicao(Texto("nome"))
-                        AvisarLista()
 
                     Case "escolherImagem"
                         Using Dlg As New OpenFileDialog With {
@@ -314,6 +263,12 @@ Public Module Composicao
                     Case "operacao"
                         If DocJson = "" Then DocJson = Texto("docJson")
                         Ligado = CBool(M("ligado"))
+                        AtualizaApresentacao()
+
+                    Case "atualizar" 'tela Fundo: cada mudança vale na hora e fica gravada
+                        DocJson = Texto("docJson")
+                        Ligado = CBool(M("ligado"))
+                        GravarFundo()
                         AtualizaApresentacao()
                 End Select
             Catch ex As Exception
