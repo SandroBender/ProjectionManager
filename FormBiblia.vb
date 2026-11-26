@@ -2,6 +2,8 @@
 
 Public Class FormBiblia
     Private Sub FormBiblia_Load(sender As Object, e As EventArgs) Handles Me.Load
+        VerificarImportarReferencias() 'na 1ª vez: preenche as referências cruzadas nas Bíblias
+        lblCreditoRef.Text = CreditoReferencias
         ConectarDados()
         CarregarZoom()
         DesconectarDados()
@@ -95,13 +97,6 @@ Public Class FormBiblia
         If lstVersiculos.SelectedIndex > -1 Then
             ResultadoVer(Cap:=lstCapitulos.SelectedIndex + 1, Ver:=lstVersiculos.SelectedIndex + 1)
             lstHistorico.Items.Add(lstLivros.GetItemText(lstLivros.Text) & ";" & lstCapitulos.SelectedIndex + 1 & ";" & lstVersiculos.SelectedIndex + 1 & ";" & ResultVers)
-            If ResultReferencia <> "" Then
-                Dim Ref() As String
-                Ref = ResultReferencia.Split("|")
-                For I As Integer = 0 To Ref.Count - 1
-                    lstReferencias.Items.Add(Ref(I).ToString)
-                Next
-            End If
         End If
     End Sub
 
@@ -187,6 +182,9 @@ Public Class FormBiblia
         Dim AdicionarTexto As String = ""
         If tabPesquisa.SelectedIndex = 0 And lstResultados.Text <> "" Then AdicionarTexto = lstResultados.Text
         If tabPesquisa.SelectedIndex = 2 And lstHistorico.Text <> "" Then AdicionarTexto = lstHistorico.Text
+        If tabPesquisa.SelectedIndex = 1 AndAlso ReferenciaSelecionada() IsNot Nothing AndAlso ReferenciaSelecionada().Texto <> "" Then
+            AdicionarTexto = ReferenciaSelecionada().Livro & ";" & ReferenciaSelecionada().Cap & ";" & ReferenciaSelecionada().Ver & ";" & ReferenciaSelecionada().Texto
+        End If
         Dim Ref() As String
         Ref = AdicionarTexto.Split(";")
         If Ref.Length < 4 Then Exit Sub 'nada selecionado ou formato inesperado
@@ -335,8 +333,32 @@ Public Class FormBiblia
         btnSubstituir.Visible = True
     End Sub
 
+    'Referências cruzadas do versículo exibido
+    Private Sub MostrarReferencias()
+        Dim Lista As List(Of ReferenciaBiblica) = ListarReferencias(ResultReferencia)
+        lstReferencias.BeginUpdate()
+        lstReferencias.Items.Clear()
+        For Each R As ReferenciaBiblica In Lista
+            lstReferencias.Items.Add(R)
+        Next
+        lstReferencias.EndUpdate()
+        TabRef.Text = If(Lista.Count > 0, "Referências (" & Lista.Count & ")", "Referências")
+    End Sub
+
+    Private Function ReferenciaSelecionada() As ReferenciaBiblica
+        Return TryCast(lstReferencias.SelectedItem, ReferenciaBiblica)
+    End Function
+
+    'Duplo clique: vai até o versículo referenciado
+    Private Sub lstReferencias_DoubleClick(sender As Object, e As EventArgs) Handles lstReferencias.DoubleClick
+        Dim R As ReferenciaBiblica = ReferenciaSelecionada()
+        If R IsNot Nothing Then IrParaVersiculo(R.Livro, R.Cap, R.Ver)
+    End Sub
+
     Private Sub lstReferencias_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstReferencias.SelectedIndexChanged 'Selecionar Referencia de versículo
-        txtSelecionado.Text = lstReferencias.Text
+        Dim R As ReferenciaBiblica = ReferenciaSelecionada()
+        If R Is Nothing Then Exit Sub
+        txtSelecionado.Text = R.Referencia & "  " & R.Texto
         btnLimpar.Visible = True
         btnAdicionar.Visible = True
         btnSubstituir.Visible = True
@@ -365,6 +387,7 @@ Public Class FormBiblia
             rtbAnteriores.Clear()
             rtbPosteriores.Clear()
             ResultadoVer(Cap:=C + 1, Ver:=V + 1)
+            MostrarReferencias()
             TextoBiblia = vbTab & vbTab & ResultRef1 & " [" & VersaoBiblia & "]" & vbLf & vbLf & ResultVers
             If Aad = False Then
                 rtbVersiculo.Text = TextoBiblia
@@ -398,18 +421,23 @@ Public Class FormBiblia
         Dim SubstituirTexto As String = ""
         If tabPesquisa.SelectedIndex = 0 And lstResultados.Text <> "" Then SubstituirTexto = lstResultados.Text 'localizar
         If tabPesquisa.SelectedIndex = 2 And lstHistorico.Text <> "" Then SubstituirTexto = lstHistorico.Text 'histórico
-        If tabPesquisa.SelectedIndex = 1 And lstReferencias.Text <> "" Then SubstituirTexto = lstReferencias.Text 'referencia bíblica
-        Dim Ref() As String
-        Dim Livro As String
-        Dim Cap As Integer
-        Dim Ver As Integer
-        Ref = SubstituirTexto.Split(";")
+        If tabPesquisa.SelectedIndex = 1 AndAlso ReferenciaSelecionada() IsNot Nothing Then 'referencia bíblica
+            Dim R As ReferenciaBiblica = ReferenciaSelecionada()
+            SubstituirTexto = R.Livro & ";" & R.Cap & ";" & R.Ver
+        End If
+        Dim Ref() As String = SubstituirTexto.Split(";")
         If Ref.Length < 3 Then Exit Sub 'nada selecionado ou formato inesperado
-        Livro = Ref(0).ToString
-        Cap = Ref(1).ToString
-        Ver = Ref(2).ToString
+        IrParaVersiculo(Ref(0), CInt(Ref(1)), CInt(Ref(2)))
+        txtSelecionado.Text = SubstituirTexto
+        btnLimpar.Visible = True
+        btnAdicionar.Visible = True
+        btnSubstituir.Visible = True
+    End Sub
+
+    'Seleciona livro, capítulo e versículo nas listas (o que dispara a exibição do versículo)
+    Private Sub IrParaVersiculo(Livro As String, Cap As Integer, Ver As Integer)
         For I As Integer = 0 To ListaLivros.Rows.Count - 1
-            If Livro = ListaLivros.Rows(I).Item(1) Then lstLivros.SelectedIndex = I
+            If Livro.Equals(ListaLivros.Rows(I).Item(1).ToString, StringComparison.OrdinalIgnoreCase) Then lstLivros.SelectedIndex = I
         Next
         For I As Integer = 0 To ListaCap.Rows.Count - 1
             If Cap = ListaCap.Rows(I).Item(0) Then lstCapitulos.SelectedIndex = I
@@ -417,10 +445,6 @@ Public Class FormBiblia
         For I As Integer = 0 To ListaVer.Rows.Count - 1
             If Ver = ListaVer.Rows(I).Item(0) Then lstVersiculos.SelectedIndex = I 'Aciona Resultado
         Next
-        txtSelecionado.Text = SubstituirTexto
-        btnLimpar.Visible = True
-        btnAdicionar.Visible = True
-        btnSubstituir.Visible = True
     End Sub
 
 End Class
