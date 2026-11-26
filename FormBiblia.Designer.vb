@@ -57,6 +57,7 @@ Partial Class FormBiblia
         Me.TabRef = New System.Windows.Forms.TabPage()
         Me.lstReferencias = New System.Windows.Forms.ListBox()
         Me.lblCreditoRef = New System.Windows.Forms.Label()
+        Me.btnVoltarOrigem = New System.Windows.Forms.Button()
         Me.TabHistorico = New System.Windows.Forms.TabPage()
         Me.lstHistorico = New System.Windows.Forms.ListBox()
         Me.btnLimpar = New System.Windows.Forms.Button()
@@ -507,6 +508,7 @@ Partial Class FormBiblia
         'TabRef
         '
         Me.TabRef.BackColor = System.Drawing.Color.FromArgb(CType(CType(187, Byte), Integer), CType(CType(187, Byte), Integer), CType(CType(202, Byte), Integer))
+        Me.TabRef.Controls.Add(Me.btnVoltarOrigem)
         Me.TabRef.Controls.Add(Me.lblCreditoRef)
         Me.TabRef.Controls.Add(Me.lstReferencias)
         Me.TabRef.Location = New System.Drawing.Point(4, 22)
@@ -526,7 +528,7 @@ Partial Class FormBiblia
         Me.lstReferencias.ItemHeight = 15
         Me.lstReferencias.Location = New System.Drawing.Point(3, 11)
         Me.lstReferencias.Name = "lstReferencias"
-        Me.lstReferencias.Size = New System.Drawing.Size(416, 167)
+        Me.lstReferencias.Size = New System.Drawing.Size(416, 160)
         Me.lstReferencias.TabIndex = 45
         '
         'lblCreditoRef
@@ -534,12 +536,28 @@ Partial Class FormBiblia
         Me.lblCreditoRef.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCreditoRef.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCreditoRef.Location = New System.Drawing.Point(3, 181)
+        Me.lblCreditoRef.Location = New System.Drawing.Point(226, 176)
         Me.lblCreditoRef.Name = "lblCreditoRef"
-        Me.lblCreditoRef.Size = New System.Drawing.Size(416, 14)
+        Me.lblCreditoRef.Size = New System.Drawing.Size(193, 20)
         Me.lblCreditoRef.TabIndex = 46
         Me.lblCreditoRef.Text = "Referências cruzadas: OpenBible.info (CC BY)"
         Me.lblCreditoRef.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'btnVoltarOrigem
+        '
+        Me.btnVoltarOrigem.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnVoltarOrigem.BackColor = System.Drawing.Color.Lavender
+        Me.btnVoltarOrigem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnVoltarOrigem.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnVoltarOrigem.ForeColor = System.Drawing.Color.DarkSlateBlue
+        Me.btnVoltarOrigem.Location = New System.Drawing.Point(3, 174)
+        Me.btnVoltarOrigem.Name = "btnVoltarOrigem"
+        Me.btnVoltarOrigem.Size = New System.Drawing.Size(218, 22)
+        Me.btnVoltarOrigem.TabIndex = 47
+        Me.btnVoltarOrigem.Text = "« Voltar"
+        Me.btnVoltarOrigem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnVoltarOrigem.UseVisualStyleBackColor = False
+        Me.btnVoltarOrigem.Visible = False
         '
         'TabHistorico
         '
@@ -878,4 +896,5 @@ Partial Class FormBiblia
     Friend WithEvents TabRef As TabPage
     Friend WithEvents lstReferencias As ListBox
     Friend WithEvents lblCreditoRef As Label
+    Friend WithEvents btnVoltarOrigem As Button
 End Class

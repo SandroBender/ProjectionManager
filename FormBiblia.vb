@@ -352,7 +352,42 @@ Public Class FormBiblia
     'Duplo clique: vai até o versículo referenciado
     Private Sub lstReferencias_DoubleClick(sender As Object, e As EventArgs) Handles lstReferencias.DoubleClick
         Dim R As ReferenciaBiblica = ReferenciaSelecionada()
-        If R IsNot Nothing Then IrParaVersiculo(R.Livro, R.Cap, R.Ver)
+        If R Is Nothing Then Exit Sub
+        GuardarOrigem()
+        IrParaVersiculo(R.Livro, R.Cap, R.Ver)
+    End Sub
+
+    '---- Voltar ao versículo de origem (pilha: dá para voltar passo a passo numa sequência de referências) ----
+    Private Class Origem
+        Public Livro As String
+        Public Cap As Integer
+        Public Ver As Integer
+        Public IndiceRef As Integer 'referência que foi seguida (volta selecionada)
+        Public Overrides Function ToString() As String
+            Return NomeLivro(Livro) & " " & Cap & ":" & Ver
+        End Function
+    End Class
+    Private ReadOnly Origens As New Stack(Of Origem)
+
+    'Guarda o versículo atual antes de seguir uma referência
+    Private Sub GuardarOrigem()
+        If lstVersiculos.SelectedIndex < 0 OrElse lblCapitulo.Text = "0" OrElse lblVersiculo.Text = "0" Then Exit Sub
+        Origens.Push(New Origem With {.Livro = Livro, .Cap = CInt(lblCapitulo.Text), .Ver = CInt(lblVersiculo.Text), .IndiceRef = lstReferencias.SelectedIndex})
+        AtualizarBotaoVoltar()
+    End Sub
+
+    Private Sub AtualizarBotaoVoltar()
+        btnVoltarOrigem.Visible = Origens.Count > 0
+        If Origens.Count > 0 Then btnVoltarOrigem.Text = "« Voltar para " & Origens.Peek().ToString() & If(Origens.Count > 1, "  (" & Origens.Count & ")", "")
+    End Sub
+
+    Private Sub btnVoltarOrigem_Click(sender As Object, e As EventArgs) Handles btnVoltarOrigem.Click
+        If Origens.Count = 0 Then Exit Sub
+        Dim O As Origem = Origens.Pop()
+        AtualizarBotaoVoltar()
+        IrParaVersiculo(O.Livro, O.Cap, O.Ver)
+        tabPesquisa.SelectedIndex = 1 'continua na aba Referências
+        If O.IndiceRef >= 0 AndAlso O.IndiceRef < lstReferencias.Items.Count Then lstReferencias.SelectedIndex = O.IndiceRef
     End Sub
 
     Private Sub lstReferencias_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstReferencias.SelectedIndexChanged 'Selecionar Referencia de versículo
@@ -424,6 +459,7 @@ Public Class FormBiblia
         If tabPesquisa.SelectedIndex = 1 AndAlso ReferenciaSelecionada() IsNot Nothing Then 'referencia bíblica
             Dim R As ReferenciaBiblica = ReferenciaSelecionada()
             SubstituirTexto = R.Livro & ";" & R.Cap & ";" & R.Ver
+            GuardarOrigem()
         End If
         Dim Ref() As String = SubstituirTexto.Split(";")
         If Ref.Length < 3 Then Exit Sub 'nada selecionado ou formato inesperado
