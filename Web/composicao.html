@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Composição</title>
+<link rel="stylesheet" href="composicao.css">
+</head>
+<body>
+<!-- Editor de composições da tela Fundo (ProjectionManager).
+     modo=editor: editor completo; modo=projecao: só desenha a composição (telão e prévia). -->
+<div id="editor" hidden>
+  <header id="barra">
+    <div class="grupo">
+      <button id="bNovo" title="Nova composição">Novo</button>
+      <button id="bAbrir" title="Composições salvas e modelos">Abrir…</button>
+      <button id="bSalvar" title="Salvar (Ctrl+S)">Salvar</button>
+      <button id="bSalvarComo">Salvar como…</button>
+    </div>
+    <div class="grupo">
+      <button id="bImagem" title="Inserir imagem (ou arraste arquivos para a tela)">+ Imagem</button>
+      <button id="bTexto" title="Inserir texto (ou duplo clique na tela)">+ Texto</button>
+      <button id="bForma" title="Inserir faixa/retângulo">+ Forma</button>
+      <button id="bTextosSalvos" title="Textos salvos da versão anterior">Textos salvos…</button>
+    </div>
+    <div class="grupo">
+      <button id="bDesfazer" title="Desfazer (Ctrl+Z)">↶</button>
+      <button id="bRefazer" title="Refazer (Ctrl+Y)">↷</button>
+    </div>
+    <div class="grupo direita">
+      <span id="nome" title="Composição atual">Sem nome</span>
+      <label class="op"><input type="radio" name="op" id="opDesligado" checked> Desligado</label>
+      <label class="op"><input type="radio" name="op" id="opLigado"> Ligado</label>
+      <label class="op" title="Cada mudança aparece no telão na hora"><input type="checkbox" id="aoVivo"> Ao vivo</label>
+      <button id="bEnviar" class="destaque" title="Mostrar esta composição na projeção">Enviar para a projeção</button>
+    </div>
+  </header>
+  <main>
+    <section id="area"><div id="palcoEditor"></div></section>
+    <aside id="painel"></aside>
+  </main>
+  <footer id="status">Clique para selecionar · arraste para mover · cantos para redimensionar · bolinha de cima para girar · duplo clique para editar o texto</footer>
+</div>
+
+<div id="projecao" hidden></div>
+
+<div id="janela" hidden>
+  <div class="caixa">
+    <header><span id="janelaTitulo"></span><button id="janelaFechar" title="Fechar">✕</button></header>
+    <div id="janelaConteudo"></div>
+  </div>
+</div>
+
+<script src="composicao.js"></script>
+</body>
+</html>

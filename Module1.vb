@@ -552,6 +552,11 @@ Module Module1
                     PararPlayer(FormApresentar.wmpVideo)
                     FormApresentar.wmpVideo.Visible = False
                 End If
+                If ComposicaoOn AndAlso ComposicaoJson <> "" Then 'tela Fundo: composição na camada de fundo
+                    MostrarComposicao()
+                Else
+                    EsconderComposicao()
+                End If
                 If PaginaInternetAtiva() Then 'Internet: página por cima de tudo
                     MostrarPaginaProjecao()
                 Else
@@ -604,6 +609,7 @@ Module Module1
                 FormApresentar.wmpVideo.Tag = Nothing
                 EsconderPaginaProjecao()
                 EsconderSlideBiblia()
+                EsconderComposicao()
                 FormPrincipal.picSobreposicao.Visible = False
                 FormPrincipal.picAudio.Visible = False
                 FormApresentar.picFundo.Image = Nothing 'imagem fundo

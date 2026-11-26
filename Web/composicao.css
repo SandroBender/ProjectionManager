@@ -1,0 +1,90 @@
+/* Editor de composições (tela Fundo) - ProjectionManager */
+:root {
+  --fundo-app: #ccc8d7;      /* mesmo lilás das outras telas */
+  --barra: #8f8699;
+  --painel: #e8e6ee;
+  --borda: #b3adbf;
+  --texto: #1d1b22;
+  --destaque: #483d8b;       /* DarkSlateBlue, usado no menu */
+  --selecao: #1e90ff;
+  --guia: #ff2d95;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; font: 13px "Segoe UI", Arial, sans-serif; color: var(--texto); }
+body { background: var(--fundo-app); overflow: hidden; }
+[hidden] { display: none !important; }
+
+/* ---------- editor ---------- */
+#editor { display: flex; flex-direction: column; height: 100%; }
+#barra { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; padding: 6px 8px; background: var(--barra); }
+#barra .grupo { display: flex; gap: 4px; align-items: center; }
+#barra .direita { margin-left: auto; }
+button { font: inherit; padding: 4px 9px; border: 1px solid var(--borda); background: #f4f2f8; border-radius: 4px; cursor: pointer; color: var(--texto); }
+button:hover:not(:disabled) { background: #fff; }
+button:disabled { opacity: .45; cursor: default; }
+button.destaque { background: var(--destaque); color: #fff; border-color: var(--destaque); }
+button.destaque:hover { background: #5b4fb0; }
+button.ativo { background: var(--destaque); color: #fff; }
+#nome { font-weight: 600; color: #fff; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#nome.alterado::after { content: " •"; }
+.op { color: #fff; white-space: nowrap; }
+main { flex: 1; display: flex; min-height: 0; }
+#area { flex: 1; position: relative; overflow: hidden; background: #6f6879; }
+#painel { width: 236px; overflow-y: auto; background: var(--painel); border-left: 1px solid var(--borda); padding: 8px; }
+#status { padding: 3px 8px; font-size: 11px; background: var(--painel); border-top: 1px solid var(--borda); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* painel de propriedades */
+#painel h3 { margin: 4px 0 6px; font-size: 13px; }
+#painel fieldset { border: 1px solid var(--borda); border-radius: 4px; margin: 0 0 8px; padding: 6px; }
+#painel legend { font-weight: 600; padding: 0 3px; }
+.linha { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
+.linha > span { width: 74px; flex: none; }
+.linha input[type=number] { width: 64px; }
+.linha input[type=range] { flex: 1; min-width: 0; }
+.linha select { flex: 1; min-width: 0; }
+.linha input[type=color] { width: 40px; height: 24px; padding: 0; border: 1px solid var(--borda); }
+.botoes { display: flex; flex-wrap: wrap; gap: 4px; }
+.botoes button { padding: 3px 7px; }
+.dica { font-size: 11px; color: #555; margin: 4px 0; }
+
+/* palco: 1920x1080 em escala */
+.palco { position: absolute; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; background: #000; }
+#palcoEditor { position: absolute; inset: 0; }
+#palcoEditor .palco { box-shadow: 0 0 0 1px #000, 0 4px 18px rgba(0,0,0,.5); }
+#palcoEditor .camada-sel { background: transparent; box-shadow: none; overflow: visible; pointer-events: none; }
+.el { position: absolute; }
+.el .img { position: absolute; inset: 0; background-repeat: no-repeat; background-position: center; }
+.el .txt { white-space: pre-wrap; overflow-wrap: break-word; outline: none; }
+.el .forma { position: absolute; inset: 0; }
+#palcoEditor .el { cursor: move; }
+#palcoEditor .el .txt[contenteditable=true] { cursor: text; }
+.el .txt:empty::before { content: "Digite o texto"; opacity: .5; }
+
+/* seleção, alças e guias (no editor) */
+.selecao { position: absolute; pointer-events: none; border: 2px solid var(--selecao); }
+.alca { position: absolute; width: 16px; height: 16px; background: #fff; border: 2px solid var(--selecao); border-radius: 3px; pointer-events: auto; }
+.alca.rot { border-radius: 50%; }
+.alca.rot::after { content: ""; position: absolute; left: 50%; top: 100%; height: var(--haste, 24px); border-left: 2px solid var(--selecao); }
+.guia { position: absolute; background: var(--guia); pointer-events: none; }
+
+/* projeção: ocupa a tela toda, com barras pretas se a proporção for diferente */
+#projecao { position: fixed; inset: 0; background: #000; overflow: hidden; }
+
+/* janela (abrir, textos salvos, nome) */
+#janela { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; z-index: 10; }
+#janela .caixa { background: var(--painel); border-radius: 8px; width: min(760px, 94vw); max-height: 88vh; display: flex; flex-direction: column; box-shadow: 0 8px 30px rgba(0,0,0,.4); }
+#janela header { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; font-weight: 600; background: var(--barra); color: #fff; border-radius: 8px 8px 0 0; }
+#janela header button { padding: 1px 7px; }
+#janelaConteudo { padding: 10px 12px; overflow-y: auto; }
+#janelaConteudo h4 { margin: 6px 0; }
+.galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-bottom: 10px; }
+.cartao { border: 1px solid var(--borda); border-radius: 6px; background: #fff; overflow: hidden; cursor: pointer; }
+.cartao:hover { outline: 2px solid var(--selecao); }
+.cartao .mini { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #000; }
+.cartao .rotulo { display: flex; justify-content: space-between; align-items: center; gap: 4px; padding: 4px 6px; font-size: 12px; }
+.cartao .rotulo span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cartao .rotulo button { padding: 0 5px; font-size: 11px; }
+.lista-textos { display: flex; flex-direction: column; gap: 4px; }
+.lista-textos button { text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.form-nome { display: flex; gap: 6px; }
+.form-nome input { flex: 1; font: inherit; padding: 4px 6px; }
