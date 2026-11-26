@@ -110,6 +110,42 @@ Namespace My
                 Me("LocalSistema") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Foco alternado")>  _
+        Public Property BibliaModoImagem() As String
+            Get
+                Return CType(Me("BibliaModoImagem"),String)
+            End Get
+            Set
+                Me("BibliaModoImagem") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Centro")>  _
+        Public Property BibliaPosicaoTexto() As String
+            Get
+                Return CType(Me("BibliaPosicaoTexto"),String)
+            End Get
+            Set
+                Me("BibliaPosicaoTexto") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("8")>  _
+        Public Property BibliaTempoFoco() As Integer
+            Get
+                Return CType(Me("BibliaTempoFoco"),Integer)
+            End Get
+            Set
+                Me("BibliaTempoFoco") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

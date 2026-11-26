@@ -57,6 +57,19 @@ Partial Class FormBiblia
         Me.TabRef = New System.Windows.Forms.TabPage()
         Me.lstReferencias = New System.Windows.Forms.ListBox()
         Me.lblCreditoRef = New System.Windows.Forms.Label()
+        Me.TabImagem = New System.Windows.Forms.TabPage()
+        Me.lblModoImagem = New System.Windows.Forms.Label()
+        Me.cboModoImagem = New System.Windows.Forms.ComboBox()
+        Me.lblPosicaoTexto = New System.Windows.Forms.Label()
+        Me.cboPosicaoTexto = New System.Windows.Forms.ComboBox()
+        Me.lblTempoFoco = New System.Windows.Forms.Label()
+        Me.nudTempoFoco = New System.Windows.Forms.NumericUpDown()
+        Me.btnPastaImagens = New System.Windows.Forms.Button()
+        Me.btnRecarregarImagens = New System.Windows.Forms.Button()
+        Me.btnBaixarDore = New System.Windows.Forms.Button()
+        Me.lblImagemStatus = New System.Windows.Forms.Label()
+        Me.picImagemBiblia = New System.Windows.Forms.PictureBox()
+        Me.lblImagemOrigem = New System.Windows.Forms.Label()
         Me.btnVoltarOrigem = New System.Windows.Forms.Button()
         Me.TabHistorico = New System.Windows.Forms.TabPage()
         Me.lstHistorico = New System.Windows.Forms.ListBox()
@@ -76,10 +89,13 @@ Partial Class FormBiblia
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.trkZoom, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nudTempoFoco, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picImagemBiblia, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.tabPesquisa.SuspendLayout()
         Me.TabLocalizar.SuspendLayout()
         Me.TabRef.SuspendLayout()
+        Me.TabImagem.SuspendLayout()
         Me.TabHistorico.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.tlpLocalizar.SuspendLayout()
@@ -433,6 +449,7 @@ Partial Class FormBiblia
         Me.tabPesquisa.Controls.Add(Me.TabLocalizar)
         Me.tabPesquisa.Controls.Add(Me.TabRef)
         Me.tabPesquisa.Controls.Add(Me.TabHistorico)
+        Me.tabPesquisa.Controls.Add(Me.TabImagem)
         Me.tabPesquisa.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tabPesquisa.Location = New System.Drawing.Point(434, 216)
         Me.tabPesquisa.Name = "tabPesquisa"
@@ -558,6 +575,149 @@ Partial Class FormBiblia
         Me.btnVoltarOrigem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnVoltarOrigem.UseVisualStyleBackColor = False
         Me.btnVoltarOrigem.Visible = False
+        '
+        'TabImagem
+        '
+        Me.TabImagem.BackColor = System.Drawing.Color.FromArgb(CType(CType(187, Byte), Integer), CType(CType(187, Byte), Integer), CType(CType(202, Byte), Integer))
+        Me.TabImagem.Controls.Add(Me.lblModoImagem)
+        Me.TabImagem.Controls.Add(Me.cboModoImagem)
+        Me.TabImagem.Controls.Add(Me.lblPosicaoTexto)
+        Me.TabImagem.Controls.Add(Me.cboPosicaoTexto)
+        Me.TabImagem.Controls.Add(Me.lblTempoFoco)
+        Me.TabImagem.Controls.Add(Me.nudTempoFoco)
+        Me.TabImagem.Controls.Add(Me.btnPastaImagens)
+        Me.TabImagem.Controls.Add(Me.btnRecarregarImagens)
+        Me.TabImagem.Controls.Add(Me.btnBaixarDore)
+        Me.TabImagem.Controls.Add(Me.lblImagemStatus)
+        Me.TabImagem.Controls.Add(Me.picImagemBiblia)
+        Me.TabImagem.Controls.Add(Me.lblImagemOrigem)
+        Me.TabImagem.Location = New System.Drawing.Point(4, 22)
+        Me.TabImagem.Name = "TabImagem"
+        Me.TabImagem.Size = New System.Drawing.Size(422, 198)
+        Me.TabImagem.TabIndex = 3
+        Me.TabImagem.Text = "Imagem"
+        '
+        'lblModoImagem
+        '
+        Me.lblModoImagem.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblModoImagem.Text = "Modo:"
+        Me.lblModoImagem.Location = New System.Drawing.Point(6, 9)
+        Me.lblModoImagem.Name = "lblModoImagem"
+        Me.lblModoImagem.Size = New System.Drawing.Size(70, 16)
+        Me.lblModoImagem.TabIndex = 0
+        '
+        'cboModoImagem
+        '
+        Me.cboModoImagem.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboModoImagem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboModoImagem.Location = New System.Drawing.Point(78, 6)
+        Me.cboModoImagem.Name = "cboModoImagem"
+        Me.cboModoImagem.Size = New System.Drawing.Size(140, 21)
+        Me.cboModoImagem.TabIndex = 1
+        '
+        'lblPosicaoTexto
+        '
+        Me.lblPosicaoTexto.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPosicaoTexto.Text = "Texto:"
+        Me.lblPosicaoTexto.Location = New System.Drawing.Point(6, 37)
+        Me.lblPosicaoTexto.Name = "lblPosicaoTexto"
+        Me.lblPosicaoTexto.Size = New System.Drawing.Size(70, 16)
+        Me.lblPosicaoTexto.TabIndex = 2
+        '
+        'cboPosicaoTexto
+        '
+        Me.cboPosicaoTexto.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboPosicaoTexto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboPosicaoTexto.Location = New System.Drawing.Point(78, 34)
+        Me.cboPosicaoTexto.Name = "cboPosicaoTexto"
+        Me.cboPosicaoTexto.Size = New System.Drawing.Size(140, 21)
+        Me.cboPosicaoTexto.TabIndex = 3
+        '
+        'lblTempoFoco
+        '
+        Me.lblTempoFoco.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTempoFoco.Text = "Foco após (seg.):"
+        Me.lblTempoFoco.Location = New System.Drawing.Point(6, 65)
+        Me.lblTempoFoco.Name = "lblTempoFoco"
+        Me.lblTempoFoco.Size = New System.Drawing.Size(92, 16)
+        Me.lblTempoFoco.TabIndex = 4
+        '
+        'nudTempoFoco
+        '
+        Me.nudTempoFoco.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.nudTempoFoco.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nudTempoFoco.Maximum = New Decimal(New Integer() {120, 0, 0, 0})
+        Me.nudTempoFoco.Value = New Decimal(New Integer() {8, 0, 0, 0})
+        Me.nudTempoFoco.Location = New System.Drawing.Point(100, 62)
+        Me.nudTempoFoco.Name = "nudTempoFoco"
+        Me.nudTempoFoco.Size = New System.Drawing.Size(50, 20)
+        Me.nudTempoFoco.TabIndex = 5
+        '
+        'btnPastaImagens
+        '
+        Me.btnPastaImagens.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnPastaImagens.Text = "Abrir pasta"
+        Me.btnPastaImagens.BackColor = System.Drawing.Color.Lavender
+        Me.btnPastaImagens.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnPastaImagens.UseVisualStyleBackColor = False
+        Me.btnPastaImagens.Location = New System.Drawing.Point(6, 92)
+        Me.btnPastaImagens.Name = "btnPastaImagens"
+        Me.btnPastaImagens.Size = New System.Drawing.Size(104, 26)
+        Me.btnPastaImagens.TabIndex = 6
+        '
+        'btnRecarregarImagens
+        '
+        Me.btnRecarregarImagens.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnRecarregarImagens.Text = "Recarregar"
+        Me.btnRecarregarImagens.BackColor = System.Drawing.Color.Lavender
+        Me.btnRecarregarImagens.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRecarregarImagens.UseVisualStyleBackColor = False
+        Me.btnRecarregarImagens.Location = New System.Drawing.Point(114, 92)
+        Me.btnRecarregarImagens.Name = "btnRecarregarImagens"
+        Me.btnRecarregarImagens.Size = New System.Drawing.Size(104, 26)
+        Me.btnRecarregarImagens.TabIndex = 7
+        '
+        'btnBaixarDore
+        '
+        Me.btnBaixarDore.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnBaixarDore.Text = "Baixar gravuras de Doré"
+        Me.btnBaixarDore.BackColor = System.Drawing.Color.Lavender
+        Me.btnBaixarDore.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnBaixarDore.UseVisualStyleBackColor = False
+        Me.btnBaixarDore.Location = New System.Drawing.Point(6, 122)
+        Me.btnBaixarDore.Name = "btnBaixarDore"
+        Me.btnBaixarDore.Size = New System.Drawing.Size(212, 26)
+        Me.btnBaixarDore.TabIndex = 8
+        '
+        'lblImagemStatus
+        '
+        Me.lblImagemStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.5!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImagemStatus.Text = "Imagens em IMAGENS\Biblia\<Livro>\ (ex.: 23.jpg, 3_16.jpg, 3_1-8.jpg)"
+        Me.lblImagemStatus.Location = New System.Drawing.Point(6, 152)
+        Me.lblImagemStatus.Name = "lblImagemStatus"
+        Me.lblImagemStatus.Size = New System.Drawing.Size(212, 42)
+        Me.lblImagemStatus.TabIndex = 9
+        '
+        'picImagemBiblia
+        '
+        Me.picImagemBiblia.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.picImagemBiblia.BackColor = System.Drawing.Color.Black
+        Me.picImagemBiblia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picImagemBiblia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picImagemBiblia.TabStop = False
+        Me.picImagemBiblia.Location = New System.Drawing.Point(224, 6)
+        Me.picImagemBiblia.Name = "picImagemBiblia"
+        Me.picImagemBiblia.Size = New System.Drawing.Size(194, 120)
+        Me.picImagemBiblia.TabIndex = 10
+        '
+        'lblImagemOrigem
+        '
+        Me.lblImagemOrigem.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.5!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImagemOrigem.Text = "Nenhuma imagem para este versículo."
+        Me.lblImagemOrigem.Location = New System.Drawing.Point(224, 128)
+        Me.lblImagemOrigem.Name = "lblImagemOrigem"
+        Me.lblImagemOrigem.Size = New System.Drawing.Size(194, 66)
+        Me.lblImagemOrigem.TabIndex = 11
         '
         'TabHistorico
         '
@@ -833,12 +993,15 @@ Partial Class FormBiblia
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         CType(Me.trkZoom, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudTempoFoco, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picImagemBiblia, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.tabPesquisa.ResumeLayout(False)
         Me.TabLocalizar.ResumeLayout(False)
         Me.TabLocalizar.PerformLayout()
         Me.TabRef.ResumeLayout(False)
+        Me.TabImagem.ResumeLayout(False)
         Me.TabHistorico.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
@@ -896,5 +1059,18 @@ Partial Class FormBiblia
     Friend WithEvents TabRef As TabPage
     Friend WithEvents lstReferencias As ListBox
     Friend WithEvents lblCreditoRef As Label
+    Friend WithEvents TabImagem As TabPage
+    Friend WithEvents lblModoImagem As Label
+    Friend WithEvents cboModoImagem As ComboBox
+    Friend WithEvents lblPosicaoTexto As Label
+    Friend WithEvents cboPosicaoTexto As ComboBox
+    Friend WithEvents lblTempoFoco As Label
+    Friend WithEvents nudTempoFoco As NumericUpDown
+    Friend WithEvents btnPastaImagens As Button
+    Friend WithEvents btnRecarregarImagens As Button
+    Friend WithEvents btnBaixarDore As Button
+    Friend WithEvents lblImagemStatus As Label
+    Friend WithEvents picImagemBiblia As PictureBox
+    Friend WithEvents lblImagemOrigem As Label
     Friend WithEvents btnVoltarOrigem As Button
 End Class

@@ -1,0 +1,224 @@
+# Gravuras de Gustave Doré para a Bíblia (La Grande Bible de Tours, 1866) - domínio público.
+# Imagens: Wikimedia Commons. Passagens: catálogo de dpshde/dore (a partir da lista de Felix Just, S.J.).
+# Formato: Livro;Cap;Ver[;VerFim]<TAB>Título<TAB>Arquivo no Wikimedia Commons
+Genesis;1;3;5	A criação da luz	001.The Creation of Light.jpg
+Genesis;2;21;22	A criação de Eva	002.The Creation of Eve.jpg
+Genesis;3;23;24	Adão e Eva são expulsos do Éden	003.Adam and Eve Are Driven out of Eden.jpg
+Genesis;4;3;5	Caim e Abel oferecem seus sacrifícios	004.Cain and Abel Offer Their Sacrifices.jpg
+Genesis;4;8	Caim mata Abel	005.Cain Slays Abel.jpg
+Genesis;7;21;23	O mundo é destruído pelas águas	006.The World Is Destroyed by Water.jpg
+Genesis;7;17;20	O dilúvio	007.The Great Flood.jpg
+Genesis;8;8;12	Uma pomba é enviada da arca	008.A Dove Is Sent Forth from the Ark.jpg
+Genesis;9;20;25	Noé amaldiçoa Cam e Canaã	009.Noah Curses Ham and Canaan.jpg
+Genesis;11;1;9	A torre de Babel	010.The Tower of Babel.jpg
+Genesis;12;1;5	Abraão vai para a terra de Canaã	011.Abraham Goes to the Land of Canaan.jpg
+Genesis;18;1;8	Abraão e os três anjos	012.Abraham and the Three Angels.jpg
+Genesis;19;24;26	Ló foge enquanto Sodoma e Gomorra queimam	013.Lot Flees as Sodom and Gomorrah Burn.jpg
+Genesis;21;9;14	Abraão despede Agar e Ismael	014.Abraham Sends Hagar and Ishmael Away.jpg
+Genesis;21;14;19	Agar e Ismael no deserto	015.Hagar and Ishmael in the Wilderness.jpg
+Genesis;22;9;13	A prova da fé de Abraão	016.The Testing of Abraham's Faith.jpg
+Genesis;23;19	O sepultamento de Sara	017.The Burial of Sarah.jpg
+Genesis;24;15;20	Eliézer e Rebeca junto ao poço	018.Eliezer and Rebekah at the Well.jpg
+Genesis;24;63;67	O encontro de Isaque e Rebeca	019.The Meeting of Isaac and Rebekah.jpg
+Genesis;27;27;29	Isaque abençoa Jacó	020.Isaac Blesses Jacob.jpg
+Genesis;28;12;15	O sonho de Jacó	021.Jacob's Dream.jpg
+Genesis;29;9;12	Jacó cuida dos rebanhos de Labão e encontra Raquel	022.Jacob Tends Laban's Flocks and Meets Rachel.jpg
+Genesis;32;9;12	Jacó ora pedindo proteção	023.Jacob Prays for Protection.jpg
+Genesis;32;24;30	Jacó luta com o anjo	024.Jacob Wrestles with the Angel.jpg
+Genesis;33;1;4	O encontro de Jacó e Esaú	025.Jacob and Esau Meet.jpg
+Genesis;37;23;28	José é vendido por seus irmãos	026.Joseph Is Sold by His Brothers.jpg
+Genesis;41;14;32	José interpreta o sonho de Faraó	027.Joseph Interprets Pharaoh's Dream.jpg
+Genesis;45;1;5	José se revela a seus irmãos	028.Joseph Reveals Himself to His Brothers.jpg
+Genesis;46;1;7	Jacó vai para o Egito	029.Jacob Goes to Egypt.jpg
+Exodo;2;3	O menino Moisés no Nilo	030.The Child Moses on the Nile.jpg
+Exodo;2;5;6	Moisés é encontrado	031.The Finding of Moses.jpg
+Exodo;7;10;13	Moisés e Arão diante de Faraó	032.Moses and Aaron Appear before Pharaoh.jpg
+Exodo;9;1;7	A quinta praga: a peste nos animais	033.The Fifth Plague. Livestock Disease.jpg
+Exodo;10;21;23	A nona praga: as trevas	034.The Ninth Plague. Darkness.jpg
+Exodo;12;29;30	Os primogênitos do Egito são mortos	035.The Firstborn of the Egyptians Are Slain.jpg
+Exodo;12;31;33	Os egípcios pedem a Moisés que parta	036.The Egyptians Ask Moses to Depart.jpg
+Exodo;14;26;28	Os egípcios se afogam no mar	037.The Egyptians Drown in the Sea.jpg
+Exodo;19;16;20	A entrega da Lei no monte Sinai	038.The Giving of the Law on Mount Sinai.jpg
+Exodo;32;15;16	Moisés desce do monte Sinai	039.Moses Comes Down from Mount Sinai.jpg
+Exodo;32;19	Moisés quebra as tábuas da Lei	041A.Moses Breaks the Tables of the Law.jpg
+Numeros;16;31;35	A morte de Corá, Datã e Abirão	040.The Death of Korah, Dathan, and Abiram.jpg
+Exodo;17;6	Moisés fere a rocha em Horebe	041.Moses Strikes the Rock at Horeb.jpg
+Numeros;13;25;33	Os espias voltam da terra prometida	041B.The Spies Return from the Promised Land.jpg
+Numeros;21;8;9	A serpente de bronze	042.The Bronze Serpent.jpg
+Numeros;22;21;31	Um anjo aparece a Balaão	043.An Angel Appears to Balaam.jpg
+Josue;3;14;17	Os israelitas atravessam o rio Jordão	044. The Israelites Cross the Jordan River.jpg
+Juizes;2;1;4	Um anjo aparece aos israelitas	045. An Angel Appears to the Israelites.jpg
+Josue;6;20	Os muros de Jericó caem	046.The Walls of Jericho Fall Down.jpg
+Josue;6;22;25	Josué poupa Raabe	047.Joshua Spares Rahab.jpg
+Josue;7;24;26	Acã é apedrejado	048.Achan Is Stoned to Death.jpg
+Josue;8;18;29	Josué incendeia a cidade de Ai	049.Joshua Burns the Town of Ai.jpg
+Josue;10;10;11	O exército dos amorreus é destruído	050.The Army of the Amorites Is Destroyed.jpg
+Josue;10;12;13	Josué ordena que o sol pare	051.Joshua Commands the Sun to Stand Still.jpg
+Juizes;4;21	Jael mata Sísera	052.Jael Kills Sisera.jpg
+Juizes;5;24;27	Débora louva Jael	053.Deborah Praises Jael.jpg
+Juizes;7;4;7	Gideão escolhe 300 soldados	054.Gideon Chooses 300 Soldiers.jpg
+Juizes;7;19;22	Os midianitas são derrotados	055.The Midianites Are Routed.jpg
+Juizes;9;5	A morte dos filhos de Gideão	056.The Death of Gideon's Sons.jpg
+Juizes;9;52;54	A morte de Abimeleque	057.The Death of Abimelech.jpg
+Juizes;11;34;35	A filha de Jefté vem ao encontro do pai	058.Jephthah's Daughter Comes to Meet Her Father.jpg
+Juizes;11;37;40	As mulheres de Israel choram com a filha de Jefté	059.Israelite Women Mourn with Jephthah's Daughter.jpg
+Juizes;14;5;6	Sansão mata um leão	060.Samson Slays a Lion.jpg
+Juizes;15;15;16	Sansão destrói os filisteus com uma queixada de jumento	061.Samson Destroys the Philistines with an Ass' Jawbone.jpg
+Juizes;16;3	Sansão leva as portas de Gaza	062.Samson Carries away the Gates of Gaza.jpg
+Juizes;16;19	Sansão e Dalila	063.Samson and Delilah.jpg
+Juizes;16;29;30	A morte de Sansão	064.The Death of Samson.jpg
+Juizes;19;27;28	Um levita encontra o corpo de uma mulher	065.A Levite Finds a Woman's Corpse.jpg
+Juizes;19;29	O levita leva o corpo da mulher	066.The Levite Carries the Woman's Body Away.jpg
+Juizes;21;20;23	Os benjamitas tomam as virgens de Jabes-Gileade	067.The Benjaminites Take the Virgins of Jabesh-gilead.jpg
+Rute;1;14;17	Noemi e suas noras	068.Naomi and Her Daughters-in-Law.jpg
+Rute;2;8;16	Rute e Boaz	069.Ruth and Boaz.jpg
+1Samuel;6;13;15	A arca é devolvida a Bete-Semes	070.The Ark Is Returned to Beth-shemesh.jpg
+1Samuel;10;1	Samuel abençoa Saul	070A.Samuel Blesses Saul.jpg
+1Samuel;15;32;33	A morte de Agague	071.The Death of Agag.jpg
+1Samuel;17;48;51	Davi mata Golias	071A.David Slays Goliath.jpg
+1Samuel;18;10;11	Saul tenta matar Davi	072.Saul Attempts to Kill David.jpg
+1Samuel;19;11;12	Davi foge pela janela	073.David Escapes through a Window.jpg
+1Samuel;20;41;42	Davi e Jônatas	073A.David and Jonathan.jpg
+1Samuel;24;8;11	Davi mostra a Saul que poupou sua vida	074.David Shows Saul How He Spared His Life.jpg
+1Samuel;28;7;14	Saul e a feiticeira de En-Dor	075.Saul and the Witch of Endor.jpg
+1Samuel;31;3;6	A morte de Saul	076.The Death of Saul.jpg
+1Samuel;31;11;13	Os homens de Jabes-Gileade resgatam os corpos de Saul e seus filhos	077.Jabesh-Gileadites Recover the Bodies of Saul and His Sons.jpg
+2Samuel;2;12;17	Combate entre os soldados de Is-Bosete e de Davi	078.Combat between Soldiers of Ish-bosheth and David.jpg
+2Samuel;12;26;31	Davi ataca os amonitas	079.David Attacks the Ammonites.jpg
+2Samuel;18;9;15	A morte de Absalão	080.The Death of Absalom.jpg
+2Samuel;18;33	Davi chora a morte de Absalão	081.David Mourns the Death of Absalom.jpg
+2Samuel;21;10	O cuidado de Rispa com os mortos	082.Rizpah’s Kindness toward the Dead.jpg
+2Samuel;21;15;17	Abisai salva a vida de Davi	083.Abishai Saves David's Life.jpg
+1Reis;3;16;28	O julgamento de Salomão	084.The Judgment of Solomon.jpg
+1Reis;5;6;10	Cedros são cortados para o templo de Jerusalém	085.Cedars Are Cut Down for the Jerusalem Temple.jpg
+1Reis;10;1;7	Salomão recebe a rainha de Sabá	086.Solomon Receives the Queen of Sheba.jpg
+1Reis;11;4	O rei Salomão na velhice	087.King Solomon in Old Age.jpg
+1Reis;13;23;25	O profeta desobediente é morto por um leão	088.The Disobedient Prophet Is Slain by a Lion.jpg
+1Reis;17;17;24	Elias ressuscita o filho da viúva de Sarepta	089.Elijah Raises the Son of the Widow of Zarephath.jpg
+1Reis;18;40	Os profetas de Baal são mortos	090.The Prophets of Baal Are Slaughtered.jpg
+1Reis;19;5;8	Elias é alimentado por um anjo	091.Elijah Is Nourished by an Angel.jpg
+1Reis;20;29;30	Os israelitas derrotam os sírios	092.The Israelites Slaughter the Syrians.jpg
+1Reis;22;34;38	A morte de Acabe	093.The Death of Ahab.jpg
+2Reis;1;9;12	Elias destrói os mensageiros de Acazias	094.Elijah Destroys the Messengers of Ahaziah.jpg
+2Reis;2;11	Elias sobe ao céu num carro de fogo	095.Elijah Ascends to Heaven in a Chariot of Fire.jpg
+2Reis;2;23;24	Os jovens são atacados pelas ursas	095.Some Children Are Destroyed by Bears.jpg
+2Reis;6;24;29	A fome em Samaria	096.A Famine in Samaria.jpg
+2Reis;9;30;33	A morte de Jezabel	097.The Death of Jezebel.jpg
+2Reis;9;34;37	Os companheiros de Jeú encontram os restos de Jezabel	098.Jehu's Companions Find Jezebel's Remains.jpg
+2Reis;17;24;26	Os estrangeiros são mortos por leões em Samaria	100.Foreign Nations Are Slain by Lions in Samaria.jpg
+2Reis;19;35	O exército de Senaqueribe é destruído	101.Sennacherib's Army Is Destroyed.jpg
+2Reis;25;6;7	Os filhos de Zedequias são mortos diante de seus olhos	102.Zedekiah's Sons Are Slaughtered before His Eyes.jpg
+2Cronicas;23;14;15	A morte de Atalia	099.The Death of Athaliah.jpg
+1Cronicas;21;14;16	A praga em Jerusalém	102A.The Plague of Jerusalem.jpg
+2Cronicas;20;22;24	Os exércitos amonita e moabita são destruídos	103.The Ammonite and Moabite Armies Are Destroyed.jpg
+Esdras;1;7;11	Ciro devolve os utensílios do templo	104.Cyrus Restores the Vessels of the Temple.jpg
+Esdras;3;8;13	Começa a reconstrução do templo	105.The Rebuilding of the Temple Is Begun.jpg
+Esdras;7;11;26	Artaxerxes concede liberdade aos judeus	106.Artaxerxes Grants Freedom to the Jews.jpg
+Esdras;9;5;6	Esdras ajoelhado em oração	107.Ezra Kneels in Prayer.jpg
+Neemias;2;12;15	Neemias contempla as ruínas dos muros de Jerusalém	108.Nehemiah Views the Ruins of Jerusalem's Walls.jpg
+Neemias;8;1;8	Esdras lê a Lei para o povo	109.Ezra Reads the Law to the People.jpg
+Ester;1;10;12	A rainha Vasti se recusa a obedecer Assuero	114.Queen Vashti Refuses to Obey Ahasuerus' Command.jpg
+Ester;5;1;3	Ester diante do rei	115.Esther Before the King.jpg
+Ester;6;11	O triunfo de Mardoqueu	116.The Triumph of Mordecai.jpg
+Ester;7;5;6	Ester acusa Hamã	117.Esther Accuses Haman.jpg
+Jo;1;13;19	Jó recebe a notícia de suas desgraças	118.Job Hears of His Misfortunes.jpg
+Jo;2;11;13	Jó fala com seus amigos	119.Job Speaks with His Friends.jpg
+Isaias;6;1;8	O profeta Isaías	120.The Prophet Isaiah.jpg
+Isaias;13;19;22	A visão de Isaías sobre a destruição da Babilônia	121.Isaiah's Vision of the Destruction of Babylon.jpg
+Isaias;27;1	A destruição do leviatã	122.The Destruction of Leviathan.jpg
+Jeremias;1;4;10	O profeta Jeremias	123.The Prophet Jeremiah.jpg
+Jeremias;36;4;8	Baruque escreve as profecias de Jeremias	123.Baruch Writes Jeremiah's Prophecies.jpg
+Jeremias;39;8	O povo chora a destruição de Jerusalém	124.People Mourn over the Destruction of Jerusalem.jpg
+Ezequiel;1;1;4	O profeta Ezequiel	126.The Prophet Ezekiel.jpg
+Ezequiel;37;1;10	A visão de Ezequiel do vale de ossos secos	127.Ezekiel’s Vision of the Valley of Dry Bones.jpg
+Daniel;1;3;6	Daniel entre os exilados	128.Daniel among the Exiles.jpg
+Daniel;3;19;26	Sadraque, Mesaque e Abede-Nego na fornalha	129.Shadrach, Meshach and Abednego in the Furnace.jpg
+Daniel;5;5;6	Daniel interpreta a escrita na parede	130.Daniel Interprets the Writing on the Wall.jpg
+Daniel;6;16;23	Daniel na cova dos leões	131.Daniel in the Lions' Den.jpg
+Daniel;7;2;7	A visão de Daniel dos quatro animais	132.Daniel's Vision of the Four Beasts.jpg
+Amos;1;1	O profeta Amós	136.The Prophet Amos.jpg
+Jonas;2;10	Jonas é lançado pelo grande peixe	137.Jonah Is Spewed Forth by the Whale.jpg
+Jonas;3;4;5	Jonas prega aos ninivitas	138.Jonah Preaches to the Ninevites.jpg
+Miqueias;6;1;8	Miquéias exorta os israelitas ao arrependimento	139.Micah Exhorts the Israelites to Repent.jpg
+Zacarias;6;1;8	A visão de Zacarias dos quatro carros	140.Zechariah's Vision of Four Chariots.jpg
+Mateus;2;1;12	Os magos guiados pela estrela	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598295740).jpg
+Mateus;2;13;15	A fuga para o Egito	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14782647364).jpg
+Mateus;2;16;18	A matança dos inocentes	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14782646404).jpg
+Mateus;5;1;12	O Sermão do Monte	Dore Bible Sermon on the Mount.jpg
+Mateus;12;22	O mudo endemoninhado	JesusCuresamute.gif
+Mateus;13;54;58	Cristo na sinagoga	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14781863181).jpg
+Mateus;14;3;12	A filha de Herodias recebe a cabeça de João Batista	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598300480).jpg
+Mateus;14;15;21	Cristo alimenta a multidão	JesusFeedingMultitude.jpg
+Mateus;15;29;31	Jesus cura os enfermos	Jésus guérit les malades, par Gustave Doré.jpg
+Mateus;17;1;8	A transfiguração	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598318760).jpg
+Mateus;17;14;20	Jesus cura o menino lunático	DoreJesusHealingtheLunatic.jpg
+Mateus;21;1;11	A entrada de Jesus em Jerusalém	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598369549).jpg
+Mateus;22;15;22	Cristo e a moeda do tributo	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598521267).jpg
+Mateus;26;36;46	Jesus orando no jardim	DoreJesusPrayingintheGarden.jpg
+Mateus;27;26	Jesus é açoitado	Jesus is scourged.jpg
+Mateus;27;27;31	Cristo escarnecido	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14782682504).jpg
+Lucas;23;26;32	A chegada ao Calvário	DoreArrivalatCalvary.jpg
+Mateus;27;35	A cruz é levantada	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14804893263).jpg
+Mateus;27;57;60	A descida da cruz	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598401208).jpg
+Joao;19;40	O Cristo morto	DoreTheDeadchrist.jpg
+Mateus;27;59;60	O sepultamento de Cristo	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14784692362).jpg
+Mateus;28;1;8	A ressurreição	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14785046505).jpg
+Marcos;1;1;8	João Batista prega no deserto	DoreJohntheBaptistPreachingintheWilderness.jpg
+Marcos;1;9;11	O batismo de Jesus	Gustave Dore - John the Baptist baptizes Jesus.jpg
+Marcos;2;23;28	Os discípulos colhem espigas no sábado	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14785018525).jpg
+Marcos;4;35;41	Jesus acalma a tempestade	JesusCalmingtheTempestDore.jpg
+Marcos;10;13;16	Jesus abençoa as crianças	Jésus et les Enfants.jpg
+Marcos;12;41;44	A oferta da viúva	World missions and your dollar (electronic resource) (1920) (14579008568).jpg
+Marcos;14;22;25	A Santa Ceia	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598393068).jpg
+Marcos;14;43;47	O beijo de Judas	Gustave Doré - The Holy Bible - Plate CXLI, The Judas Kiss.jpg
+Marcos;15;21;22	Jesus cai sob a cruz	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14782683624).jpg
+Lucas;24;50;53	A ascensão	Gusta Dore - The Ascension.jpg
+Lucas;1;26;38	A anunciação	Gustave Dore - The Annunciation.jpg
+Lucas;2;7;16	O nascimento de Jesus	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598485757).jpg
+Lucas;2;41;50	Jesus entre os doutores	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14782648704).jpg
+Lucas;4;1;13	A tentação de Jesus	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14784654082).jpg
+Lucas;4;33;37	Jesus cura o endemoninhado	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598352919).jpg
+Lucas;5;1;3	Jesus prega junto ao mar da Galileia	DoreJesusSeaGalilee.jpg
+Lucas;7;36;50	A mulher pecadora arrependida	DoréMaryMagdaleneRepentant.jpg
+Lucas;8;51;56	Jesus ressuscita a filha de Jairo	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598506157).jpg
+Lucas;10;30;37	O bom samaritano	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598361689).jpg
+Lucas;10;34;35	O bom samaritano chega à hospedaria	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14782670064).jpg
+Lucas;10;38;42	Jesus na casa de Marta e Maria	Jesus talks with Mary and Martha in their house.jpg
+Lucas;12;22;31	Jesus prega à multidão	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598376288).jpg
+Lucas;15;18;20	A volta do filho pródigo	Gustave Dore - The prodigal son decides to return to his father.jpg
+Lucas;15;20;24	O filho pródigo nos braços do pai	Le retour de l'enfant prodigue, par Gustave Doré.jpg
+Lucas;16;19;21	Lázaro à porta do rico	Gustave Dore Lazarus and the Rich Man.jpg
+Lucas;18;9;14	O fariseu e o publicano	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14781884111).jpg
+Lucas;22;41;44	A agonia no jardim	Jesus suffers agony in the garden of Gethseman.jpg
+Lucas;23;33;34	A crucificação	Crucifixion-dore.jpg
+Lucas;23;44;46	As trevas na crucificação	Crucifixiondarkness.jpg
+Lucas;24;13;32	Jesus e os discípulos a caminho de Emaús	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598534357).jpg
+Joao;2;1;11	As bodas de Caná	Marriage at Cana engraving by Gustave Doré.jpg
+Joao;2;13;16	Os vendilhões expulsos do templo	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14785009535).jpg
+Joao;4;7;26	Jesus e a mulher samaritana	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598368358).jpg
+Joao;6;16;21	Jesus anda sobre o mar	Jesus of Nazareth- His life and teachings; founded on the four Gospels, and illustrated by reference to the manners, customs, religious beliefs, and political institutions of His times (1869) (14783321292).jpg
+Joao;8;3;11	Jesus e a mulher adúltera	Dore adultress.jpg
+Joao;11;38;44	A ressurreição de Lázaro	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598514637).jpg
+Joao;18;15;27	Pedro nega a Cristo	Peter denies that he is one of Jesus’ disciples.jpg
+Joao;19;2;3	A coroa de espinhos	TheCrownofThornsDore.jpg
+Joao;19;12;16	Cristo apresentado ao povo	Christ Presented to the PeopleDore.jpg
+Joao;19;17;18	Cristo é pregado na cruz	Gustave Dore - Jesus is nailed to the cross.jpg
+Joao;21;1;8	A pesca maravilhosa	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14804865203).jpg
+Atos;2;1;4	A descida do Espírito Santo	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598407958).jpg
+Atos;2;14;36	Os apóstolos pregam o evangelho	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14782665764).jpg
+Atos;3;1;8	Pedro e João na Porta Formosa	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14781904181).jpg
+Atos;5;1;6	A morte de Ananias	DoreDeathofAnanias.jpg
+Atos;7;54;60	O martírio de Estêvão	The Death of Stephen by Gustave Doré.jpg
+Atos;9;3;9	A conversão de Saulo	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14762059356).jpg
+Atos;10;24;28	Pedro na casa de Cornélio	StPeterattheHouseofCornelius.jpg
+Atos;12;6;11	Pedro é libertado da prisão	Peter'sEscapefromPrison.jpg
+Atos;19;18;20	Paulo em Éfeso	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598391989).jpg
+Atos;21;27;40	Paulo é salvo da multidão	Paul Addresses the Crowd After His Arrest by Gustave Doré.jpg
+Atos;27;41;44	O naufrágio de Paulo	The Bible panorama, or The Holy Scriptures in picture and story (1891) (14598394969).jpg
+Atos;17;1;9	Paulo prega aos tessalonicenses	DoreStPaulPreachingtotheThessalonians.jpg
+Apocalipse;1;9	João em Patmos	St.JohnatPatmosDore.jpg
+Apocalipse;6;8	A visão da morte	Gustave Dore - Death on the Pale Horse.png
+Apocalipse;12;1	A mulher coroada	Crownedvirgin.jpg
+Apocalipse;18;2	A queda da Babilônia	Dorebabylon-fallen.jpg
+Apocalipse;20;11;12	O juízo final	LastJudgementDoré.jpg
+Apocalipse;21;1;2	A nova Jerusalém	Dore nwe jeruzalem grt.jpg

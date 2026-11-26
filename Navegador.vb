@@ -42,7 +42,11 @@ Public Module Navegador
             Dim PastaWeb As String = Path.Combine(PastaDados, "web")
             Directory.CreateDirectory(PastaWeb)
             File.WriteAllText(Path.Combine(PastaWeb, "youtube.html"), HtmlYouTube, Text.Encoding.UTF8)
+            File.WriteAllText(Path.Combine(PastaWeb, "biblia.html"), HtmlBiblia, Text.Encoding.UTF8)
             Nav.CoreWebView2.SetVirtualHostNameToFolderMapping(HostLocal, PastaWeb, CoreWebView2HostResourceAccessKind.Allow)
+            'Biblioteca de imagens dos versículos (IMAGENS\Biblia)
+            Directory.CreateDirectory(PastaImagensBiblia())
+            Nav.CoreWebView2.SetVirtualHostNameToFolderMapping(HostImagens, PastaImagensBiblia(), CoreWebView2HostResourceAccessKind.Allow)
             Nav.CoreWebView2.Settings.AreDefaultContextMenusEnabled = False
             Nav.CoreWebView2.Settings.IsStatusBarEnabled = False
             AddHandler Nav.CoreWebView2.NewWindowRequested, Sub(s, e) e.Handled = True 'não abre janelas/pop-ups
