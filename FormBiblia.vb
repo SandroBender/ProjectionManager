@@ -4,6 +4,7 @@ Public Class FormBiblia
     Private Sub FormBiblia_Load(sender As Object, e As EventArgs) Handles Me.Load
         VerificarImportarReferencias() 'na 1ª vez: preenche as referências cruzadas nas Bíblias
         lblCreditoRef.Text = CreditoReferencias
+        CarregarOpcoesImagem()
         ConectarDados()
         CarregarZoom()
         DesconectarDados()
@@ -333,6 +334,88 @@ Public Class FormBiblia
         btnSubstituir.Visible = True
     End Sub
 
+    '---- Aba "Imagem": imagem ilustrativa do versículo na projeção ----
+    Private OpcoesProntas As Boolean 'False enquanto a tela é criada/carregada (os eventos não podem gravar nada)
+
+    Private Sub CarregarOpcoesImagem()
+        cboModoImagem.Items.AddRange({"Sem imagem", "Foco alternado", "Fundo esmaecido"})
+        cboPosicaoTexto.Items.AddRange({"Topo", "Centro", "Embaixo"})
+        cboModoImagem.SelectedItem = My.Settings.BibliaModoImagem
+        If cboModoImagem.SelectedIndex < 0 Then cboModoImagem.SelectedIndex = 1
+        cboPosicaoTexto.SelectedItem = My.Settings.BibliaPosicaoTexto
+        If cboPosicaoTexto.SelectedIndex < 0 Then cboPosicaoTexto.SelectedIndex = 1
+        nudTempoFoco.Value = Math.Max(nudTempoFoco.Minimum, Math.Min(nudTempoFoco.Maximum, My.Settings.BibliaTempoFoco))
+        nudTempoTroca.Value = Math.Max(nudTempoTroca.Minimum, Math.Min(nudTempoTroca.Maximum, My.Settings.BibliaTempoTroca))
+        AtualizarEstadoOpcoes()
+        OpcoesProntas = True
+    End Sub
+
+    Private Sub AtualizarEstadoOpcoes()
+        nudTempoFoco.Enabled = cboModoImagem.Text = "Foco alternado"
+        lblTempoFoco.Enabled = nudTempoFoco.Enabled
+        nudTempoTroca.Enabled = cboModoImagem.Text <> "Sem imagem"
+        lblTempoTroca.Enabled = nudTempoTroca.Enabled
+    End Sub
+
+    'Salva a escolha e atualiza a projeção na hora
+    Private Sub OpcaoImagem_Changed(sender As Object, e As EventArgs) Handles cboModoImagem.SelectedIndexChanged, cboPosicaoTexto.SelectedIndexChanged, nudTempoFoco.ValueChanged, nudTempoTroca.ValueChanged
+        If Not OpcoesProntas Then Exit Sub
+        AtualizarEstadoOpcoes()
+        My.Settings.BibliaModoImagem = cboModoImagem.Text
+        My.Settings.BibliaPosicaoTexto = cboPosicaoTexto.Text
+        My.Settings.BibliaTempoFoco = CInt(nudTempoFoco.Value)
+        My.Settings.BibliaTempoTroca = CInt(nudTempoTroca.Value)
+        My.Settings.Save()
+        If Biblia Then AtualizaApresentacao()
+    End Sub
+
+    'Assunto mais próximo (o título de seção vale para os versículos seguintes)
+    Private Function AssuntoDoVersiculo(Cap As Integer, Ver As Integer) As String
+        Dim Assunto As String = ""
+        If RegLivro Is Nothing Then Return Assunto
+        For Each Linha As DataRow In RegLivro.Rows
+            Dim C As Integer = CInt(Linha.Item(1)), V As Integer = CInt(Linha.Item(2))
+            If C > Cap OrElse (C = Cap AndAlso V > Ver) Then Continue For
+            Dim A As Object = ColunaOpcional(Linha, 4)
+            If Not IsDBNull(A) AndAlso A.ToString().Trim() <> "" AndAlso (C < Cap OrElse V <= Ver) Then Assunto = A.ToString()
+        Next
+        Return Assunto
+    End Function
+
+    Private Sub EscolherImagem(Cap As Integer, Ver As Integer)
+        ImagemBibliaAtual = ImagemPara(Livro, Cap, Ver, AssuntoDoVersiculo(Cap, Ver))
+        MostrarPreviaImagem()
+    End Sub
+
+    Private Sub MostrarPreviaImagem()
+        Dim Antiga As Image = picImagemBiblia.Image
+        picImagemBiblia.Image = Nothing
+        If Antiga IsNot Nothing Then Antiga.Dispose()
+        If ImagemBibliaAtual Is Nothing Then
+            lblImagemOrigem.Text = "Nenhuma imagem para este versículo."
+            Exit Sub
+        End If
+        lblImagemOrigem.Text = ImagemBibliaAtual.Descricao
+        Try
+            picImagemBiblia.Image = CarregarImagem(ImagemBibliaAtual.Caminho)
+        Catch ex As Exception
+            lblImagemOrigem.Text = "Não foi possível abrir: " & IO.Path.GetFileName(ImagemBibliaAtual.Caminho)
+        End Try
+    End Sub
+
+    Private Sub btnPastaImagens_Click(sender As Object, e As EventArgs) Handles btnPastaImagens.Click
+        Dim Pasta As String = PastaImagensBiblia()
+        IO.Directory.CreateDirectory(Pasta)
+        Process.Start("explorer.exe", """" & Pasta & """")
+    End Sub
+
+    Private Sub btnRecarregarImagens_Click(sender As Object, e As EventArgs) Handles btnRecarregarImagens.Click
+        RecarregarBiblioteca()
+        If lstVersiculos.SelectedIndex > -1 Then EscolherImagem(CInt(lblCapitulo.Text), CInt(lblVersiculo.Text))
+        lblImagemStatus.Text = "Biblioteca recarregada."
+        If Biblia Then AtualizaApresentacao()
+    End Sub
+
     'Referências cruzadas do versículo exibido
     Private Sub MostrarReferencias()
         Dim Lista As List(Of ReferenciaBiblica) = ListarReferencias(ResultReferencia)
@@ -423,6 +506,7 @@ Public Class FormBiblia
             rtbPosteriores.Clear()
             ResultadoVer(Cap:=C + 1, Ver:=V + 1)
             MostrarReferencias()
+            EscolherImagem(C + 1, V + 1)
             TextoBiblia = vbTab & vbTab & ResultRef1 & " [" & VersaoBiblia & "]" & vbLf & vbLf & ResultVers
             If Aad = False Then
                 rtbVersiculo.Text = TextoBiblia

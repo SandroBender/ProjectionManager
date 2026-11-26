@@ -18,6 +18,23 @@ Public Class FormApresentar
         End Get
     End Property
 
+    'Navegador do slide da Bíblia (versículo com imagem): também ocupa a tela toda
+    Private _NavegadorBiblia As WebView2
+    Public ReadOnly Property NavegadorBiblia As WebView2
+        Get
+            If Not TemNavegadorBiblia Then
+                _NavegadorBiblia = New WebView2 With {.Dock = DockStyle.Fill, .Visible = False, .DefaultBackgroundColor = Color.FromArgb(17, 17, 17)}
+                Controls.Add(_NavegadorBiblia)
+            End If
+            Return _NavegadorBiblia
+        End Get
+    End Property
+    Public ReadOnly Property TemNavegadorBiblia As Boolean
+        Get
+            Return _NavegadorBiblia IsNot Nothing AndAlso Not _NavegadorBiblia.IsDisposed
+        End Get
+    End Property
+
     Private Sub FormApresentar_Load(sender As Object, e As EventArgs) Handles Me.Load
         TableLayoutPanel1.Parent = picFundo
         'lblTitulo.Parent = TableLayoutPanel1 'CRIAR transparencia dos textos

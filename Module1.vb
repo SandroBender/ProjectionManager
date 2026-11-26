@@ -300,7 +300,7 @@ Module Module1
     Private IndiceLivro As New Dictionary(Of Integer, DataRow) 'versículos do livro atual por (capítulo, versículo)
 
     'Assunto (4) e Referências (5) existem só em algumas versões (ex.: ACF tem, NVI não)
-    Private Function ColunaOpcional(Linha As DataRow, Indice As Integer) As Object
+    Public Function ColunaOpcional(Linha As DataRow, Indice As Integer) As Object
         If Indice < Linha.Table.Columns.Count Then Return Linha.Item(Indice)
         Return DBNull.Value
     End Function
@@ -584,11 +584,14 @@ Module Module1
                     FormPrincipal.rtbBiblia.BringToFront()
                     FormApresentar.rtbBiblia.Visible = True
                     FormApresentar.rtbBiblia.Text = FormPrincipal.rtbBiblia.Text
+                    'Slide com imagem/posição por cima do texto clássico (se o navegador não abrir, o clássico fica visível)
+                    MostrarSlideBiblia(If(Aad, "", ResultRef1 & " [" & VersaoBiblia & "]"), If(Aad, TextoBibliaCondensado, ResultVers), FormApresentar.rtbBiblia.Font.Size)
                 Else
                     FormPrincipal.rtbBiblia.Clear()
                     FormPrincipal.rtbBiblia.Visible = False
                     FormApresentar.rtbBiblia.Clear()
                     FormApresentar.rtbBiblia.Visible = False
+                    EsconderSlideBiblia()
                 End If
             End If
             If FormPrincipal.rbPausada.Checked = True Then 'PAUSADA
@@ -600,6 +603,7 @@ Module Module1
                 FormApresentar.wmpVideo.Visible = False
                 FormApresentar.wmpVideo.Tag = Nothing
                 EsconderPaginaProjecao()
+                EsconderSlideBiblia()
                 FormPrincipal.picSobreposicao.Visible = False
                 FormPrincipal.picAudio.Visible = False
                 FormApresentar.picFundo.Image = Nothing 'imagem fundo

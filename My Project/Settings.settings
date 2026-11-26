@@ -20,5 +20,17 @@
     <Setting Name="LocalSistema" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="BibliaModoImagem" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Foco alternado</Value>
+    </Setting>
+    <Setting Name="BibliaPosicaoTexto" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Centro</Value>
+    </Setting>
+    <Setting Name="BibliaTempoFoco" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="BibliaTempoTroca" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">6</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

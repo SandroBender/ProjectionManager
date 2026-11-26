@@ -136,8 +136,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IgualarBiblias.vb" />
+    <Compile Include="ImagensBiblia.vb" />
     <Compile Include="Links.vb" />
     <Compile Include="ReferenciasBiblicas.vb" />
+    <Compile Include="SlideBiblia.vb" />
     <Compile Include="Navegador.vb" />
     <Compile Include="FormInternet.Designer.vb">
       <DependentUpon>FormInternet.vb</DependentUpon>
