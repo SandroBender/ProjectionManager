@@ -56,6 +56,7 @@ Partial Class FormBiblia
         Me.rbNaBiblia = New System.Windows.Forms.RadioButton()
         Me.TabRef = New System.Windows.Forms.TabPage()
         Me.lstReferencias = New System.Windows.Forms.ListBox()
+        Me.lblCreditoRef = New System.Windows.Forms.Label()
         Me.TabHistorico = New System.Windows.Forms.TabPage()
         Me.lstHistorico = New System.Windows.Forms.ListBox()
         Me.btnLimpar = New System.Windows.Forms.Button()
@@ -506,6 +507,7 @@ Partial Class FormBiblia
         'TabRef
         '
         Me.TabRef.BackColor = System.Drawing.Color.FromArgb(CType(CType(187, Byte), Integer), CType(CType(187, Byte), Integer), CType(CType(202, Byte), Integer))
+        Me.TabRef.Controls.Add(Me.lblCreditoRef)
         Me.TabRef.Controls.Add(Me.lstReferencias)
         Me.TabRef.Location = New System.Drawing.Point(4, 22)
         Me.TabRef.Name = "TabRef"
@@ -524,8 +526,20 @@ Partial Class FormBiblia
         Me.lstReferencias.ItemHeight = 15
         Me.lstReferencias.Location = New System.Drawing.Point(3, 11)
         Me.lstReferencias.Name = "lstReferencias"
-        Me.lstReferencias.Size = New System.Drawing.Size(416, 184)
+        Me.lstReferencias.Size = New System.Drawing.Size(416, 167)
         Me.lstReferencias.TabIndex = 45
+        '
+        'lblCreditoRef
+        '
+        Me.lblCreditoRef.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblCreditoRef.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCreditoRef.Location = New System.Drawing.Point(3, 181)
+        Me.lblCreditoRef.Name = "lblCreditoRef"
+        Me.lblCreditoRef.Size = New System.Drawing.Size(416, 14)
+        Me.lblCreditoRef.TabIndex = 46
+        Me.lblCreditoRef.Text = "Referências cruzadas: OpenBible.info (CC BY)"
+        Me.lblCreditoRef.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'TabHistorico
         '
@@ -863,4 +877,5 @@ Partial Class FormBiblia
     Friend WithEvents btnAvancarAdicionando As Button
     Friend WithEvents TabRef As TabPage
     Friend WithEvents lstReferencias As ListBox
+    Friend WithEvents lblCreditoRef As Label
 End Class
