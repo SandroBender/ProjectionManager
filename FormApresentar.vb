@@ -18,6 +18,24 @@ Public Class FormApresentar
         End Get
     End Property
 
+    'Navegador da composição da tela Fundo: fica na camada da imagem de fundo (atrás dos outros itens)
+    Private _NavegadorComposicao As WebView2
+    Public ReadOnly Property NavegadorComposicao As WebView2
+        Get
+            If Not TemNavegadorComposicao Then
+                _NavegadorComposicao = New WebView2 With {.Dock = DockStyle.Fill, .Visible = False, .DefaultBackgroundColor = Color.Black}
+                Controls.Add(_NavegadorComposicao)
+                Controls.SetChildIndex(_NavegadorComposicao, Controls.GetChildIndex(picFundo))
+            End If
+            Return _NavegadorComposicao
+        End Get
+    End Property
+    Public ReadOnly Property TemNavegadorComposicao As Boolean
+        Get
+            Return _NavegadorComposicao IsNot Nothing AndAlso Not _NavegadorComposicao.IsDisposed
+        End Get
+    End Property
+
     'Navegador do slide da Bíblia (versículo com imagem): também ocupa a tela toda
     Private _NavegadorBiblia As WebView2
     Public ReadOnly Property NavegadorBiblia As WebView2

@@ -1,0 +1,9 @@
+/* Tela Fundo simplificada - usa as cores e o layout de composicao.css */
+#fundoTela { display: flex; flex-direction: column; height: 100%; }
+#previa { position: absolute; inset: 0; }
+#previa .palco { box-shadow: 0 0 0 1px #000, 0 4px 18px rgba(0,0,0,.5); }
+#previa .el { cursor: move; }
+#previa.solto { outline: 3px dashed var(--selecao); outline-offset: -6px; }
+#painel output { width: 36px; text-align: right; font-variant-numeric: tabular-nums; }
+#painel fieldset > button { width: 100%; }
+#arquivo { word-break: break-all; }

@@ -47,6 +47,10 @@ Public Module Navegador
             'Biblioteca de imagens dos versículos (IMAGENS\Biblia)
             Directory.CreateDirectory(PastaImagensBiblia())
             Nav.CoreWebView2.SetVirtualHostNameToFolderMapping(HostImagens, PastaImagensBiblia(), CoreWebView2HostResourceAccessKind.Allow)
+            'Editor de composições (pasta Web do programa) e as composições salvas
+            Nav.CoreWebView2.SetVirtualHostNameToFolderMapping(HostApp, PastaWebApp(), CoreWebView2HostResourceAccessKind.Allow)
+            Directory.CreateDirectory(PastaComposicoes())
+            Nav.CoreWebView2.SetVirtualHostNameToFolderMapping(HostComposicoes, PastaComposicoes(), CoreWebView2HostResourceAccessKind.Allow)
             Nav.CoreWebView2.Settings.AreDefaultContextMenusEnabled = False
             Nav.CoreWebView2.Settings.IsStatusBarEnabled = False
             AddHandler Nav.CoreWebView2.NewWindowRequested, Sub(s, e) e.Handled = True 'não abre janelas/pop-ups

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Fundo</title>
+<link rel="stylesheet" href="composicao.css">
+<link rel="stylesheet" href="fundo.css">
+</head>
+<body>
+<!-- Tela Fundo (ProjectionManager): uma imagem fixa, com margem, moldura e cor de fundo.
+     Cada mudança é aplicada na hora e o fundo atual é lembrado ao reabrir o programa. -->
+<div id="fundoTela">
+  <header id="barra">
+    <div class="grupo">
+      <button id="bEscolher" class="destaque" title="Escolher a imagem de fundo (ou arraste um arquivo para a prévia)">Escolher imagem…</button>
+      <button id="bRemover" title="Tirar a imagem (fica só a cor de fundo)">Remover imagem</button>
+    </div>
+    <div class="grupo direita">
+      <label class="op"><input type="radio" name="op" id="opDesligado" checked> Desligado</label>
+      <label class="op"><input type="radio" name="op" id="opLigado"> Ligado</label>
+    </div>
+  </header>
+  <main>
+    <section id="area"><div id="previa"></div></section>
+    <aside id="painel">
+      <fieldset>
+        <legend>Tamanho</legend>
+        <div class="linha"><span>Margem</span><input type="range" id="margem" min="0" max="30" step="1"><output id="margemValor"></output></div>
+        <div class="linha"><span>Ajuste</span>
+          <select id="ajuste">
+            <option value="conter">Mostrar inteira</option>
+            <option value="cobrir">Preencher (corta)</option>
+          </select>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Posição</legend>
+        <p class="dica">Arraste a imagem na prévia para deslocar.</p>
+        <button id="bCentralizar">Centralizar</button>
+      </fieldset>
+      <fieldset>
+        <legend>Moldura</legend>
+        <div class="linha"><span>Espessura</span><input type="range" id="borda" min="0" max="60" step="1"><output id="bordaValor"></output></div>
+        <div class="linha"><span>Cor</span><input type="color" id="bordaCor"></div>
+        <div class="linha"><span>Cantos</span><input type="range" id="raio" min="0" max="200" step="2"><output id="raioValor"></output></div>
+        <div class="linha"><span>Sombra</span><input type="checkbox" id="sombra"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Tela</legend>
+        <div class="linha"><span>Cor do fundo</span><input type="color" id="corFundo"></div>
+      </fieldset>
+      <p class="dica" id="arquivo"></p>
+    </aside>
+  </main>
+  <footer id="status">As mudanças aparecem na projeção na hora (com o Fundo ligado).</footer>
+</div>
+<script src="composicao.js"></script>
+<script src="fundo.js"></script>
+</body>
+</html>

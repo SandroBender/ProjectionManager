@@ -1,7 +1,27 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
 
+Imports Microsoft.Web.WebView2.WinForms
+
 Public Class FormPrincipal
+    'Prévia da composição da tela Fundo, no lugar da imagem de fundo da prévia
+    Private _NavegadorPrevia As WebView2
+    Public ReadOnly Property NavegadorPrevia As WebView2
+        Get
+            If Not TemNavegadorPrevia Then
+                _NavegadorPrevia = New WebView2 With {.Bounds = picFundo.Bounds, .Anchor = picFundo.Anchor, .Visible = False, .DefaultBackgroundColor = Color.Black}
+                picFundo.Parent.Controls.Add(_NavegadorPrevia)
+                picFundo.Parent.Controls.SetChildIndex(_NavegadorPrevia, picFundo.Parent.Controls.GetChildIndex(picFundo))
+            End If
+            Return _NavegadorPrevia
+        End Get
+    End Property
+    Public ReadOnly Property TemNavegadorPrevia As Boolean
+        Get
+            Return _NavegadorPrevia IsNot Nothing AndAlso Not _NavegadorPrevia.IsDisposed
+        End Get
+    End Property
+
     Private Sub FormPrincipal_Load(sender As Object, e As EventArgs) Handles Me.Load
         SistemaCarregado = DefinirLocalSistema()
         If Not SistemaCarregado Then
@@ -14,6 +34,7 @@ Public Class FormPrincipal
         ConexNVI = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaNVI))
         ConexACF = New OleDb.OleDbConnection(StringConexao(My.Settings.ArqBibliaACF))
         GravarLocalSistema()
+        CarregarFundoSalvo() 'fundo da tela Fundo, como estava ao fechar
         Dim I As Integer
         'Dim Monitor() As Screen = Screen.AllScreens
         'Dim TM As Integer = Screen.AllScreens.Count
