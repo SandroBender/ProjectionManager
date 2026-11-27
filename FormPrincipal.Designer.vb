@@ -27,21 +27,12 @@ Partial Class FormPrincipal
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ComboMonitor = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.lblStatusVideo = New System.Windows.Forms.Label()
-        Me.rtbBiblia = New System.Windows.Forms.RichTextBox()
-        Me.rtbHarpa = New System.Windows.Forms.RichTextBox()
-        Me.picAudio = New System.Windows.Forms.PictureBox()
-        Me.picSobreposicao = New System.Windows.Forms.PictureBox()
-        Me.lblTitulo = New System.Windows.Forms.Label()
-        Me.lblRodape = New System.Windows.Forms.Label()
-        Me.lblCorpo = New System.Windows.Forms.Label()
-        Me.lblSubtitulo = New System.Windows.Forms.Label()
-        Me.picFundo = New System.Windows.Forms.PictureBox()
         Me.picStatusFechada = New System.Windows.Forms.PictureBox()
         Me.picStatusAtivada = New System.Windows.Forms.PictureBox()
         Me.picStatusPausada = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.rbFechada = New System.Windows.Forms.RadioButton()
+        Me.webPrevia = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.rbNeutra = New System.Windows.Forms.RadioButton()
         Me.rbPausada = New System.Windows.Forms.RadioButton()
         Me.rbAtivada = New System.Windows.Forms.RadioButton()
@@ -68,15 +59,13 @@ Partial Class FormPrincipal
         Me.btnFundo = New System.Windows.Forms.Button()
         Me.PainelControle = New System.Windows.Forms.Panel()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.picAudio, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picSobreposicao, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picFundo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picStatusFechada, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picStatusAtivada, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picStatusPausada, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PainelMenu.SuspendLayout()
+        CType(Me.webPrevia, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -116,21 +105,12 @@ Partial Class FormPrincipal
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(143, Byte), Integer), CType(CType(134, Byte), Integer), CType(CType(153, Byte), Integer))
-        Me.GroupBox1.Controls.Add(Me.lblStatusVideo)
-        Me.GroupBox1.Controls.Add(Me.rtbBiblia)
-        Me.GroupBox1.Controls.Add(Me.rtbHarpa)
-        Me.GroupBox1.Controls.Add(Me.picAudio)
-        Me.GroupBox1.Controls.Add(Me.picSobreposicao)
-        Me.GroupBox1.Controls.Add(Me.lblTitulo)
-        Me.GroupBox1.Controls.Add(Me.lblRodape)
-        Me.GroupBox1.Controls.Add(Me.lblCorpo)
-        Me.GroupBox1.Controls.Add(Me.lblSubtitulo)
-        Me.GroupBox1.Controls.Add(Me.picFundo)
         Me.GroupBox1.Controls.Add(Me.picStatusFechada)
         Me.GroupBox1.Controls.Add(Me.picStatusAtivada)
         Me.GroupBox1.Controls.Add(Me.picStatusPausada)
         Me.GroupBox1.Controls.Add(Me.PictureBox2)
         Me.GroupBox1.Controls.Add(Me.rbFechada)
+        Me.GroupBox1.Controls.Add(Me.webPrevia)
         Me.GroupBox1.Controls.Add(Me.rbNeutra)
         Me.GroupBox1.Controls.Add(Me.rbPausada)
         Me.GroupBox1.Controls.Add(Me.rbAtivada)
@@ -141,123 +121,6 @@ Partial Class FormPrincipal
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "JANELA DE PROJEÇÃO:"
-        '
-        'lblStatusVideo
-        '
-        Me.lblStatusVideo.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.lblStatusVideo.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStatusVideo.ForeColor = System.Drawing.Color.Gold
-        Me.lblStatusVideo.Location = New System.Drawing.Point(8, 170)
-        Me.lblStatusVideo.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblStatusVideo.Name = "lblStatusVideo"
-        Me.lblStatusVideo.Size = New System.Drawing.Size(406, 80)
-        Me.lblStatusVideo.TabIndex = 22
-        Me.lblStatusVideo.Text = "VIDEO EM REPRODUÇÃO"
-        Me.lblStatusVideo.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.lblStatusVideo.Visible = False
-        '
-        'rtbBiblia
-        '
-        Me.rtbBiblia.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.rtbBiblia.Font = New System.Drawing.Font("Calibri", 12.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rtbBiblia.ForeColor = System.Drawing.Color.White
-        Me.rtbBiblia.Location = New System.Drawing.Point(6, 77)
-        Me.rtbBiblia.Margin = New System.Windows.Forms.Padding(0)
-        Me.rtbBiblia.Name = "rtbBiblia"
-        Me.rtbBiblia.Size = New System.Drawing.Size(410, 224)
-        Me.rtbBiblia.TabIndex = 17
-        Me.rtbBiblia.Text = ""
-        Me.rtbBiblia.Visible = False
-        '
-        'rtbHarpa
-        '
-        Me.rtbHarpa.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.rtbHarpa.Font = New System.Drawing.Font("Calibri", 12.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rtbHarpa.ForeColor = System.Drawing.Color.White
-        Me.rtbHarpa.Location = New System.Drawing.Point(6, 77)
-        Me.rtbHarpa.Margin = New System.Windows.Forms.Padding(0)
-        Me.rtbHarpa.Name = "rtbHarpa"
-        Me.rtbHarpa.Size = New System.Drawing.Size(410, 224)
-        Me.rtbHarpa.TabIndex = 4
-        Me.rtbHarpa.Text = ""
-        Me.rtbHarpa.Visible = False
-        '
-        'picAudio
-        '
-        Me.picAudio.BackColor = System.Drawing.Color.Transparent
-        Me.picAudio.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.picAudio.Location = New System.Drawing.Point(6, 77)
-        Me.picAudio.Name = "picAudio"
-        Me.picAudio.Size = New System.Drawing.Size(410, 224)
-        Me.picAudio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.picAudio.TabIndex = 24
-        Me.picAudio.TabStop = False
-        '
-        'picSobreposicao
-        '
-        Me.picSobreposicao.BackColor = System.Drawing.Color.Transparent
-        Me.picSobreposicao.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.picSobreposicao.Location = New System.Drawing.Point(6, 77)
-        Me.picSobreposicao.Name = "picSobreposicao"
-        Me.picSobreposicao.Size = New System.Drawing.Size(410, 224)
-        Me.picSobreposicao.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.picSobreposicao.TabIndex = 16
-        Me.picSobreposicao.TabStop = False
-        '
-        'lblTitulo
-        '
-        Me.lblTitulo.BackColor = System.Drawing.Color.Transparent
-        Me.lblTitulo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblTitulo.ForeColor = System.Drawing.Color.Black
-        Me.lblTitulo.Location = New System.Drawing.Point(7, 75)
-        Me.lblTitulo.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblTitulo.Name = "lblTitulo"
-        Me.lblTitulo.Size = New System.Drawing.Size(410, 31)
-        Me.lblTitulo.TabIndex = 12
-        '
-        'lblRodape
-        '
-        Me.lblRodape.BackColor = System.Drawing.Color.Transparent
-        Me.lblRodape.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblRodape.ForeColor = System.Drawing.Color.Black
-        Me.lblRodape.Location = New System.Drawing.Point(7, 272)
-        Me.lblRodape.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblRodape.Name = "lblRodape"
-        Me.lblRodape.Size = New System.Drawing.Size(410, 27)
-        Me.lblRodape.TabIndex = 15
-        '
-        'lblCorpo
-        '
-        Me.lblCorpo.BackColor = System.Drawing.Color.Transparent
-        Me.lblCorpo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblCorpo.ForeColor = System.Drawing.Color.Black
-        Me.lblCorpo.Location = New System.Drawing.Point(7, 133)
-        Me.lblCorpo.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblCorpo.Name = "lblCorpo"
-        Me.lblCorpo.Size = New System.Drawing.Size(410, 138)
-        Me.lblCorpo.TabIndex = 14
-        '
-        'lblSubtitulo
-        '
-        Me.lblSubtitulo.BackColor = System.Drawing.Color.Transparent
-        Me.lblSubtitulo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblSubtitulo.ForeColor = System.Drawing.Color.Black
-        Me.lblSubtitulo.Location = New System.Drawing.Point(7, 107)
-        Me.lblSubtitulo.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblSubtitulo.Name = "lblSubtitulo"
-        Me.lblSubtitulo.Size = New System.Drawing.Size(410, 27)
-        Me.lblSubtitulo.TabIndex = 13
-        '
-        'picFundo
-        '
-        Me.picFundo.BackColor = System.Drawing.Color.Transparent
-        Me.picFundo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.picFundo.Location = New System.Drawing.Point(6, 77)
-        Me.picFundo.Name = "picFundo"
-        Me.picFundo.Size = New System.Drawing.Size(410, 224)
-        Me.picFundo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.picFundo.TabIndex = 11
-        Me.picFundo.TabStop = False
         '
         'picStatusFechada
         '
@@ -301,6 +164,17 @@ Partial Class FormPrincipal
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PictureBox2.TabIndex = 7
         Me.PictureBox2.TabStop = False
+        '
+        'webPrevia
+        '
+        Me.webPrevia.AllowExternalDrop = False
+        Me.webPrevia.CreationProperties = Nothing
+        Me.webPrevia.DefaultBackgroundColor = System.Drawing.Color.Black
+        Me.webPrevia.Location = New System.Drawing.Point(6, 77)
+        Me.webPrevia.Name = "webPrevia"
+        Me.webPrevia.Size = New System.Drawing.Size(410, 224)
+        Me.webPrevia.TabIndex = 30
+        Me.webPrevia.ZoomFactor = 1.0R
         '
         'rbFechada
         '
@@ -673,9 +547,6 @@ Partial Class FormPrincipal
         Me.Text = "Projection Manager"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.picAudio, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picSobreposicao, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picFundo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picStatusFechada, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picStatusAtivada, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picStatusPausada, System.ComponentModel.ISupportInitialize).EndInit()
@@ -683,6 +554,7 @@ Partial Class FormPrincipal
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PainelMenu.ResumeLayout(False)
         Me.PainelMenu.PerformLayout()
+        CType(Me.webPrevia, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -706,28 +578,19 @@ Partial Class FormPrincipal
     Friend WithEvents rbAtivada As RadioButton
     Friend WithEvents picStatusAtivada As PictureBox
     Friend WithEvents picStatusPausada As PictureBox
-    Friend WithEvents picFundo As PictureBox
-    Friend WithEvents lblRodape As Label
-    Friend WithEvents lblCorpo As Label
-    Friend WithEvents lblSubtitulo As Label
-    Friend WithEvents rtbHarpa As RichTextBox
-    Friend WithEvents lblTitulo As Label
-    Friend WithEvents picSobreposicao As PictureBox
     Friend WithEvents chkFundo As CheckBox
     Friend WithEvents chkAudioVideo As CheckBox
     Friend WithEvents chkImagens As CheckBox
     Friend WithEvents chkBiblia As CheckBox
     Friend WithEvents chkHarpa As CheckBox
     Friend WithEvents chkInternet As CheckBox
-    Friend WithEvents rtbBiblia As RichTextBox
     Friend WithEvents lblLocalSalvamento As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents btnSalvarImagem As Button
     Friend WithEvents btnEscolherPasta As Button
     Friend WithEvents lblPastaPadrao As Label
     Friend WithEvents Label9 As Label
-    Friend WithEvents lblStatusVideo As Label
     Friend WithEvents rbFechada As RadioButton
+    Friend WithEvents webPrevia As Microsoft.Web.WebView2.WinForms.WebView2
     Friend WithEvents picStatusFechada As PictureBox
-    Friend WithEvents picAudio As PictureBox
 End Class

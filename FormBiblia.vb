@@ -11,7 +11,7 @@ Public Class FormBiblia
         Dim Val As Integer = RegZoom.Rows(0).Item("TextoBiblia")
         lblZoom.Text = Val
         trkZoom.Value = Val
-        FormApresentar.rtbBiblia.Font = New Font("Calibri", Val, style:=1)
+        ZoomBiblia = Val
         If lstLivros.DisplayMember = "" Then
             CarregarListaLivros()
             rbACF.Checked = True
@@ -28,7 +28,8 @@ Public Class FormBiblia
         Dim Val As Integer = trkZoom.Value
         lblZoom.Text = Val
         ZoomTBiblia = Val
-        FormApresentar.rtbBiblia.Font = New Font("Calibri", Val, style:=1)
+        ZoomBiblia = Val
+        If Biblia Then AtualizaApresentacao() 'o tamanho muda na projeção na hora
     End Sub
 
     Private Sub lstLivros_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstLivros.SelectedIndexChanged 'selecionar livro
@@ -134,16 +135,7 @@ Public Class FormBiblia
     Private Sub Transferir()
         Dim I As Integer = lstLivros.SelectedIndex
         Biblia = False
-        If rbLigado.Checked = True Then
-            Biblia = True
-            If FormPrincipal.rbAtivada.Checked = True Then
-                FormPrincipal.rtbBiblia.Visible = True
-                FormPrincipal.rtbBiblia.BringToFront()
-                'FormPrincipal.rtbBiblia.Parent = FormPrincipal.picFundo
-            End If
-        ElseIf FormPrincipal.rbAtivada.Checked = True Then
-            FormPrincipal.rtbBiblia.Visible = False
-        End If
+        If rbLigado.Checked = True Then Biblia = True
         AtualizaApresentacao()
     End Sub
 

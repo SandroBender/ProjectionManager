@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Player</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1d1b22; color: #ddd; font: 12px "Segoe UI", Arial, sans-serif; }
+  video { width: 100%; height: 100%; display: block; background: #000; }
+  video.audio { background: #1d1b22; }
+  #vazio { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 6px; }
+</style>
+</head>
+<body>
+<!-- Player das telas Harpa e Áudio/Vídeo (substitui o Windows Media Player). -->
+<video id="v" controls preload="metadata" hidden></video>
+<div id="vazio">Nenhum arquivo</div>
+<script>
+'use strict';
+const v = document.getElementById('v'), vazio = document.getElementById('vazio');
+const host = window.chrome && window.chrome.webview;
+// carrega sem tocar; ehVideo=false mostra só os controles de áudio
+window.carregar = function (url, ehVideo, nome) {
+  if (!url) { parar(); vazio.textContent = 'Nenhum arquivo'; return; }
+  v.hidden = false; vazio.hidden = true;
+  v.classList.toggle('audio', !ehVideo);
+  if (v.getAttribute('src') !== url) { v.src = url; v.load(); }
+  v.title = nome || '';
+};
+window.pausar = function () { v.pause(); };
+window.parar = function () { v.pause(); v.removeAttribute('src'); v.load(); v.hidden = true; vazio.hidden = false; };
+v.addEventListener('error', () => {
+  if (!v.getAttribute('src')) return;
+  vazio.textContent = 'Este formato não toca aqui. Converta para MP4 (vídeo) ou MP3 (áudio).';
+  v.hidden = true; vazio.hidden = false;
+  if (host) host.postMessage({ acao: 'midiaErro', url: v.getAttribute('src') });
+});
+</script>
+</body>
+</html>

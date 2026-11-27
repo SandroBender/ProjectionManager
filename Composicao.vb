@@ -12,7 +12,6 @@ Public Module Composicao
 
     Public Const HostApp As String = "app." & HostLocal                  'pasta Web do programa
     Public Const HostComposicoes As String = "composicoes." & HostLocal  'pasta COMPOSICOES
-    Public Const EnderecoProjecaoComposicao As String = "https://" & HostApp & "/composicao.html?modo=projecao"
 
     'As duas camadas: Fundo (tela Fundo) e Sobreposição (tela Imagens, desenhada por cima do fundo)
     Public Enum Camada
@@ -103,62 +102,9 @@ Public Module Composicao
         End Using
     End Function
 
-    '---- projeção (telão) e prévia (tela principal) ----
-    Private ReadOnly Paginas As New Dictionary(Of WebView2, Task(Of Boolean))
-
-    'Abre a página de projeção uma vez por navegador
-    Private Function CarregarPagina(Nav As WebView2) As Task(Of Boolean)
-        Dim T As Task(Of Boolean) = Nothing
-        If Not Paginas.TryGetValue(Nav, T) OrElse (T.IsCompleted AndAlso Not T.Result) Then
-            T = NavegarPagina(Nav)
-            Paginas(Nav) = T
-            AddHandler Nav.Disposed, Sub() Paginas.Remove(Nav)
-        End If
-        Return T
-    End Function
-
-    Private Async Function NavegarPagina(Nav As WebView2) As Task(Of Boolean)
-        If Not Await PrepararNavegador(Nav) OrElse Nav.IsDisposed Then Return False
-        Dim Carregou As New TaskCompletionSource(Of Boolean)
-        Dim Ao As EventHandler(Of Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs) = Sub(s, e) Carregou.TrySetResult(e.IsSuccess)
-        AddHandler Nav.CoreWebView2.NavigationCompleted, Ao
-        Nav.Tag = EnderecoProjecaoComposicao
-        Nav.CoreWebView2.Navigate(EnderecoProjecaoComposicao)
-        Dim Ok As Boolean = Await Carregou.Task
-        RemoveHandler Nav.CoreWebView2.NavigationCompleted, Ao
-        Return Ok
-    End Function
-
-    'Desenha as camadas ligadas na mesma página (um navegador não fica transparente sobre outro)
-    Private Async Sub Desenhar(Nav As WebView2, Fundo As PictureBox)
-        If Not Await CarregarPagina(Nav) OrElse Nav.IsDisposed Then Exit Sub
-        If Not AlgumaCamadaAtiva() Then Exit Sub
-        Fundo.Visible = False 'a composição substitui a imagem de fundo antiga
-        Nav.Visible = True
-        Dim F As String = If(ComposicaoOn AndAlso ComposicaoJson <> "", ComposicaoJson, "null")
-        Dim S As String = If(SobreposicaoOn AndAlso SobreposicaoJson <> "", SobreposicaoJson, "null")
-        Await ExecutarScript(Nav, "renderizarCamadas(" & F & "," & S & ");")
-    End Sub
-
-    Private Sub Ocultar(Nav As WebView2, Fundo As PictureBox)
-        If Nav Is Nothing OrElse Nav.IsDisposed OrElse Not Nav.Visible Then Exit Sub
-        Nav.Visible = False
-        Fundo.Visible = True
-    End Sub
-
-    Public Sub MostrarComposicao()
-        Desenhar(FormApresentar.NavegadorComposicao, FormApresentar.picFundo)
-        Desenhar(FormPrincipal.NavegadorPrevia, FormPrincipal.picFundo)
-    End Sub
-
-    Public Sub EsconderComposicao()
-        If FormApresentar.TemNavegadorComposicao Then Ocultar(FormApresentar.NavegadorComposicao, FormApresentar.picFundo)
-        If FormPrincipal.TemNavegadorPrevia Then Ocultar(FormPrincipal.NavegadorPrevia, FormPrincipal.picFundo)
-    End Sub
-
     'Chamado pelo editor no modo "Ao vivo": só redesenha, sem passar por toda a atualização da projeção
     Public Sub AtualizarComposicaoAoVivo()
-        If AlgumaCamadaAtiva() AndAlso FormPrincipal.rbAtivada.Checked Then MostrarComposicao()
+        If FormPrincipal.rbAtivada.Checked Then MostrarNasTelas()
     End Sub
 
     '---- conversa com o editor (tela Fundo e tela Imagens) ----

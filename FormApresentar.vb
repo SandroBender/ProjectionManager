@@ -1,7 +1,8 @@
 ﻿Imports Microsoft.Web.WebView2.WinForms
 
+'Janela de projeção (segundo monitor): tudo é desenhado pela página Web\projecao.html em webProjecao.
+'Só as páginas comuns da Internet usam um segundo navegador por cima (sites não deixam ser exibidos dentro de outra página).
 Public Class FormApresentar
-    'Navegador da Internet: criado só quando for usado, ocupa a tela toda por cima dos outros itens
     Private _Navegador As WebView2
     Public ReadOnly Property Navegador As WebView2
         Get
@@ -18,46 +19,7 @@ Public Class FormApresentar
         End Get
     End Property
 
-    'Navegador da composição da tela Fundo: fica na camada da imagem de fundo (atrás dos outros itens)
-    Private _NavegadorComposicao As WebView2
-    Public ReadOnly Property NavegadorComposicao As WebView2
-        Get
-            If Not TemNavegadorComposicao Then
-                _NavegadorComposicao = New WebView2 With {.Dock = DockStyle.Fill, .Visible = False, .DefaultBackgroundColor = Color.Black}
-                Controls.Add(_NavegadorComposicao)
-                Controls.SetChildIndex(_NavegadorComposicao, Controls.GetChildIndex(picFundo))
-            End If
-            Return _NavegadorComposicao
-        End Get
-    End Property
-    Public ReadOnly Property TemNavegadorComposicao As Boolean
-        Get
-            Return _NavegadorComposicao IsNot Nothing AndAlso Not _NavegadorComposicao.IsDisposed
-        End Get
-    End Property
-
-    'Navegador do slide da Bíblia (versículo com imagem): também ocupa a tela toda
-    Private _NavegadorBiblia As WebView2
-    Public ReadOnly Property NavegadorBiblia As WebView2
-        Get
-            If Not TemNavegadorBiblia Then
-                _NavegadorBiblia = New WebView2 With {.Dock = DockStyle.Fill, .Visible = False, .DefaultBackgroundColor = Color.FromArgb(17, 17, 17)}
-                Controls.Add(_NavegadorBiblia)
-            End If
-            Return _NavegadorBiblia
-        End Get
-    End Property
-    Public ReadOnly Property TemNavegadorBiblia As Boolean
-        Get
-            Return _NavegadorBiblia IsNot Nothing AndAlso Not _NavegadorBiblia.IsDisposed
-        End Get
-    End Property
-
-    Private Sub FormApresentar_Load(sender As Object, e As EventArgs) Handles Me.Load
-        TableLayoutPanel1.Parent = picFundo
-        'lblTitulo.Parent = TableLayoutPanel1 'CRIAR transparencia dos textos
-        'lblSubtitulo.Parent = picFundo
-        'lblCorpo.Parent = picFundo
-        'lblRodape.Parent = picFundo
+    Private Sub FormApresentar_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        AtualizaApresentacao() 'ao abrir (ou reabrir em outro monitor), desenha o estado atual
     End Sub
 End Class

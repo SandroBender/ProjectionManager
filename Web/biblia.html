@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Bíblia</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:transparent;color:#fff;font-family:Calibri,'Segoe UI',Arial,sans-serif;font-weight:bold}
+.camada{position:absolute;inset:-3%;background:center/cover no-repeat;opacity:0;transition:opacity 1.2s ease,filter 2s ease}
+.camada.visivel{opacity:1}
+.camada.mover{animation:zoom 40s ease-in-out infinite alternate}
+@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
+.camada.esmaecida{filter:brightness(.32) blur(3px)}
+#caixa{position:absolute;left:5%;right:5%;text-align:center;opacity:0;
+  transition:top 1.5s ease,transform 1.5s ease,font-size 1.5s ease,background-color 1.5s ease,padding 1.5s ease,opacity .6s ease;
+  text-shadow:0 0 14px rgba(0,0,0,.95),0 2px 4px #000;border-radius:14px;padding:0}
+#caixa.visivel{opacity:1}
+#caixa.imediato{transition:none}
+#caixa.topo{top:5%;transform:translateY(0)}
+#caixa.centro{top:50%;transform:translateY(-50%)}
+#caixa.baixo{top:95%;transform:translateY(-100%)}
+#caixa.faixa{background-color:rgba(0,0,0,.6);padding:.35em .8em}
+#ref{font-size:.55em;opacity:.85;margin-bottom:.35em}
+#ref:empty{display:none}
+#texto{white-space:pre-line}
+#escuro{position:absolute;inset:0;background:#111}
+#medida{position:absolute;left:5%;right:5%;visibility:hidden;text-align:center;padding:.35em .8em}
+</style></head><body>
+<div id="escuro"></div><div id="a" class="camada mover"></div><div id="b" class="camada mover"></div>
+<div id="caixa"><div id="ref"></div><div id="texto"></div></div>
+<div id="medida"><div id="mref"></div><div id="mtexto" style="white-space:pre-line"></div></div>
+<script>
+var timerFoco=null, timerTroca=null, ativa=null, urlAtual='', escuro=false;
+function q(id){return document.getElementById(id)}
+// maior tamanho (em pt) em que o texto cabe na altura indicada (fração da tela)
+function tamanho(base,fracao){
+  var m=q('medida'), lim=window.innerHeight*fracao, t=base;
+  q('mref').style.fontSize='.55em'; q('mref').style.display=q('ref').textContent?'block':'none';
+  q('mref').textContent=q('ref').textContent; q('mtexto').textContent=q('texto').textContent;
+  for(var n=0;n<80;n++){ m.style.fontSize=t+'pt'; if(m.scrollHeight<=lim||t<10) break; t*=0.95; }
+  return t;
+}
+function escurecer(sim){ escuro=sim; if(ativa) ativa.classList.toggle('esmaecida',sim); }
+// troca suave para a imagem (pré-carrega antes de mostrar)
+function trocarImagem(url){
+  var a=q('a'), b=q('b');
+  if(!url){ a.classList.remove('visivel'); b.classList.remove('visivel'); urlAtual=''; return; }
+  if(url===urlAtual) return;
+  urlAtual=url;
+  var nova=(ativa===a)?b:a, velha=ativa, img=new Image();
+  img.onload=img.onerror=function(){
+    if(urlAtual!==url) return;
+    nova.style.backgroundImage='url("'+url+'")';
+    nova.classList.toggle('esmaecida',escuro);
+    nova.classList.add('visivel'); if(velha) velha.classList.remove('visivel'); ativa=nova;
+  };
+  img.src=url;
+}
+// passa pelas imagens em sequência (volta para a primeira no fim)
+function sequencia(lista,segundos){
+  clearInterval(timerTroca);
+  if(lista.length<2) return;
+  var i=lista.indexOf(urlAtual); if(i<0) i=0;
+  timerTroca=setInterval(function(){ i=(i+1)%lista.length; trocarImagem(lista[i]); }, Math.max(2,segundos)*1000);
+}
+// d: {referencia, texto, imagens: [url...], modo: 'sem'|'foco'|'esmaecido', posicao: 'topo'|'centro'|'baixo', tempo, troca (s), fonte (pt)}
+function mostrar(d){
+  clearTimeout(timerFoco); clearInterval(timerTroca);
+  var c=q('caixa'), lista=(d.modo==='sem')?[]:(d.imagens||[]).filter(function(u){return !!u});
+  q('ref').textContent=d.referencia||''; q('texto').textContent=d.texto||'';
+  // versículo novo aparece na hora, já no tamanho grande (sem animar posição/tamanho)
+  c.classList.add('imediato');
+  c.className=d.posicao+' visivel imediato';
+  c.style.fontSize=tamanho(d.fonte,.86)+'pt';
+  void c.offsetHeight; c.classList.remove('imediato');
+  escurecer(lista.length>0);
+  trocarImagem(lista.length?lista[0]:'');
+  if(!lista.length) return;
+  if(d.modo==='foco'){
+    timerFoco=setTimeout(function(){
+      escurecer(false);
+      c.className=(d.posicao==='topo'?'topo':'baixo')+' faixa visivel';
+      c.style.fontSize=tamanho(Math.min(d.fonte*0.6,40),.32)+'pt';
+      sequencia(lista,d.troca); // depois do foco, mostra as outras imagens
+    }, Math.max(1,d.tempo)*1000);
+  } else {
+    sequencia(lista,d.troca);
+  }
+}
+function esconder(){ clearTimeout(timerFoco); clearInterval(timerTroca); q('caixa').className=''; trocarImagem(''); }
+</script>
+</body></html>

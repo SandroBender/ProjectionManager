@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Projeção</title>
+<link rel="stylesheet" href="projecao.css">
+</head>
+<body>
+<!-- Tela de projeção (ProjectionManager): todas as camadas numa página só.
+     De baixo para cima: fundo + sobreposição, imagem (tela Áudio/Vídeo), vídeo, Harpa, Bíblia.
+     ?previa=1: miniatura da tela principal (sem tocar vídeo/áudio, com avisos). -->
+<iframe id="camadas" class="camada" src="composicao.html?modo=projecao" title="Fundo e sobreposição"></iframe>
+<div id="imagem" class="camada"></div>
+<video id="midia" class="camada" playsinline preload="auto"></video>
+<div id="harpa" class="camada"><div id="harpaTexto"></div></div>
+<div id="medidaHarpa"></div>
+<iframe id="biblia" class="camada" src="biblia.html" title="Bíblia"></iframe>
+<div id="aviso"></div>
+<script src="projecao.js"></script>
+</body>
+</html>

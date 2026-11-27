@@ -4,24 +4,6 @@ Imports System.IO
 Imports Microsoft.Web.WebView2.WinForms
 
 Public Class FormPrincipal
-    'Prévia da composição da tela Fundo, no lugar da imagem de fundo da prévia
-    Private _NavegadorPrevia As WebView2
-    Public ReadOnly Property NavegadorPrevia As WebView2
-        Get
-            If Not TemNavegadorPrevia Then
-                _NavegadorPrevia = New WebView2 With {.Bounds = picFundo.Bounds, .Anchor = picFundo.Anchor, .Visible = False, .DefaultBackgroundColor = Color.Black}
-                picFundo.Parent.Controls.Add(_NavegadorPrevia)
-                picFundo.Parent.Controls.SetChildIndex(_NavegadorPrevia, picFundo.Parent.Controls.GetChildIndex(picFundo))
-            End If
-            Return _NavegadorPrevia
-        End Get
-    End Property
-    Public ReadOnly Property TemNavegadorPrevia As Boolean
-        Get
-            Return _NavegadorPrevia IsNot Nothing AndAlso Not _NavegadorPrevia.IsDisposed
-        End Get
-    End Property
-
     Private Sub FormPrincipal_Load(sender As Object, e As EventArgs) Handles Me.Load
         SistemaCarregado = DefinirLocalSistema()
         If Not SistemaCarregado Then
@@ -67,15 +49,6 @@ Public Class FormPrincipal
         '    ComboMonitor.Items.Add("Apenas 1 monitor detectado")
         '    MsgBox("Apenas monitor principal detectado.", vbExclamation, "Gerenciador de Projeção")
         'End If
-        lblTitulo.Parent = picFundo 'CRIAR transparencia dos textos
-        lblSubtitulo.Parent = picFundo
-        lblCorpo.Parent = picFundo
-        lblRodape.Parent = picFundo
-        'lblStatusVideo.Parent = picSobreposicao
-        lblTitulo.Location = New Point(2, 2) 'POSIÇÃO
-        lblSubtitulo.Location = New Point(2, 33)
-        lblCorpo.Location = New Point(2, 58)
-        lblRodape.Location = New Point(2, 196)
         If Not Directory.Exists(LocalSystem & lblPastaPadrao.Text) Then
             MsgBox("Pasta padrão de salvamento não encontrada. Reestabeleça o caminho ou selecione outra pasta.", vbCritical, "Salvar Dados do systema")
             btnSalvarImagem.Enabled = False
@@ -127,13 +100,6 @@ Public Class FormPrincipal
             Estado.BackColor = If(Estado.Checked, Color.LightSteelBlue, Color.FromArgb(143, 134, 153))
         Next
     End Sub
-    Private Sub LimparTextos()
-        picFundo.Image = Nothing 'imagem fundo
-        For Each Rotulo As Label In TextosPrincipal()
-            Rotulo.Text = ""
-            Rotulo.BackColor = Color.Transparent
-        Next
-    End Sub
 
     Private Sub btnEscolherPasta_Click(sender As Object, e As EventArgs) Handles btnEscolherPasta.Click 'Selecionar outra pasta
         Dim OFds As New FolderBrowserDialog With {.ShowNewFolderButton = False, .RootFolder = Environment.SpecialFolder.MyComputer}
@@ -142,61 +108,29 @@ Public Class FormPrincipal
     End Sub
     Private Sub rbAtivada_CheckedChanged(sender As Object, e As EventArgs) Handles rbAtivada.CheckedChanged 'ATIVADA
         DestacarEstado()
-        If rbAtivada.Checked = True Then
-            If ImageF = True And File.Exists(ImageFundo) Then picFundo.Image = CarregarImagem(ImageFundo)
-            If ImageS = True And picSobreposicao.Visible = True And File.Exists(ImageSobre) Then picSobreposicao.Image = CarregarImagem(ImageSobre)
-            If ImageA = True And picAudio.Visible = True And File.Exists(ImageAudio) Then picAudio.Image = CarregarImagem(ImageAudio)
-            For I As Integer = 0 To 3
-                Dim Rotulo As Label = TextosPrincipal()(I)
-                If TextActive(I) = True And Textos(I) IsNot Nothing Then
-                    Rotulo.Text = Textos(I)
-                    Rotulo.TextAlign = Alinham(I)
-                    Rotulo.Font = Fonte(I)
-                    Rotulo.ForeColor = CorFonte(I)
-                    Rotulo.BackColor = CorPrench(I)
-                Else
-                    Rotulo.Text = ""
-                End If
-            Next
-        End If
-        AtualizaApresentacao()
+        If rbAtivada.Checked Then AtualizaApresentacao()
     End Sub
     Private Sub rbPausada_CheckedChanged(sender As Object, e As EventArgs) Handles rbPausada.CheckedChanged 'PAUSADA
         DestacarEstado()
         If Not rbPausada.Checked Then Exit Sub 'ignora o evento de quando "Pausada" é desmarcada
-        If MidiaAtual() <> "" Then
-            lblStatusVideo.Text = "VIDEO PAUSADO"
-            If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPlaying Then FormApresentar.wmpVideo.Ctlcontrols.pause()
-        End If
-        If PaginaInternetAtiva() Then
-            lblStatusVideo.Text = "INTERNET PAUSADA"
-            PausarPaginaProjecao()
-        End If
+        AtualizaApresentacao() 'só o indicador; o que está na tela fica congelado
+        PausarTelas() 'pausa vídeo/áudio da projeção
+        If PaginaInternetAtiva() Then PausarPaginaProjecao()
     End Sub
     Private Sub rbNeutra_CheckedChanged(sender As Object, e As EventArgs) Handles rbNeutra.CheckedChanged 'NEUTRO
         DestacarEstado()
-        If rbNeutra.Checked = True Then
-            LimparTextos()
-        End If
-        AtualizaApresentacao()
+        If rbNeutra.Checked Then AtualizaApresentacao()
     End Sub
     Private Sub rbFechada_CheckedChanged(sender As Object, e As EventArgs) Handles rbFechada.CheckedChanged ' FECHADO
         DestacarEstado()
-        If rbFechada.Checked = True Then
-            LimparTextos()
-        End If
+        If Not rbFechada.Checked Then Exit Sub
+        LimparTelas() 'a prévia fica preta
+        picStatusAtivada.Visible = False
+        picStatusPausada.Visible = False
+        picStatusFechada.Visible = True
         FormApresentar.Close()
     End Sub
 
-
-    Private Sub rtbHarpa_TextChanged(sender As Object, e As EventArgs) Handles rtbHarpa.TextChanged
-        If rbAtivada.Checked = True Then
-            FormApresentar.rtbHarpa.Text = rtbHarpa.Text
-            FormApresentar.rtbHarpa.SelectAll()
-            FormApresentar.rtbHarpa.SelectionAlignment = HorizontalAlignment.Center
-            FormApresentar.rtbHarpa.DeselectAll()
-        End If
-    End Sub
 
     Private Sub chkFundo_CheckedChanged(sender As Object, e As EventArgs) Handles chkFundo.CheckedChanged
         chkFundo.BackColor = Color.Transparent

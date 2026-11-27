@@ -1,0 +1,20 @@
+/* Tela de projeção - ProjectionManager */
+html, body { margin: 0; height: 100%; overflow: hidden; background: #000; cursor: none; }
+.camada { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; opacity: 0; visibility: hidden;
+  transition: opacity .45s ease, visibility 0s linear .45s; background: transparent; }
+.camada.visivel { opacity: 1; visibility: visible; transition: opacity .45s ease, visibility 0s; }
+#imagem { background: center / contain no-repeat; }
+#midia { object-fit: contain; background: #000; }
+#midia.somente-audio { background: transparent; }
+
+/* Harpa: estrofe centralizada em fundo escuro (como antes), com a fonte reduzida se não couber */
+#harpa { background: #111; display: flex; align-items: center; justify-content: center; }
+#harpaTexto, #medidaHarpa { width: 92%; color: #fff; text-align: center; white-space: pre-line;
+  font-family: Calibri, "Segoe UI", Arial, sans-serif; font-weight: bold; line-height: 1.2;
+  text-shadow: 0 2px 6px rgba(0,0,0,.6); }
+#medidaHarpa { position: absolute; left: 4%; top: 0; visibility: hidden; }
+
+/* avisos da prévia (vídeo/internet), no lugar do que não é mostrado na miniatura */
+#aviso { position: absolute; left: 4%; right: 4%; bottom: 6%; padding: .4em .8em; border-radius: 8px; display: none;
+  background: rgba(17,17,17,.88); color: #ffd54a; font: bold 15px "Segoe UI", Arial, sans-serif; text-align: center; }
+#aviso.visivel { display: block; }

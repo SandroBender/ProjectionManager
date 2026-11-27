@@ -1,13 +1,13 @@
 ﻿Imports System.IO
-Imports AxWMPLib
 Public Class FormVideos
+    Private Player As PlayerTela 'prévia do arquivo selecionado na lista
     Dim PastaVideos As String = LocalSystem & "\ProjectionManager\VIDEOS"
     Dim PastaAudios As String = LocalSystem & "\ProjectionManager\AUDIOS"
     Dim PastaMinhasMusicas As String = My.Computer.FileSystem.SpecialDirectories.MyMusic
     Dim CamSelect As String
-    Dim PlayLista As WMPLib.IWMPPlaylist
 
     Private Sub FormVideos_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Player = New PlayerTela(webPlayer)
         rbVideos.Checked = True
     End Sub
 
@@ -15,8 +15,8 @@ Public Class FormVideos
         If rbVideos.Checked = True Then
             webPastas.Url = New Uri(PastaVideos)
             CamSelect = PastaVideos
-            wmpPlayer.Size = New Size(394, 280)
-            wmpPlayer.Location = New Point(0, 0)
+            webPlayer.Size = New Size(394, 280)
+            webPlayer.Location = New Point(0, 0)
             rbDesligado.Checked = True
             rbReproduzirVideo.Visible = True
             rbApresentarImagem.Visible = False
@@ -31,8 +31,8 @@ Public Class FormVideos
         If rbAudios.Checked = True Then
             webPastas.Url = New Uri(PastaAudios)
             CamSelect = PastaAudios
-            wmpPlayer.Size = New Size(394, 100)
-            wmpPlayer.Location = New Point(0, 0)
+            webPlayer.Size = New Size(394, 100)
+            webPlayer.Location = New Point(0, 0)
             rbDesligado.Checked = True
             rbReproduzirVideo.Visible = False
             rbApresentarImagem.Visible = True
@@ -47,8 +47,8 @@ Public Class FormVideos
         If rbMinhasMusicas.Checked = True Then
             webPastas.Url = New Uri(PastaMinhasMusicas)
             CamSelect = PastaMinhasMusicas
-            wmpPlayer.Size = New Size(394, 100)
-            wmpPlayer.Location = New Point(0, 0)
+            webPlayer.Size = New Size(394, 100)
+            webPlayer.Location = New Point(0, 0)
             rbDesligado.Checked = True
             rbReproduzirVideo.Visible = False
             rbApresentarImagem.Visible = True
@@ -90,22 +90,14 @@ Public Class FormVideos
         ImageAudio = lblArquivoImagem.Text
         If rbReproduzirVideo.Checked = True Then 'video
             ImageA = False
-            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picAudio.Image = Nothing
-            VideoOn = True
-            If wmpPlayer.playState = WMPLib.WMPPlayState.wmppsPlaying Then wmpPlayer.Ctlcontrols.pause()
+            VideoOn = ConferirFormato(Video) 'formato que não toca: avisa e não liga
+            Player.Pausar() 'o som passa a sair só pela projeção
         ElseIf rbApresentarImagem.Checked = True Then 'imagem
             VideoOn = False
-            ImageA = False
-            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picAudio.Image = Nothing
-            If lblArquivoImagem.Text <> "Nenhum arquivo" Then
-                ImageA = True
-                If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picAudio.Image = picImagem.Image
-            End If
+            ImageA = lblArquivoImagem.Text <> "Nenhum arquivo"
         Else
             ImageA = False
-            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.picAudio.Image = Nothing
             VideoOn = False
-            'If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.lblStatusVideo.Visible = False
         End If
         AtualizaApresentacao()
     End Sub
@@ -115,16 +107,16 @@ Public Class FormVideos
         Video = ""
         If lstReproducao.Items.Count > 0 Then
             Dim ArqVideo As String = lstReproducao.SelectedItem.ToString
-            wmpPlayer.URL = ArqVideo
+            Player.Carregar(ArqVideo) 'avisa se o formato não toca
             Video = ArqVideo
             Dim P As Integer = InStrRev(ArqVideo, "\", -1, CompareMethod.Text) 'conferir se for arquivo
             lblArquivoSelecionado.Text = Mid(ArqVideo, P + 1, 50)
-            'wmpPlayer.Ctlcontrols.play()
+            'webPlayer.Ctlcontrols.play()
         End If
     End Sub
 
     Private Sub btnLimparLista_Click(sender As Object, e As EventArgs) Handles btnLimparLista.Click 'Limpar lista
-        PararPlayer(wmpPlayer)
+        Player.Parar()
         lstReproducao.Items.Clear()
         lblArquivoSelecionado.Text = ""
     End Sub
@@ -140,7 +132,10 @@ Public Class FormVideos
         Try
             Videos = e.Data.GetData(DataFormats.FileDrop)
             For I As Integer = 0 To Videos.Length - 1
-                If File.Exists(Videos(I)) Then lstReproducao.Items.Add(Videos(I))
+                If File.Exists(Videos(I)) Then
+                    ConferirFormato(Videos(I)) 'avisa já ao entrar na lista (WMV, AVI, WMA...)
+                    lstReproducao.Items.Add(Videos(I))
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "Arrastar Video")

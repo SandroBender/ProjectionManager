@@ -38,8 +38,14 @@ Public Class FormInternet
             lblTipoLink.Text = "Link inválido. Exemplos: https://www.youtube.com/watch?v=...   www.site.com.br   https://site.com/video.mp4"
             Exit Sub
         End If
+        If Info.EhMidia AndAlso Not FormatoSuportado(Info.Projetar) Then
+            lblTipoLink.ForeColor = Color.DarkRed
+            lblTipoLink.Text = Info.Descricao & " - formato não suportado: converta para MP4 (vídeo) ou MP3 (áudio)"
+            AvisarFormato(Info.Projetar)
+            Exit Sub
+        End If
         lblTipoLink.ForeColor = Color.Black
-        lblTipoLink.Text = Info.Descricao & If(Info.EhMidia, " - toca no Windows Media Player da projeção", "")
+        lblTipoLink.Text = Info.Descricao & If(Info.EhMidia, " - toca na projeção", "")
         txtLink.Text = Info.Original
         LinkAtual = Info
         Transferir() 'se estiver Ligado, a projeção passa para o novo link

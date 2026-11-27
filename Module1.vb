@@ -26,16 +26,9 @@ Module Module1
     Public ResultReferencia As String 'Referencia bíblica
     Public BARef As Integer 'Botão avançar versículo
     Public RegLocalSistema As New DataTable
-    Public RegTextos As New DataTable
-    Public RegTipoTexto As New DataTable
-    Public RegImagens As New DataTable
     Public RegZoom As New DataTable
-    Public ImageFundo As String = String.Empty
-    Public ImageSobre As String = String.Empty
     Public ImageAudio As String = String.Empty
     Public Video As String = String.Empty
-    Public ImageF As Boolean 'imagem fundo
-    Public ImageS As Boolean 'imagem sobreposição
     Public ImageA As Boolean 'imagem audio/video
     Public VideoOn As Boolean
     Public Harpa As Boolean
@@ -45,27 +38,11 @@ Module Module1
     Public TextoBibliaCondensado As String
     Public TextoBibliaAnterior As String
     Public TextoBibliaPosterior As String
-    Public Textos(3) As String
-    Public TextActive(3) As Boolean
-    Public Fonte(3) As Font
-    Public FonteProj(3) As Font
-    Public CorPrench(3) As Color
-    Public CorFonte(3) As Color
-    Public Alinham(3) As ContentAlignment
-    Public IT As Integer = 10 'Indice do texto em edição
-    Public AjusteDimensional As String = "S"
     Public TelaUnica As Boolean
     Public ZoomTFundo As Integer
     Public ZoomTHarpa As Integer
     Public ZoomTBiblia As Integer
     Public Aad As Boolean
-    'Cache das imagens já carregadas (evita recarregar o arquivo a cada atualização)
-    Private CacheFundoCam As String = String.Empty
-    Private CacheFundoImg As Image
-    Private CacheSobreCam As String = String.Empty
-    Private CacheSobreImg As Image
-    Private CacheAudioCam As String = String.Empty
-    Private CacheAudioImg As Image
 
     'Monta a string de conexão do Access. A senha NÃO fica no código-fonte:
     'é lida do arquivo "senha.txt" (primeira linha) na pasta SISTEMA.
@@ -102,14 +79,6 @@ Module Module1
         End Using
     End Function
 
-    'Igual a CarregarImagem, mas reaproveita a imagem se o caminho não mudou.
-    Private Function ImagemEmCache(Caminho As String, ByRef CacheCam As String, ByRef CacheImg As Image) As Image
-        If CacheImg Is Nothing OrElse Not String.Equals(CacheCam, Caminho, StringComparison.OrdinalIgnoreCase) Then
-            CacheImg = CarregarImagem(Caminho)
-            CacheCam = Caminho
-        End If
-        Return CacheImg
-    End Function
 
     Public Sub ConectarHarpa()
         Try
@@ -248,20 +217,6 @@ Module Module1
         End Try
     End Sub
 
-    Public Sub CarregarImagens()
-        Dim Adaptador As OleDbDataAdapter
-        Dim SQL As String = "SELECT * FROM Imagens"
-        Adaptador = New OleDbDataAdapter(SQL, ConexDados)
-        RegImagens = New DataTable
-        Adaptador.Fill(RegImagens)
-    End Sub
-    Public Sub CarregarTextos()
-        Dim Adaptador As OleDbDataAdapter
-        Dim SQL As String = "SELECT * FROM Textos"
-        Adaptador = New OleDbDataAdapter(SQL, ConexDados)
-        RegTextos = New DataTable
-        Adaptador.Fill(RegTextos)
-    End Sub
     Public Sub CarregarZoom()
         Dim Adaptador As OleDbDataAdapter
         Dim SQL As String = "SELECT * FROM Zoom"
@@ -445,31 +400,8 @@ Module Module1
         If Completa Then CacheBiblia(VersaoBiblia) = Tabela 'só guarda se todos os livros foram lidos
     End Sub
 
-    'Os 4 textos (Título, Subtítulo, Corpo, Rodapé) na tela principal e na projeção
-    Public Function TextosPrincipal() As Label()
-        Return {FormPrincipal.lblTitulo, FormPrincipal.lblSubtitulo, FormPrincipal.lblCorpo, FormPrincipal.lblRodape}
-    End Function
-    Public Function TextosApresentacao() As Label()
-        Return {FormApresentar.lblTitulo, FormApresentar.lblSubtitulo, FormApresentar.lblCorpo, FormApresentar.lblRodape}
-    End Function
-
-    'Para o player se estiver tocando ou pausado
-    Public Sub PararPlayer(Player As AxWMPLib.AxWindowsMediaPlayer)
-        If Player.playState = WMPLib.WMPPlayState.wmppsPlaying Or Player.playState = WMPLib.WMPPlayState.wmppsPaused Then
-            Player.Ctlcontrols.stop()
-        End If
-    End Sub
-
-    'Converte o AjusteDimensional (S/Z/N/C) no modo de exibição da imagem sobreposta
-    Public Function ModoAjuste() As PictureBoxSizeMode
-        Select Case AjusteDimensional
-            Case "Z" : Return PictureBoxSizeMode.Zoom
-            Case "N" : Return PictureBoxSizeMode.Normal
-            Case "C" : Return PictureBoxSizeMode.CenterImage
-            Case Else : Return PictureBoxSizeMode.StretchImage
-        End Select
-    End Function
-
+    'Atualiza o telão e a prévia conforme o estado escolhido na tela principal
+    '(Ativada: mostra tudo o que estiver ligado; Pausada: congela e pausa o vídeo; Neutra: tela preta).
     Public Sub AtualizaApresentacao()
         Dim IM As Integer
         If FormPrincipal.ComboMonitor.Text <> "" Then IM = Mid(FormPrincipal.ComboMonitor.Text, 1, 1)
@@ -480,154 +412,17 @@ Module Module1
                 FormApresentar.Bounds = Screen.AllScreens(IM).Bounds
                 FormApresentar.StartPosition = FormStartPosition.Manual
                 FormApresentar.Show()
-                'FormApresentar.Location = Screen.AllScreens(UBound(Screen.AllScreens)).Bounds.Location
-                'FormApresentar.WindowState = FormWindowState.Maximized
-                FormApresentar.picFundo.Image = Nothing 'imagem fundo
             End If
-            FormPrincipal.picStatusPausada.Visible = False
-            FormPrincipal.picStatusAtivada.Visible = False
+            FormPrincipal.picStatusPausada.Visible = FormPrincipal.rbPausada.Checked
+            FormPrincipal.picStatusAtivada.Visible = FormPrincipal.rbAtivada.Checked
             FormPrincipal.picStatusFechada.Visible = False
             If FormPrincipal.rbAtivada.Checked = True Then 'ATIVADA
-                FormPrincipal.picStatusAtivada.Visible = True 'status
-                If ImageA = True And File.Exists(ImageAudio) Then 'imagem de Audio
-                    FormPrincipal.picAudio.Visible = True
-                    FormPrincipal.picAudio.Image = ImagemEmCache(ImageAudio, CacheAudioCam, CacheAudioImg)
-                    FormApresentar.picAudio.Visible = True
-                    FormApresentar.picAudio.Image = FormPrincipal.picAudio.Image 'imagem audio
-                Else
-                    FormPrincipal.picAudio.Visible = False
-                    FormApresentar.picAudio.Visible = False
-                End If
-                If ImageS = True And File.Exists(ImageSobre) Then 'imagem sobreposta
-                    FormPrincipal.picSobreposicao.Visible = True
-                    FormPrincipal.picSobreposicao.Image = ImagemEmCache(ImageSobre, CacheSobreCam, CacheSobreImg)
-                    FormPrincipal.picSobreposicao.SizeMode = ModoAjuste()
-                    FormApresentar.picSobreposicao.Visible = True
-                    FormApresentar.picSobreposicao.Image = FormPrincipal.picSobreposicao.Image 'imagem sobreposta
-                    FormApresentar.picSobreposicao.SizeMode = ModoAjuste()
-                Else
-                    FormPrincipal.picSobreposicao.Visible = False
-                    FormApresentar.picSobreposicao.Visible = False
-                End If
-                If ImageF = True And File.Exists(ImageFundo) Then 'imagem de fundo
-                    FormPrincipal.picFundo.Visible = True
-                    FormPrincipal.picFundo.Image = ImagemEmCache(ImageFundo, CacheFundoCam, CacheFundoImg)
-                    FormApresentar.picFundo.Image = FormPrincipal.picFundo.Image 'imagem fundo
-                Else
-                    FormPrincipal.picFundo.Image = Nothing
-                    FormApresentar.picFundo.Image = Nothing
-                End If
-                FormApresentar.picFundo.Image = FormPrincipal.picFundo.Image 'imagem fundo
-                Dim Origem() As Label = TextosPrincipal()
-                Dim Destino() As Label = TextosApresentacao()
-                For I As Integer = 0 To 3 'Título, Subtítulo, Corpo, Rodapé
-                    Destino(I).Text = Origem(I).Text
-                    Destino(I).TextAlign = Origem(I).TextAlign
-                    Destino(I).Font = FonteProj(I)
-                    Destino(I).ForeColor = Origem(I).ForeColor
-                    Destino(I).BackColor = Origem(I).BackColor
-                Next
-                Dim Midia As String = MidiaAtual() 'arquivo da tela Áudio/Vídeo ou link direto da Internet
-                If Midia <> "" Or PaginaInternetAtiva() Then 'Video ou página da internet
-                    FormPrincipal.picFundo.Visible = False
-                    FormPrincipal.picSobreposicao.Visible = False
-                    FormPrincipal.picAudio.Visible = False
-                    FormPrincipal.lblStatusVideo.Visible = True
-                    FormPrincipal.lblStatusVideo.Text = If(PaginaInternetAtiva(), "INTERNET EM EXIBIÇÃO", "VIDEO EM REPRODUÇÃO")
-                    FormPrincipal.lblStatusVideo.Location = New Point(8, 170) 'POSIÇÃO
-                    'FormPrincipal.lblStatusVideo.ForeColor = Color.Yellow
-                End If
-                If Midia <> "" Then
-                    If FormApresentar.wmpVideo.Visible = True And String.Equals(TryCast(FormApresentar.wmpVideo.Tag, String), Midia) Then
-                        If FormApresentar.wmpVideo.playState = WMPLib.WMPPlayState.wmppsPaused Then FormApresentar.wmpVideo.Ctlcontrols.play()
-                    Else
-                        FormApresentar.wmpVideo.Visible = True
-                        FormApresentar.wmpVideo.URL = Midia
-                        FormApresentar.wmpVideo.Tag = Midia
-                        FormApresentar.wmpVideo.stretchToFit = True
-                    End If
-                Else
-                    FormApresentar.wmpVideo.Tag = Nothing
-                    If Not PaginaInternetAtiva() Then FormPrincipal.lblStatusVideo.Visible = False
-                    PararPlayer(FormApresentar.wmpVideo)
-                    FormApresentar.wmpVideo.Visible = False
-                End If
-                If AlgumaCamadaAtiva() Then 'telas Fundo e Imagens: composições na camada de fundo
-                    MostrarComposicao()
-                Else
-                    EsconderComposicao()
-                End If
-                If PaginaInternetAtiva() Then 'Internet: página por cima de tudo
-                    MostrarPaginaProjecao()
-                Else
-                    EsconderPaginaProjecao()
-                End If
-                If Harpa = True Then 'Harpa
-                    FormPrincipal.rtbHarpa.Visible = True
-                    FormPrincipal.rtbHarpa.Text = TextoHarpa
-                    FormPrincipal.rtbHarpa.SelectAll()
-                    FormPrincipal.rtbHarpa.SelectionAlignment = HorizontalAlignment.Center
-                    FormPrincipal.rtbHarpa.DeselectAll()
-                    FormApresentar.rtbHarpa.Visible = True
-                    FormApresentar.rtbHarpa.Text = FormPrincipal.rtbHarpa.Text
-                    FormApresentar.rtbHarpa.SelectAll()
-                    FormApresentar.rtbHarpa.SelectionAlignment = HorizontalAlignment.Center
-                    FormApresentar.rtbHarpa.DeselectAll()
-                Else
-                    FormPrincipal.rtbHarpa.Clear()
-                    FormPrincipal.rtbHarpa.Visible = False
-                    FormApresentar.rtbHarpa.Clear()
-                    FormApresentar.rtbHarpa.Visible = False
-                End If
-                If Biblia = True Then 'bíblia
-                    FormPrincipal.rtbBiblia.Visible = True
-                    If Aad = False Then
-                        FormPrincipal.rtbBiblia.Text = TextoBiblia
-                    Else
-                        FormPrincipal.rtbBiblia.Text = TextoBibliaCondensado
-                    End If
-                    FormPrincipal.rtbBiblia.BringToFront()
-                    FormApresentar.rtbBiblia.Visible = True
-                    FormApresentar.rtbBiblia.Text = FormPrincipal.rtbBiblia.Text
-                    'Slide com imagem/posição por cima do texto clássico (se o navegador não abrir, o clássico fica visível)
-                    MostrarSlideBiblia(If(Aad, "", ResultRef1 & " [" & VersaoBiblia & "]"), If(Aad, TextoBibliaCondensado, ResultVers), FormApresentar.rtbBiblia.Font.Size)
-                Else
-                    FormPrincipal.rtbBiblia.Clear()
-                    FormPrincipal.rtbBiblia.Visible = False
-                    FormApresentar.rtbBiblia.Clear()
-                    FormApresentar.rtbBiblia.Visible = False
-                    EsconderSlideBiblia()
-                End If
+                MostrarNasTelas()
+                If PaginaInternetAtiva() Then MostrarPaginaProjecao() Else EsconderPaginaProjecao() 'Internet: página por cima de tudo
             End If
-            If FormPrincipal.rbPausada.Checked = True Then 'PAUSADA
-                FormPrincipal.picStatusPausada.Visible = True 'status
-            End If
-            If FormPrincipal.rbNeutra.Checked = True Or FormPrincipal.rbFechada.Checked = True Then 'NEUTRO
-                FormPrincipal.lblStatusVideo.Visible = False
-                PararPlayer(FormApresentar.wmpVideo)
-                FormApresentar.wmpVideo.Visible = False
-                FormApresentar.wmpVideo.Tag = Nothing
+            If FormPrincipal.rbNeutra.Checked = True Then 'NEUTRA
+                LimparTelas()
                 EsconderPaginaProjecao()
-                EsconderSlideBiblia()
-                EsconderComposicao()
-                FormPrincipal.picSobreposicao.Visible = False
-                FormPrincipal.picAudio.Visible = False
-                FormApresentar.picFundo.Image = Nothing 'imagem fundo
-                FormApresentar.picSobreposicao.Image = Nothing 'imagem sobreposta
-                FormApresentar.picAudio.Image = Nothing 'imagem audio
-                For Each Rotulo As Label In TextosApresentacao()
-                    Rotulo.Text = ""
-                    Rotulo.BackColor = Color.Transparent
-                Next
-                FormPrincipal.rtbHarpa.Text = ""
-                FormPrincipal.rtbHarpa.Visible = False
-                FormPrincipal.rtbBiblia.Text = ""
-                FormPrincipal.rtbBiblia.Visible = False
-                FormApresentar.rtbHarpa.Text = ""
-                FormApresentar.rtbHarpa.Visible = False
-                FormApresentar.rtbBiblia.Text = ""
-                FormApresentar.rtbBiblia.Visible = False
-                If FormPrincipal.rbFechada.Checked = True Then FormPrincipal.picStatusFechada.Visible = True
             End If
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "Atualizar apresentação")

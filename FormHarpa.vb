@@ -1,6 +1,6 @@
 ﻿Imports System.IO
-Imports AxWMPLib
 Public Class FormHarpa
+    Private Player As PlayerTela 'áudio do hino (voz/playback), tocado pelo operador
     Dim PastaAudios As String = LocalSystem & "\ProjectionManager\AUDIOS\Harpa"
     Dim EE As Integer 'Encremento de estrofe
     Private Sub FormHarpa_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -11,7 +11,8 @@ Public Class FormHarpa
         Dim Val As Integer = RegZoom.Rows(0).Item("TextoHarpa")
         lblZoom.Text = Val
         trkZoom.Value = Val
-        FormApresentar.rtbHarpa.Font = New Font("Calibri", Val, style:=1)
+        ZoomHarpa = Val
+        Player = New PlayerTela(webAudio)
         If lstHinos.DisplayMember = "" Then
             ConectarHarpa()
             CarregarHarpa()
@@ -43,8 +44,8 @@ Public Class FormHarpa
             lblEstrofeAtual.Text = 0
             Transferir()
             lblArquivoAudio.Text = "Não Localizado"
-            PararPlayer(wmpAudio)
-            wmpAudio.Visible = False
+            Player.Parar()
+            webAudio.Visible = False
             LocalizarArquivo(I:=I)
         End If
     End Sub
@@ -78,9 +79,8 @@ Public Class FormHarpa
                             Else
                                 lblArquivoAudio.BackColor = Color.Moccasin
                             End If
-                            wmpAudio.Visible = True
-                            wmpAudio.URL = Arq
-                            wmpAudio.Ctlcontrols.stop()
+                            webAudio.Visible = True
+                            Player.Carregar(Arq) 'pronto para tocar, sem começar sozinho
                         End If
                     End If
                 End If
@@ -150,12 +150,7 @@ Public Class FormHarpa
     Private Sub Transferir()
         Dim I As Integer = lstHinos.SelectedIndex
         Harpa = False
-        If rbLigado.Checked = True Then
-            Harpa = True
-            If FormPrincipal.rbAtivada.Checked = True Then FormPrincipal.rtbHarpa.Visible = True
-        ElseIf FormPrincipal.rbAtivada.Checked = True Then
-            FormPrincipal.rtbHarpa.Visible = False
-        End If
+        If rbLigado.Checked = True Then Harpa = True
         AtualizaApresentacao()
     End Sub
 
@@ -163,7 +158,8 @@ Public Class FormHarpa
         Dim Val As Integer = trkZoom.Value
         lblZoom.Text = Val
         ZoomTHarpa = Val
-        FormApresentar.rtbHarpa.Font = New Font("Calibri", Val, style:=1)
+        ZoomHarpa = Val
+        If Harpa Then AtualizaApresentacao() 'o tamanho muda na projeção na hora
     End Sub
 
     Private Sub txtLocalizar_TextChanged(sender As Object, e As EventArgs) Handles txtLocalizar.TextChanged

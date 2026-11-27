@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Prévia</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #000; }
+  /* a projeção é desenhada no tamanho real do telão e só reduzida: a prévia fica proporcional */
+  #tela { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; }
+  /* aviso de vídeo/internet (o que a miniatura não mostra), em tamanho legível */
+  #aviso { position: absolute; left: 6px; right: 6px; bottom: 6px; padding: 3px 6px; border-radius: 5px; display: none;
+    background: rgba(17,17,17,.88); color: #ffd54a; font: bold 12px "Segoe UI", Arial, sans-serif; text-align: center;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+</style>
+</head>
+<body>
+<!-- Prévia da tela principal (ProjectionManager): a página de projeção em miniatura. -->
+<iframe id="tela" src="projecao.html?previa=1" title="Prévia da projeção"></iframe>
+<div id="aviso"></div>
+<script>
+'use strict';
+const tela = document.getElementById('tela');
+let largura = 1920, altura = 1080;
+function encaixar() {
+  tela.style.width = largura + 'px'; tela.style.height = altura + 'px';
+  const k = Math.min(innerWidth / largura, innerHeight / altura);
+  tela.style.transform = `translate(${(innerWidth - largura * k) / 2}px, ${(innerHeight - altura * k) / 2}px) scale(${k})`;
+}
+const pronta = new Promise(ok => tela.addEventListener('load', () => ok(), { once: true }));
+// tamanho do telão (muda quando o monitor de projeção muda)
+window.definirTela = function (w, h) { if (w > 0 && h > 0 && (w !== largura || h !== altura)) { largura = w; altura = h; encaixar(); } };
+let textoAviso = '';
+function aviso(t) { const a = document.getElementById('aviso'); a.textContent = t || ''; a.style.display = t ? 'block' : 'none'; }
+window.aplicar = async function (estado) {
+  const e = (typeof estado === 'string') ? JSON.parse(estado) : estado;
+  textoAviso = e.ativo ? (e.aviso || '') : '';
+  aviso(textoAviso);
+  await pronta;
+  tela.contentWindow.aplicar(Object.assign({}, e, { aviso: null }));
+};
+window.pausar = async function () { aviso(textoAviso ? textoAviso + '  (PAUSADO)' : 'PAUSADA'); await pronta; tela.contentWindow.pausar(); };
+addEventListener('resize', encaixar);
+encaixar();
+</script>
+</body>
+</html>

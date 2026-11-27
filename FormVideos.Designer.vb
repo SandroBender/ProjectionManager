@@ -40,7 +40,7 @@ Partial Class FormVideos
         Me.btnLimparLista = New System.Windows.Forms.Button()
         Me.lstReproducao = New System.Windows.Forms.ListBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.wmpPlayer = New AxWMPLib.AxWindowsMediaPlayer()
+        Me.webPlayer = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.btnRetroceder = New System.Windows.Forms.Button()
         Me.lblIndiceImagem = New System.Windows.Forms.Label()
         Me.btnAvancar = New System.Windows.Forms.Button()
@@ -52,7 +52,7 @@ Partial Class FormVideos
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
-        CType(Me.wmpPlayer, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.webPlayer, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picImagem, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -289,7 +289,7 @@ Partial Class FormVideos
         Me.GroupBox4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox4.Controls.Add(Me.wmpPlayer)
+        Me.GroupBox4.Controls.Add(Me.webPlayer)
         Me.GroupBox4.Controls.Add(Me.btnRetroceder)
         Me.GroupBox4.Controls.Add(Me.lblIndiceImagem)
         Me.GroupBox4.Controls.Add(Me.btnAvancar)
@@ -302,17 +302,19 @@ Partial Class FormVideos
         Me.GroupBox4.TabIndex = 19
         Me.GroupBox4.TabStop = False
         '
-        'wmpPlayer
+        'webPlayer
         '
-        Me.wmpPlayer.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.webPlayer.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.wmpPlayer.Enabled = True
-        Me.wmpPlayer.Location = New System.Drawing.Point(0, 0)
-        Me.wmpPlayer.Name = "wmpPlayer"
-        Me.wmpPlayer.OcxState = CType(resources.GetObject("wmpPlayer.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.wmpPlayer.Size = New System.Drawing.Size(394, 100)
-        Me.wmpPlayer.TabIndex = 15
+        Me.webPlayer.Enabled = True
+        Me.webPlayer.Location = New System.Drawing.Point(0, 0)
+        Me.webPlayer.Name = "webPlayer"
+        Me.webPlayer.CreationProperties = Nothing
+        Me.webPlayer.DefaultBackgroundColor = System.Drawing.Color.FromArgb(CType(CType(29, Byte), Integer), CType(CType(27, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.webPlayer.ZoomFactor = 1.0R
+        Me.webPlayer.Size = New System.Drawing.Size(394, 100)
+        Me.webPlayer.TabIndex = 15
         '
         'btnRetroceder
         '
@@ -393,7 +395,7 @@ Partial Class FormVideos
         Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
-        CType(Me.wmpPlayer, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.webPlayer, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picImagem, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -408,7 +410,7 @@ Partial Class FormVideos
     Friend WithEvents btnVoltarPasta As Button
     Friend WithEvents rbAudios As RadioButton
     Friend WithEvents rbVideos As RadioButton
-    Friend WithEvents wmpPlayer As AxWMPLib.AxWindowsMediaPlayer
+    Friend WithEvents webPlayer As Microsoft.Web.WebView2.WinForms.WebView2
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents lstReproducao As ListBox
     Friend WithEvents btnLimparLista As Button

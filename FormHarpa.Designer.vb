@@ -51,7 +51,7 @@ Partial Class FormHarpa
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.rbPlayback = New System.Windows.Forms.RadioButton()
         Me.rbVoz = New System.Windows.Forms.RadioButton()
-        Me.wmpAudio = New AxWMPLib.AxWindowsMediaPlayer()
+        Me.webAudio = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.btnEscolherPasta = New System.Windows.Forms.Button()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.lblArquivoAudio = New System.Windows.Forms.Label()
@@ -67,7 +67,7 @@ Partial Class FormHarpa
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.wmpAudio, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.webAudio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -429,7 +429,7 @@ Partial Class FormHarpa
         Me.TableLayoutPanel1.SetColumnSpan(Me.GroupBox2, 2)
         Me.GroupBox2.Controls.Add(Me.rbPlayback)
         Me.GroupBox2.Controls.Add(Me.rbVoz)
-        Me.GroupBox2.Controls.Add(Me.wmpAudio)
+        Me.GroupBox2.Controls.Add(Me.webAudio)
         Me.GroupBox2.Controls.Add(Me.btnEscolherPasta)
         Me.GroupBox2.Controls.Add(Me.Label11)
         Me.GroupBox2.Controls.Add(Me.lblArquivoAudio)
@@ -471,17 +471,19 @@ Partial Class FormHarpa
         Me.rbVoz.Text = "Voz"
         Me.rbVoz.UseVisualStyleBackColor = False
         '
-        'wmpAudio
+        'webAudio
         '
-        Me.wmpAudio.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.webAudio.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.wmpAudio.Enabled = True
-        Me.wmpAudio.Location = New System.Drawing.Point(119, 52)
-        Me.wmpAudio.Name = "wmpAudio"
-        Me.wmpAudio.OcxState = CType(resources.GetObject("wmpAudio.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.wmpAudio.Size = New System.Drawing.Size(270, 47)
-        Me.wmpAudio.TabIndex = 47
-        Me.wmpAudio.Visible = False
+        Me.webAudio.Enabled = True
+        Me.webAudio.Location = New System.Drawing.Point(119, 52)
+        Me.webAudio.Name = "webAudio"
+        Me.webAudio.CreationProperties = Nothing
+        Me.webAudio.DefaultBackgroundColor = System.Drawing.Color.FromArgb(CType(CType(29, Byte), Integer), CType(CType(27, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.webAudio.ZoomFactor = 1.0R
+        Me.webAudio.Size = New System.Drawing.Size(270, 47)
+        Me.webAudio.TabIndex = 47
+        Me.webAudio.Visible = False
         '
         'btnEscolherPasta
         '
@@ -568,7 +570,7 @@ Partial Class FormHarpa
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.wmpAudio, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.webAudio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -596,7 +598,7 @@ Partial Class FormHarpa
     Friend WithEvents txtLocalizar As TextBox
     Friend WithEvents lblOcorrencias As Label
     Friend WithEvents Label13 As Label
-    Friend WithEvents wmpAudio As AxWMPLib.AxWindowsMediaPlayer
+    Friend WithEvents webAudio As Microsoft.Web.WebView2.WinForms.WebView2
     Friend WithEvents btnEscolherPasta As Button
     Friend WithEvents lblArquivoAudio As Label
     Friend WithEvents lblPastaAudio As Label

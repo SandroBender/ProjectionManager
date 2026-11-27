@@ -42,7 +42,6 @@ Public Module Navegador
             Dim PastaWeb As String = Path.Combine(PastaDados, "web")
             Directory.CreateDirectory(PastaWeb)
             File.WriteAllText(Path.Combine(PastaWeb, "youtube.html"), HtmlYouTube, Text.Encoding.UTF8)
-            File.WriteAllText(Path.Combine(PastaWeb, "biblia.html"), HtmlBiblia, Text.Encoding.UTF8)
             Nav.CoreWebView2.SetVirtualHostNameToFolderMapping(HostLocal, PastaWeb, CoreWebView2HostResourceAccessKind.Allow)
             'Biblioteca de imagens dos versículos (IMAGENS\Biblia)
             Directory.CreateDirectory(PastaImagensBiblia())
@@ -51,6 +50,7 @@ Public Module Navegador
             Nav.CoreWebView2.SetVirtualHostNameToFolderMapping(HostApp, PastaWebApp(), CoreWebView2HostResourceAccessKind.Allow)
             Directory.CreateDirectory(PastaComposicoes())
             Nav.CoreWebView2.SetVirtualHostNameToFolderMapping(HostComposicoes, PastaComposicoes(), CoreWebView2HostResourceAccessKind.Allow)
+            MapearDiscos(Nav.CoreWebView2) 'discos já usados por vídeos/imagens da projeção
             Nav.CoreWebView2.Settings.AreDefaultContextMenusEnabled = False
             Nav.CoreWebView2.Settings.IsStatusBarEnabled = False
             AddHandler Nav.CoreWebView2.NewWindowRequested, Sub(s, e) e.Handled = True 'não abre janelas/pop-ups
@@ -61,6 +61,36 @@ Public Module Navegador
                    vbCritical, "Internet")
             Return False
         End Try
+    End Function
+
+    'Navegadores já iniciados (para liberar um disco novo em todos)
+    Public Function NavegadoresProntos() As List(Of CoreWebView2)
+        Return Preparando.Where(Function(p) p.Value.IsCompleted AndAlso p.Value.Result AndAlso Not p.Key.IsDisposed AndAlso p.Key.CoreWebView2 IsNot Nothing).
+            Select(Function(p) p.Key.CoreWebView2).ToList()
+    End Function
+
+    'Abre uma página fixa no navegador uma única vez; todas as chamadas esperam a mesma carga
+    Private ReadOnly Paginas As New Dictionary(Of WebView2, Task(Of Boolean))
+    Public Function AbrirPagina(Nav As WebView2, Endereco As String) As Task(Of Boolean)
+        Dim T As Task(Of Boolean) = Nothing
+        If Not Paginas.TryGetValue(Nav, T) OrElse (T.IsCompleted AndAlso Not T.Result) Then
+            If T Is Nothing Then AddHandler Nav.Disposed, Sub() Paginas.Remove(Nav)
+            T = CarregarPagina(Nav, Endereco)
+            Paginas(Nav) = T
+        End If
+        Return T
+    End Function
+
+    Private Async Function CarregarPagina(Nav As WebView2, Endereco As String) As Task(Of Boolean)
+        If Not Await PrepararNavegador(Nav) OrElse Nav.IsDisposed Then Return False
+        Dim Carregou As New TaskCompletionSource(Of Boolean)
+        Dim Ao As EventHandler(Of CoreWebView2NavigationCompletedEventArgs) = Sub(s, e) Carregou.TrySetResult(e.IsSuccess)
+        AddHandler Nav.CoreWebView2.NavigationCompleted, Ao
+        Nav.Tag = Endereco
+        Nav.CoreWebView2.Navigate(Endereco)
+        Dim Ok As Boolean = Await Carregou.Task
+        RemoveHandler Nav.CoreWebView2.NavigationCompleted, Ao
+        Return Ok
     End Function
 
     'Abre o endereço no navegador (se já não estiver aberto). SemSom = prévia.
